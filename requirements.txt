@@ -1,0 +1,6 @@
+tensorflow
+os
+shutil
+json
+simplejson
+pygbif
