@@ -1,0 +1,1 @@
+To host the API in dev mode navigate to this folder in command line and type the command "flask --app SeeShellAPI.py run"

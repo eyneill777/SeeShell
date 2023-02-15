@@ -3,4 +3,6 @@ os
 shutil
 json
 simplejson
-pygbif
+flask
+requests
+base64
