@@ -6,3 +6,5 @@ simplejson
 flask
 requests
 base64
+sqlalchemy
+mysqlclient
