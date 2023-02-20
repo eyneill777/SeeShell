@@ -1,1 +1,1 @@
-Requires MySQL to be installed and running.
+Requires MySQL to be installed and running, with an appropriately named DB to create tables in
