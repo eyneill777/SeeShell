@@ -12,8 +12,7 @@ User = Table(
     metadata_obj,
     Column("Username", VARCHAR(60), primary_key=True),
     Column("Email_Address", VARCHAR(60), nullable=False),
-    Column("Password", VARCHAR(60), nullable=False),
-    Column("Image_Library", VARCHAR(60))
+    Column("Password", VARCHAR(60), nullable=False)
 )
 
 Shell = Table(
@@ -25,13 +24,6 @@ Shell = Table(
     Column("Accepted_SciName", VARCHAR(100)),
     Column("Habitat", VARCHAR(60)),
     Column("Blurb", TEXT)
-)
-
-UserHasSeen = Table(
-    "UserHasSeen",
-    metadata_obj,
-    Column("Username", VARCHAR(60), ForeignKey("User.Username"), primary_key=True),
-    Column("Scientific_Name", VARCHAR(100), ForeignKey("Shell.Scientific_Name"), primary_key=True)
 )
 
 
