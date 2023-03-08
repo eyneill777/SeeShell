@@ -1,3 +1,4 @@
 {
-    "dropFolder": "/Users/eron/Downloads/APIDrop/"
+    "dropFolder": "/Users/eron/Downloads/APIDrop/",
+    "uploadExtensions": ["jpg", "png", "jpeg"]
 }
