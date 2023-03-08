@@ -1,6 +1,6 @@
 # SeeShell
 
-SeeShell consists of two parts, a webserver (back end) and an android application (front end).  The webserver client consists of an API, a MySQL Database, and a data lake containing seashell images. TODO write about client after specific technologies are decided.
+SeeShell consists of two parts, a webserver (back end) and an android application (front end).  The server consists of an API, a MySQL Database, and a data lake containing seashell images. TODO write about client after specific technologies are decided.
 
 ## Server Setup:
 ### Environment Setup:
