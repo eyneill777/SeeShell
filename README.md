@@ -6,7 +6,7 @@ Environment Setup:
 
 
 Server Setup:
-  Data Setup:
+  #Data Setup:
     - Download the shell dataset here and unzip it to a folder:
       https://springernature.figshare.com/articles/dataset/all_shell_images/9122621?backTo=/collections/A_shell_dataset_for_shell_features_extraction_and_recognition/4428335
     - edit config.json
