@@ -14,3 +14,7 @@ SeeShell consists of two parts, a webserver (back end) and an android applicatio
     * Set rawDataPath to be the filepath to the shell data folder
     * Set genusPath and speciesPath to be locations of the output folders for preprocessed shell images.  These should be empty folders, and the preprocessing script will sort the data into them.
   - run PreprocessData.py
+
+### Launch the API:
+  - Navigate to the API folder in your repository in a terminal window
+  - Type flask --app SeeShellAPI.py run to launch the API         (dev environment only)
