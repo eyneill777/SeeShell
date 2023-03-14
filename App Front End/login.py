@@ -1,9 +1,8 @@
 from kivy.app import App
-from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, SlideTransition
 from kivymd.toast import toast
-from datetime import datetime
-import configparser
+from sqlalchemy import *
+import json
 
 class Login(Screen):
     pass
@@ -12,21 +11,16 @@ class Login(Screen):
         app = App.get_running_app()
         input_email = app.manager.get_screen('login').ids['input_email'].text
         input_password = app.manager.get_screen('login').ids['input_password'].text
-        #load credentials from config.ini
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        host = config['mysql']['host']
-        user = config['mysql']['user']
-        password = config['mysql']['password']
-        dbname = config['mysql']['db']
-        #connect to MySQL
-        db = mysql.connector.connect(host=str(host),  user=str(user),  password=str(password),  database=str(dbname))
-        cursor = db.cursor()
-        #run query to check email/password
-        query = "SELECT count(*) FROM users where email='"+str(input_email)+"' and password='"+str(input_password)+"'"
-        cursor.execute(query)
-        data = cursor.fetchone()
-        count = data[0]
+
+        with open("config.json", "r") as f:
+            config = json.load(f)
+
+        engine = create_engine('mysql://' + config['Username'] + ':' + config['Password'] + '@' + config['host'])
+
+        with engine.connect() as conn:
+            result = conn.execute(text("select password from user where Username =" + input_email))
+            print(result)
+
         #verif login/email
         #if invalid
         if count == 0:
@@ -34,10 +28,4 @@ class Login(Screen):
         #else, if valid
         else:
             toast('Login and Password are correct!')
-            #update last_login column
-            now = datetime.now()
-            query = "update users set last_login='"+str(now.strftime("%Y-%m-%d %H:%M:%S"))+"' where email='"+str(input_email)+"' and password='"+str(input_password)+"'"
-            cursor.execute(query)
-            db.commit()
-        db.close()
         pass
