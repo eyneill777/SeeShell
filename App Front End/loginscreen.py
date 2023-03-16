@@ -32,7 +32,7 @@ class LoginScreen(GridLayout):
         conn = c.dbconnection()
         cursor = conn.cursor(prepared=True)
         print(cursor)
-        stmt = "Select * from user where Username = %s and password = %s"
+        stmt = "Select * from User where Username = %s and password = %s"
         values = (self.username.text, self.password.text)
         print(values)
         cursor.execute(stmt, values)

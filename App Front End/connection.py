@@ -3,7 +3,7 @@ from mysql.connector import Error
 
 def dbconnection():
     try:
-        conn = mysql.connector.connect(host='localhost', database='seeshell',user='root',password='')
+        conn = mysql.connector.connect(host='localhost', database='SeeShell',user='root',password='root')
 
     except Error as e:
         print('Connection Error')
