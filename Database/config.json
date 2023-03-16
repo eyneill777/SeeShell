@@ -1,5 +1,5 @@
 {
   "username": "root",
-  "password": "Shawnee17!",
-  "host": "localhost:3306/seeshell"
+  "password": "root",
+  "host": "localhost:3306/SeeShell"
 }
