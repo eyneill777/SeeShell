@@ -5,7 +5,7 @@ SeeShell consists of two parts, a webserver (back end) and an android applicatio
 ## Server Setup:
 ### Environment Setup:
   - Install python 3
-  - in the command line navigate to the source code folder and run the command "pip install requirements.txt".  This will install the needed python libraries.
+  - in the command line navigate to the source code folder and run the command "pip install -r requirements.txt".  This will install the needed python libraries.
 
  ### Data Setup:
   - Download the shell dataset here and unzip it to a folder:
