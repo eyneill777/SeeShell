@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c54ff603-cfad-4f85-8bc8-b3e525354df7" name="Changes" comment="this is a test homepage that says &quot;Hello world&quot;">
-      <change beforePath="$PROJECT_DIR$/App Front End/login.kv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/login.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App Front End/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App Front End/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
