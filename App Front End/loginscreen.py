@@ -70,6 +70,11 @@ class accountScreen(GridLayout):
         self.email = TextInput(multiline = False)
         self.add_widget(self.email)
 
+        #username
+        self.add_widget(Label(text = 'Username'))
+        self.username = TextInput(multiline = False)
+        self.add_widget(self.username)
+
         # password
         self.add_widget(Label(text='Password'))
         self.password = TextInput(password=True, multiline=False)
@@ -88,7 +93,7 @@ class accountScreen(GridLayout):
 
     def create_account(self, instance):
         email = self.email.text
-        username = 'username8'
+        username = self.username.text
         ver_password = self.ver_password.text
         password = self.password.text
 
@@ -113,9 +118,15 @@ class accountScreen(GridLayout):
             rows = cursor.fetchall()
 
             if len(rows) == 1:
-                print("Data inserted successfully")
+                popup_content_one = Label(text='Account Created')
+                popup_one= Popup(title='Account Created', content=popup_content_one,
+                              size_hint=(None, None), size=(200, 200))
+                popup_one.open()
             else:
-                print("Data insertion failed")
+                popup_content_two = Label(text='Account Creation Failed')
+                popup_two = Popup(title='Failed', content=popup_content_two,
+                                  size_hint=(None, None), size=(200, 200))
+                popup_two.open()
 
             conn.close()
 
