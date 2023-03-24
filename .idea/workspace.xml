@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c54ff603-cfad-4f85-8bc8-b3e525354df7" name="Changes" comment="this is a test homepage that says &quot;Hello world&quot;">
-      <change afterPath="$PROJECT_DIR$/Database/familyInfo.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Database/finalShellInfo.csv" afterDir="false" />
+    <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/App Front End/signin.kv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App Front End/signin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/loginscreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/loginscreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database/GenerateTables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/GenerateTables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App Front End/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/thomassmith/Documents/CSC_550/SeeShell"
+    "last_opened_file_path": "/home/thomassmith/Documents/CSC_550/SeeShell",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -59,7 +57,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="/usr/bin/python3.10" />
-      <option name="SDK_NAME" value="Python 3.10" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -81,7 +78,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
-      <option name="SDK_NAME" value="Python 3.10 (SeeShell)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/App Front End" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -103,7 +99,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c54ff603-cfad-4f85-8bc8-b3e525354df7" name="Changes" comment="" />
+      <changelist id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="" />
       <created>1678831837534</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
