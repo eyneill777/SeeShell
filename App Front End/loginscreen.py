@@ -5,11 +5,9 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
-import connection as c
-import bcrypt
-import requests
-
 from kivy.lang import Builder
+import requests
+import re
 
 class LoginScreen(GridLayout):
 
@@ -94,6 +92,12 @@ class accountScreen(GridLayout):
         #verify password
         if password != ver_password:
             popup_content = Label(text='Passwords do not match')
+            popup = Popup(title='Invalid!', content=popup_content,
+                          size_hint=(None, None), size=(200, 200))
+            popup.open()
+        #verify email
+        elif not re.fullmatch(r'[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+', email):
+            popup_content = Label(text='Invalid email')
             popup = Popup(title='Invalid!', content=popup_content,
                           size_hint=(None, None), size=(200, 200))
             popup.open()
