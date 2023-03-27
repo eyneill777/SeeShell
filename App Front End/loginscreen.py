@@ -6,6 +6,9 @@ from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
 import connection as c
+import bcrypt
+import requests
+
 from kivy.lang import Builder
 
 class LoginScreen(GridLayout):
@@ -34,16 +37,11 @@ class LoginScreen(GridLayout):
         self.add_widget(self.createAccount)
 
     def authenticate(self, instance):
-        conn = c.dbconnection()
-        cursor = conn.cursor(prepared=True)
-        print(cursor)
-        stmt = "Select * from User where Username = %s and password = %s"
-        values = (self.email.text, self.password.text)
-        print(values)
-        cursor.execute(stmt, values)
-        rows = cursor.fetchall()
+        username, password = self.email.text, self.password.text
+        headers = {"username": username, "password": password}
+        response = requests.post("http://localhost:5000/checkPass/", headers=headers)
 
-        if len(rows) == 1:
+        if response.text == 'good':
             popup_content = Label(text='Login Successful')
             popup = Popup(title = 'Success!', content=popup_content,
                     size_hint = (None,None), size = (200,200))
@@ -52,9 +50,6 @@ class LoginScreen(GridLayout):
             popup = Popup(title='Error', content=Label(text='Invalid username or password'),
                           size_hint=(None, None), size=(200, 200))
             popup.open()
-
-        if conn is not None and conn.is_connected():
-            conn.close()
 
     def go_to_create_account(self, instance):
         self.manager.current = 'create_account_screen'
@@ -69,6 +64,11 @@ class accountScreen(GridLayout):
         self.add_widget(Label(text = 'Email'))
         self.email = TextInput(multiline = False)
         self.add_widget(self.email)
+
+        # username
+        self.add_widget(Label(text='Username'))
+        self.username = TextInput(multiline = False)
+        self.add_widget(self.username)
 
         # password
         self.add_widget(Label(text='Password'))
@@ -88,7 +88,7 @@ class accountScreen(GridLayout):
 
     def create_account(self, instance):
         email = self.email.text
-        username = 'username8'
+        username = self.username.text
         ver_password = self.ver_password.text
         password = self.password.text
 
@@ -99,25 +99,13 @@ class accountScreen(GridLayout):
                           size_hint=(None, None), size=(200, 200))
             popup.open()
         else:
-            #connect to database
-            conn = c.dbconnection()
-            cursor = conn.cursor(prepared = True)
-            #insert user info into table
-            stmt = "INSERT INTO User (Username,Email_Address, Password) VALUES (%s,%s,%s)"
-            values = (username,email,password)
-            cursor.execute(stmt, values)
-            conn.commit()
-            #verify that information was inserted
-            ver_stmt = "SELECT * from user Where Email_Address = 'email'"
-            cursor.execute(ver_stmt)
-            rows = cursor.fetchall()
+            headers = {"username": username, "email": email, "password": password}
+            response = requests.post("http://localhost:5000/createAccount/", headers=headers)
 
-            if len(rows) == 1:
+            if response.text == 'Success':
                 print("Data inserted successfully")
             else:
                 print("Data insertion failed")
-
-            conn.close()
 
 class MyApp(App):
     def build(self):
