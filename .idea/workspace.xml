@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="pwd changed">
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/APITester.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/APITester.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/SeeShellAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/SeeShellAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/API/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App Front End/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App Front End/loginscreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/loginscreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database/GenerateTables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/GenerateTables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Encryption.py" beforeDir="false" afterPath="$PROJECT_DIR$/Encryption.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

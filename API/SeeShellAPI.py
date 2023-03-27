@@ -89,11 +89,12 @@ def checkPass():
     if request.method == 'POST':
         username = request.headers["username"]
         password = request.headers["password"]
-        stmt = "select Password from User where Username = \'{}\'".format(username)
+        stmt = select(User.c.Password).where(User.c.Username == username)
         with engine.connect() as conn:
-            df = pd.read_sql(text(stmt), con=conn)
+            for rows in conn.execute(stmt):
+                row = rows
             conn.close()
-        if bcrypt.checkpw(password.encode('utf-8'), df.loc[0][0].encode('utf-8')):
+        if bcrypt.checkpw(password.encode('utf-8'), str(row[0]).encode('utf-8')):
             response = make_response('good')
             response.status_code = 200
         else:

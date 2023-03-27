@@ -40,7 +40,6 @@ class LoginScreen(GridLayout):
         username, password = self.email.text, self.password.text
         headers = {"username": username, "password": password}
         response = requests.post("http://localhost:5000/checkPass/", headers=headers)
-
         if response.text == 'good':
             popup_content = Label(text='Login Successful')
             popup = Popup(title = 'Success!', content=popup_content,
