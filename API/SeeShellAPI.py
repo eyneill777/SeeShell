@@ -3,7 +3,6 @@ import json
 import uuid
 import os
 from sqlalchemy import *
-import pandas as pd
 import bcrypt
 
 with open("config.json", "r") as f:
