@@ -24,7 +24,7 @@ Shell = Table(
     Column("Common_Name", VARCHAR(100)),
     Column("AphiaID", INTEGER),
     Column("Accepted_SciName", VARCHAR(100)),
-Column("Accepted_AphiaID", INTEGER),
+    Column("Accepted_AphiaID", INTEGER),
     Column("Family", VARCHAR(100)),
     Column("Habitat", VARCHAR(20)),
     Column("Extinct", BOOLEAN)
@@ -105,3 +105,4 @@ with engine.connect() as conn:
     for stmt in stmtlist:
         conn.execute(stmt)
     conn.commit()
+    conn.close()

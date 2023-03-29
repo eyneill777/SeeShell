@@ -1,4 +1,7 @@
 {
-    "dropFolder": "/Users/eron/Downloads/APIDrop/",
-    "uploadExtensions": ["jpg", "png", "jpeg"]
+    "dropFolder": "/home/thomassmith/Documents/CSC_550/APIDrop/",
+    "uploadExtensions": ["jpg", "png", "jpeg"],
+    "username": "root",
+    "password": "root",
+    "host": "localhost:3306/SeeShell"
 }
