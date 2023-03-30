@@ -8,8 +8,8 @@ def checkPW(pw, hash):
     else:
         print("does not match")
 
-        
-#create parameters        
+
+#create parameters
 password = 'password'
 salt = bcrypt.gensalt()
 hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
