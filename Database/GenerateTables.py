@@ -1,7 +1,6 @@
 from sqlalchemy import *
 import json
 import csv
-import ast
 
 with open("config.json", "r") as f:
     config = json.load(f)
