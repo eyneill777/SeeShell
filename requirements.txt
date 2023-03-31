@@ -8,3 +8,4 @@ bcrypt
 kivy
 pandas
 kivymd
+opencv-python
