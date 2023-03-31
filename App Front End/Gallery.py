@@ -17,3 +17,52 @@ class PhotoAlbum(App):
 
         # create a list to store the images
         self.images = []
+
+        # create a button to add images
+        self.add_btn = Button(text='Add Image', size_hint=(None, None), size=(100, 50), pos=(650, 40))
+        self.delete_btn = Button(text='Delete Image', size_hint=(None, None), size=(100, 50), pos=(535, 40))
+
+        self.add_btn.bind(on_press=self.open_file_chooser)
+        self.delete_btn.bind(on_press=self.delete_widget)
+
+
+        # add the button to the main layout
+        main_layout.add_widget(self.add_btn)
+        main_layout.add_widget(self.delete_btn)
+
+        #make images selectable
+
+
+        return main_layout
+
+    def delete_widget(self):
+        # remove the image from the gallery
+        self.remove_widget(self.delete_btn)
+
+
+    def open_file_chooser(self, instance):
+        # open the file chooser
+        filechooser.open_file(on_selection=self.load_image)
+
+    def load_image(self, selection):
+        # check if a file was selected
+        if selection:
+            # create the image widget and add it to the main layout
+            image = Image(source=selection[0], size_hint=(1, None))
+            self.images.append(image)
+            self.root.add_widget(image)
+        else:
+            # create a popup to inform the user that no file was selected
+            popup = Popup(title='Error',
+                          content=Label(text='No file selected.'),
+                          size_hint=(None, None),
+                          size=(Window.width * 0.8, Window.height * 0.2))
+            popup.open()
+
+
+
+
+
+
+if __name__ == '__main__':
+    PhotoAlbum().run()
