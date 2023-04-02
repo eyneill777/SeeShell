@@ -46,7 +46,7 @@ Location = Table(
     Column("Scientific_Name", VARCHAR(100), primary_key=True)
 )
 
-engine = create_engine('mysql://' + config['username'] + ':' + config['password'] + '@' + config['host'])
+engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
 
 
 @app.route("/")
