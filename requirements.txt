@@ -3,9 +3,9 @@ simplejson
 flask
 requests
 sqlalchemy
-mysqlclient
 bcrypt
 kivy
 pandas
 kivymd
-opencv-python
+mysqlclient
+cryptography

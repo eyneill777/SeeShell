@@ -5,7 +5,7 @@ import csv
 with open("config.json", "r") as f:
     config = json.load(f)
 
-engine = create_engine('mysql://'+config['username']+':'+config['password']+'@'+config['host'])
+engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
 
 metadata_obj = MetaData()
 User = Table(
