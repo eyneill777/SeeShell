@@ -80,6 +80,7 @@ def upload_file():
     return response
 
 
+#Check user credentials
 @app.route('/checkPass/', methods=['POST'])
 def checkPass():
     response = make_response("<h1>Bad Request</h1>")
@@ -101,6 +102,7 @@ def checkPass():
             response.status_code = 200
     return response
 
+#Create a new user account
 @app.route('/createAccount/', methods=['POST'])
 def createAccount():
     response = make_response("<h1>Bad Request</h1>")
