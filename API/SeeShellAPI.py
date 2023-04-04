@@ -74,6 +74,13 @@ def createAccount():
 
     if request.method == 'POST':
         username, email, password = request.headers["username"], request.headers["email"], request.headers["password"]
+        stmt = select(tables.User.c.Username).where(tables.User.c.Username == username)
+        with engine.connect() as conn:
+            result = conn.execute(exists(stmt).select())
+            if result.first()[0]:
+                response = make_response('Username taken')
+                response.status_code = 200
+                return response
         salt = bcrypt.gensalt()
         password = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
         with engine.connect() as conn:
