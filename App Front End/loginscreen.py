@@ -113,8 +113,12 @@ class accountScreen(GridLayout):
             try:
                 headers = {"username": username, "email": email, "password": password}
                 response = requests.post("http://localhost:5000/createAccount/", headers=headers)
-
-                if response.text == 'Success':
+                print(response.text)
+                if response.text == 'Username taken':
+                    popup = Popup(title='Error', content=Label(text='Username taken, please try another'),
+                                  size_hint=(None, None), size=(200, 200))
+                    popup.open()
+                elif response.text == 'Success':
                     print("Data inserted successfully")
                     self.manager.current = 'capture_screen'
                 else:

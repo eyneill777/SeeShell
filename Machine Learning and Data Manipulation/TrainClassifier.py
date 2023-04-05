@@ -1,44 +1,56 @@
 import tensorflow as tf
 from tensorflow import keras
+import json
+import matplotlib.pyplot as plt
+from Model import Model
+from Dataset import Dataset
 
 with open("config.json", "r") as f:
     config = json.load(f)
+
+class TrainingInstance:    
+    def __init__(self):
+        with open("config.json", "r") as f:
+            self.config = json.load(f)
+        self.initializeDatasets()
+        self.trainModel()
+        self.visualizeResults()
+        
+    def initializeDatasets(self):
+        inputDir = self.config["genusPath"]
+        self.dataset = Dataset(inputDir, self.config)
     
-inputDir = config["genusPath"]
+    def trainModel(self):
+        self.model = Model(self.config, len(self.dataset.classNames))
+        self.model.compile(optimizer='adam', loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
+        self.history = self.model.fit(self.dataset.train, validation_data=self.dataset.validation, epochs=self.config["training"]["epochs"])
+        
+    def visualizeResults(self):
+        acc = self.history.history['accuracy']
+        val_acc = self.history.history['val_accuracy']
 
-tf.keras.utils.image_dataset_from_directory(
-    inputDir,
-    labels='inferred', 
-    label_mode='categorical', 
-    color_mode='rgb', 
-    batch_size=32, 
-    image_size=(config["imageSize"]["width"], config["imageSize"]["height"]), 
-    shuffle=True, 
-    validation_split=.1
-    )
+        loss = self.history.history['loss']
+        val_loss = self.history.history['val_loss']
 
-tf.keras.preprocessing.image.ImageDataGenerator(
-    featurewise_center=False,
-    samplewise_center=False,
-    featurewise_std_normalization=False,
-    samplewise_std_normalization=False,
-    zca_whitening=False,
-    zca_epsilon=1e-06,
-    rotation_range=0,
-    width_shift_range=0.0,
-    height_shift_range=0.0,
-    brightness_range=None,
-    shear_range=0.0,
-    zoom_range=0.0,
-    channel_shift_range=0.0,
-    fill_mode='nearest',
-    cval=0.0,
-    horizontal_flip=False,
-    vertical_flip=False,
-    rescale=None,
-    preprocessing_function=None,
-    data_format=None,
-    validation_split=0.0,
-    interpolation_order=1,
-    dtype=None
-)
+        epochs_range = range(epochs)
+
+        plt.figure(figsize=(8, 8))
+        plt.subplot(1, 2, 1)
+        plt.plot(epochs_range, acc, label='Training Accuracy')
+        plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+        plt.legend(loc='lower right')
+        plt.title('Training and Validation Accuracy')
+
+        plt.subplot(1, 2, 2)
+        plt.plot(epochs_range, loss, label='Training Loss')
+        plt.plot(epochs_range, val_loss, label='Validation Loss')
+        plt.legend(loc='upper right')
+        plt.title('Training and Validation Loss')
+        plt.show()
+        
+
+def main():
+    instance = TrainingInstance()
+
+if __name__ == "__main__":
+    main()

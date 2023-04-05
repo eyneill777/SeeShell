@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="Updated &#10;Layout updated &#10;Add button works and uploads images &#10;Delete Button (currently does not work)&#10;Camera Button (currently does not work)&#10;Image selection (in progress)">
+    <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="Updated &#10;&#10;Add button (works)&#10;Delete Button (works)&#10;Camera Button (in progress)&#10;Image selection (works)">
+      <change afterPath="$PROJECT_DIR$/API/tables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Machine Learning and Data Manipulation/Dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Machine Learning and Data Manipulation/Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/SeeShellAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/SeeShellAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App Front End/Gallery.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/Gallery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App Front End/loginscreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/loginscreen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/GenerateTables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Database/GenerateTables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Machine Learning and Data Manipulation/TrainClassifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Machine Learning and Data Manipulation/TrainClassifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680417632920</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated &#10;&#10;Add button (works)&#10;Delete Button (works)&#10;Camera Button (in progress)&#10;Image selection (works)">
+      <created>1680724546890</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680724546890</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -268,6 +283,7 @@
     <MESSAGE value="this is a test homepage that says &quot;Hello world&quot;" />
     <MESSAGE value="pwd changed" />
     <MESSAGE value="Updated &#10;Layout updated &#10;Add button works and uploads images &#10;Delete Button (currently does not work)&#10;Camera Button (currently does not work)&#10;Image selection (in progress)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated &#10;Layout updated &#10;Add button works and uploads images &#10;Delete Button (currently does not work)&#10;Camera Button (currently does not work)&#10;Image selection (in progress)" />
+    <MESSAGE value="Updated &#10;&#10;Add button (works)&#10;Delete Button (works)&#10;Camera Button (in progress)&#10;Image selection (works)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated &#10;&#10;Add button (works)&#10;Delete Button (works)&#10;Camera Button (in progress)&#10;Image selection (works)" />
   </component>
 </project>

@@ -1,6 +1,4 @@
 import os
-
-import self
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -110,8 +108,6 @@ class PhotoAlbum(GridLayout):
         for widget in selected_widgets:
             self.remove_widget(widget)
             self.images.remove(widget)
-
-
 
 
     class SelectableImage(ToggleButtonBehavior, Image):
