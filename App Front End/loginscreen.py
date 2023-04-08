@@ -1,118 +1,86 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+from kivymd.app import MDApp
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.camera import Camera
 from kivy.lang import Builder
+from kivy.core.window import Window
+from kivy.clock import Clock
+from kivy.properties import ObjectProperty
 import requests
 import re
+Window.size = (350, 580)
 
-class LoginScreen(GridLayout):
 
-    def __init__(self,manager,**kwargs):
-        super(LoginScreen, self).__init__(**kwargs)
-        self.cols = 2
-        self.manager = manager
-        #username
-        self.add_widget(Label(text = 'Email'))
-        self.email = TextInput(multiline = False)
-        self.add_widget(self.email)
-        #password
-        self.add_widget(Label(text =  'Password'))
-        self.password = TextInput(password = True, multiline = False)
-        self.add_widget(self.password)
-        #submit button
-        self.submit = Button(text = 'Login')
-        self.submit.bind(on_press = self.authenticate)
-        self.add_widget(Label())
-        self.add_widget(self.submit)
-        #new account button
-        self.createAccount = Button(text = "Create Account")
-        self.createAccount.bind(on_press = self.go_to_create_account)
-        self.add_widget(Label())
-        self.add_widget(self.createAccount)
+class LoginPage(MDApp):
+    email = ObjectProperty(None)
+    password = ObjectProperty(None)
 
-    def authenticate(self, instance):
+    def build(self):
+        global screen_manager
+        screen_manager = ScreenManager()
+        screen_manager.add_widget(Builder.load_file("login.kv"))
+        return screen_manager
+
+    def on_start(self):
+        Clock.schedule_once(self.login, 5)
+
+    def login(self, *args):
+        screen_manager.current = "login"
+
+    def authenticate(self):
         username, password = self.email.text, self.password.text
         headers = {"username": username, "password": password}
         try:
-            response = requests.post("http://localhost:5000/checkPass/", headers=headers)
+            response = requests.post(
+                "http://localhost:5000/checkPass/", headers=headers)
             if response.text == 'good':
-                popup_content = Label(text='Login Successful')
-                popup = Popup(title = 'Success!', content=popup_content,
-                        size_hint = (None,None), size = (200,200))
-                popup.open()
+                popup_content = Popup(title='Success!', content=Label(text='Login Successful'),
+                                      size_hint=(None, None), size=(200, 200))
+                popup_content.open()
                 self.manager.current = 'capture_screen'
 
             else:
-                popup = Popup(title='Error', content=Label(text='Invalid username or password'),
-                              size_hint=(None, None), size=(200, 200))
-                popup.open()
+                popup_content = Popup(title='Error', content=Label(text='Invalid username or password'),
+                                      size_hint=(None, None), size=(200, 200))
+                popup_content.open()
         except requests.exceptions.ConnectionError:
-            popup = Popup(title='Error', content=Label(text='Connection to server failed'),
-                  size_hint=(None, None), size=(200, 200))
-            popup.open()
+            popup_content = Popup(title='Error', content=Label(text='Connection to server failed'),
+                                  size_hint=(None, None), size=(200, 200))
+            popup_content.open()
 
-    def go_to_create_account(self, instance):
+    def go_to_create_account(self):
         self.manager.current = 'create_account_screen'
 
 
-
 class accountScreen(GridLayout):
-    def __init__(self, manager,**kwargs):
+
+    def __init__(self, manager, **kwargs):
         super(accountScreen, self).__init__(**kwargs)
-        self.cols = 2
-        #email
-        self.add_widget(Label(text = 'Email'))
-        self.email = TextInput(multiline = False)
-        self.add_widget(self.email)
+        self.manager = manager
 
-        # username
-        self.add_widget(Label(text='Username'))
-        self.username = TextInput(multiline = False)
-        self.add_widget(self.username)
-
-        # password
-        self.add_widget(Label(text='Password'))
-        self.password = TextInput(password=True, multiline=False)
-        self.add_widget(self.password)
+    def create_account(self):
+        email = self.ids.email.text
+        username = self.ids.username.text
+        ver_password = self.ids.ver_password.text
+        password = self.ids.password.text
 
         # verify password
-        self.add_widget(Label(text='Verify Password'))
-        self.ver_password = TextInput(password=True, multiline=False)
-        self.add_widget(self.ver_password)
-
-        # submit button
-        self.submit = Button(text='Create Account')
-        self.submit.bind(on_press=self.create_account)
-        self.add_widget(Label())
-        self.add_widget(self.submit)
-
-    def create_account(self, instance):
-        email = self.email.text
-        username = self.username.text
-        ver_password = self.ver_password.text
-        password = self.password.text
-
-        #verify password
         if password != ver_password:
-            popup_content = Label(text='Passwords do not match')
-            popup = Popup(title='Invalid!', content=popup_content,
-                          size_hint=(None, None), size=(200, 200))
-            popup.open()
-        #verify email
+            popup_content = Popup(title='Invalid!', content=Label(text='Passwords do not match'),
+                                  size_hint=(None, None), size=(200, 200))
+            popup_content.open()
+        # verify email
         elif not re.fullmatch(r'.+@.+\..+', email):
-            popup_content = Label(text='Invalid email')
-            popup = Popup(title='Invalid!', content=popup_content,
-                          size_hint=(None, None), size=(200, 200))
-            popup.open()
+            popup_content = Popup(title='Invalid!', content=Label(text='Invalid email'),
+                                  size_hint=(None, None), size=(200, 200))
+            popup_content.open()
         else:
             try:
-                headers = {"username": username, "email": email, "password": password}
-                response = requests.post("http://localhost:5000/createAccount/", headers=headers)
+                headers = {"username": username,
+                           "email": email, "password": password}
+                response = requests.post(
+                    "http://localhost:5000/createAccount/", headers=headers)
 
                 if response.text == 'Success':
                     print("Data inserted successfully")
@@ -120,39 +88,34 @@ class accountScreen(GridLayout):
                 else:
                     print("Data insertion failed")
             except requests.exceptions.ConnectionError:
-                popup = Popup(title='Error', content=Label(text='Connection to server failed'),
-                              size_hint=(None, None), size=(200, 200))
-                popup.open()
+                popup_content = Popup(title='Error', content=Label(text='Connection to server failed'),
+                                      size_hint=(None, None), size=(200, 200))
+                popup_content.open()
 
 
 class captureScreen(Screen):
-    def __init__(self,**kwargs):
-        super(captureScreen, self).__init__(**kwargs)
-        self.camera = Camera(resolution = (640,480), play = True)
-        self.add_widget(self.camera)
+    pass
+
+
 class MyApp(App):
     def build(self):
+        Builder.load_file('login.kv')
         screen_manager = ScreenManager()
-        #create login screen
-        login_screen = Screen(name = 'login')
-        login_layout = LoginScreen(manager = screen_manager)
+
+        # create login screen
+        login_screen = Screen(name='login')
+        login_layout = LoginPage(manager=screen_manager)
         login_screen.add_widget(login_layout)
-        #create account screen
-        create_account_screen = Screen(name = 'create_account_screen')
-        create_account_layout = accountScreen(manager = screen_manager)
+
+        # create account screen
+        create_account_screen = Screen(name='create_account_screen')
+        create_account_layout = accountScreen(manager=screen_manager)
         create_account_screen.add_widget(create_account_layout)
-        #create capture mode screen
-        capture_screen = Screen(name = 'capture_screen')
-        capture_layout = captureScreen()
-        capture_screen.add_widget(capture_layout)
-        #add screens to screen manager
-        screen_manager.add_widget(login_screen)
-        screen_manager.add_widget(create_account_screen)
-        screen_manager.add_widget(capture_screen)
+
+        # create capture mode screen
+        capture_screen = Screen(name='capture_screen')
+        # capture_layout = captureScreen()
 
 
-        return(screen_manager)
-
-
-if __name__ == '__main__':
-    MyApp().run()
+if __name__ == "__main__":
+    LoginPage().run()
