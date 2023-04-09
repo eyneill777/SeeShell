@@ -1,9 +1,9 @@
 from sqlalchemy import *
+from API import tables
 import json
 import csv
 import sys
 sys.path.append('..')
-from API import tables
 
 with open("config.json", "r") as f:
     config = json.load(f)
