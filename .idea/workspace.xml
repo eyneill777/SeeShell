@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="pwd changed">
+    <list default="true" id="a636eb9c-bbb6-4c03-a3ea-8ec8e044b947" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/API/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App Front End/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App Front End/loginscreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/App Front End/loginscreen.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +39,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/thomassmith/Documents/CSC_550/SeeShell&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leahs/Documents/GitHub/SeeShell&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -45,7 +48,7 @@
       <recent name="$PROJECT_DIR$/Database" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.loginscreen">
+  <component name="RunManager">
     <configuration name="APITester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SeeShell" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,9 +161,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/App Front End" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/App Front End/loginscreen.py" />
