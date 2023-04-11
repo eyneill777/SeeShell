@@ -3,3 +3,18 @@ App Front End/config.json
 Machine Learning and Data Manipulation/config.json
 Machine Learning and Data Manipulation/species.json
 Machine Learning and Data Manipulation/genuses.json
+.idea
+*.pyc
+Machine Learning and Data Manipulation/model/variables/variables.index
+Machine Learning and Data Manipulation/model/variables/variables.data-00000-of-00001
+Machine Learning and Data Manipulation/model/saved_model.pb
+Machine Learning and Data Manipulation/model/keras_metadata.pb
+Machine Learning and Data Manipulation/model/fingerprint.pb
+*.pyc
+Machine Learning and Data Manipulation/model_prod/.DS_Store
+Machine Learning and Data Manipulation/model/.DS_Store
+Machine Learning and Data Manipulation/.DS_Store
+Machine Learning and Data Manipulation/.DS_Store
+Machine Learning and Data Manipulation/model_prod/variables/variables.index
+Machine Learning and Data Manipulation/model_prod/variables/variables.data-00000-of-00001
+Machine Learning and Data Manipulation/model_prod/saved_model.pb

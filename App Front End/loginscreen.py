@@ -38,17 +38,22 @@ class LoginScreen(GridLayout):
     def authenticate(self, instance):
         username, password = self.email.text, self.password.text
         headers = {"username": username, "password": password}
-        response = requests.post("http://localhost:5000/checkPass/", headers=headers)
-        if response.text == 'good':
-            popup_content = Label(text='Login Successful')
-            popup = Popup(title = 'Success!', content=popup_content,
-                    size_hint = (None,None), size = (200,200))
-            popup.open()
-            self.manager.current = 'capture_screen'
+        try:
+            response = requests.post("http://localhost:5000/checkPass/", headers=headers)
+            if response.text == 'good':
+                popup_content = Label(text='Login Successful')
+                popup = Popup(title = 'Success!', content=popup_content,
+                        size_hint = (None,None), size = (200,200))
+                popup.open()
+                self.manager.current = 'capture_screen'
 
-        else:
-            popup = Popup(title='Error', content=Label(text='Invalid username or password'),
-                          size_hint=(None, None), size=(200, 200))
+            else:
+                popup = Popup(title='Error', content=Label(text='Invalid username or password'),
+                              size_hint=(None, None), size=(200, 200))
+                popup.open()
+        except requests.exceptions.ConnectionError:
+            popup = Popup(title='Error', content=Label(text='Connection to server failed'),
+                  size_hint=(None, None), size=(200, 200))
             popup.open()
 
     def go_to_create_account(self, instance):
@@ -106,14 +111,24 @@ class accountScreen(GridLayout):
                           size_hint=(None, None), size=(200, 200))
             popup.open()
         else:
-            headers = {"username": username, "email": email, "password": password}
-            response = requests.post("http://localhost:5000/createAccount/", headers=headers)
+            try:
+                headers = {"username": username, "email": email, "password": password}
+                response = requests.post("http://localhost:5000/createAccount/", headers=headers)
+                print(response.text)
+                if response.text == 'Username taken':
+                    popup = Popup(title='Error', content=Label(text='Username taken, please try another'),
+                                  size_hint=(None, None), size=(200, 200))
+                    popup.open()
+                elif response.text == 'Success':
+                    print("Data inserted successfully")
+                    self.manager.current = 'capture_screen'
+                else:
+                    print("Data insertion failed")
+            except requests.exceptions.ConnectionError:
+                popup = Popup(title='Error', content=Label(text='Connection to server failed'),
+                              size_hint=(None, None), size=(200, 200))
+                popup.open()
 
-            if response.text == 'Success':
-                print("Data inserted successfully")
-                self.manager.current = 'capture_screen'
-            else:
-                print("Data insertion failed")
 
 class captureScreen(Screen):
     def __init__(self,**kwargs):

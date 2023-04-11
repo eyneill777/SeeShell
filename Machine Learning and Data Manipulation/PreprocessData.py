@@ -19,7 +19,9 @@ count = 0
 #iterate over input files and copy them to the relevant locations
 for filename in os.listdir(inputPath):
     s = filename.split("_")
-    binome = s[0]+" "+s[1]
+    binome = s[0]
+    if s[1]:
+        binome = binome+" "+s[1]
     genus = s[0]
     
     gp = os.path.join(genusPath, genus)
