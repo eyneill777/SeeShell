@@ -23,7 +23,12 @@ class TrainingInstance:
     def trainModel(self):
         self.model = Model(self.config, len(self.dataset.classNames))
         self.model.compile(optimizer='adam', loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
-        self.history = self.model.fit(self.dataset.train, validation_data=self.dataset.validation, epochs=self.config["training"]["epochs"])
+        
+        saveCallback = tf.keras.callbacks.ModelCheckpoint("model")
+        
+        self.history = self.model.fit(self.dataset.train, validation_data=self.dataset.validation, epochs=self.config["training"]["epochs"], callbacks = [saveCallback])
+        
+        tf.saved_model.save(self.model, 'model_prod')
         
     def visualizeResults(self):
         acc = self.history.history['accuracy']
@@ -32,7 +37,7 @@ class TrainingInstance:
         loss = self.history.history['loss']
         val_loss = self.history.history['val_loss']
 
-        epochs_range = range(epochs)
+        epochs_range = range(self.config["training"]["epochs"])
 
         plt.figure(figsize=(8, 8))
         plt.subplot(1, 2, 1)

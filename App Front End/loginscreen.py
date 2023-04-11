@@ -65,6 +65,7 @@ class accountScreen(GridLayout):
     def __init__(self, manager,**kwargs):
         super(accountScreen, self).__init__(**kwargs)
         self.cols = 2
+        self.manager = manager
         #email
         self.add_widget(Label(text = 'Email'))
         self.email = TextInput(multiline = False)
