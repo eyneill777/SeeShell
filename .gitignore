@@ -10,3 +10,8 @@ Machine Learning and Data Manipulation/model/variables/variables.data-00000-of-0
 Machine Learning and Data Manipulation/model/saved_model.pb
 Machine Learning and Data Manipulation/model/keras_metadata.pb
 Machine Learning and Data Manipulation/model/fingerprint.pb
+*.pyc
+Machine Learning and Data Manipulation/model_prod/.DS_Store
+Machine Learning and Data Manipulation/model/.DS_Store
+Machine Learning and Data Manipulation/.DS_Store
+Machine Learning and Data Manipulation/.DS_Store

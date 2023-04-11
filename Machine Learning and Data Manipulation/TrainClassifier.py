@@ -28,6 +28,8 @@ class TrainingInstance:
         
         self.history = self.model.fit(self.dataset.train, validation_data=self.dataset.validation, epochs=self.config["training"]["epochs"], callbacks = [saveCallback])
         
+        tf.saved_model.save(self.model, 'model_prod')
+        
     def visualizeResults(self):
         acc = self.history.history['accuracy']
         val_acc = self.history.history['val_accuracy']
