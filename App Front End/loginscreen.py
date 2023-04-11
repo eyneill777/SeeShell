@@ -60,6 +60,7 @@ class accountScreen(GridLayout):
     def __init__(self, manager,**kwargs):
         super(accountScreen, self).__init__(**kwargs)
         self.cols = 2
+        self.manager = manager
         #email
         self.add_widget(Label(text = 'Email'))
         self.email = TextInput(multiline = False)
@@ -99,7 +100,7 @@ class accountScreen(GridLayout):
                           size_hint=(None, None), size=(200, 200))
             popup.open()
         #verify email
-        elif not re.fullmatch(r'[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+', email):
+        elif not re.fullmatch(r'.+@.+\..+', email):
             popup_content = Label(text='Invalid email')
             popup = Popup(title='Invalid!', content=popup_content,
                           size_hint=(None, None), size=(200, 200))
