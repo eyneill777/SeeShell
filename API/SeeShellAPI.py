@@ -1,9 +1,9 @@
 from flask import Flask, make_response, request
+from tables import Tables
 import json
 import uuid
 from sqlalchemy import *
 import bcrypt
-import tables
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -53,7 +53,7 @@ def checkPass():
     if request.method == 'POST':
         username = request.headers["username"]
         password = request.headers["password"]
-        stmt = select(tables.User.c.Password).where(tables.User.c.Username == username)
+        stmt = select(Tables().User.c.Password).where(Tables().User.c.Username == username)
         with engine.connect() as conn:
             for rows in conn.execute(stmt):
                 row = rows
@@ -74,7 +74,7 @@ def createAccount():
 
     if request.method == 'POST':
         username, email, password = request.headers["username"], request.headers["email"], request.headers["password"]
-        stmt = select(tables.User.c.Username).where(tables.User.c.Username == username)
+        stmt = select(Tables().User.c.Username).where(Tables().User.c.Username == username)
         with engine.connect() as conn:
             result = conn.execute(exists(stmt).select())
             if result.first()[0]:
@@ -84,7 +84,7 @@ def createAccount():
         salt = bcrypt.gensalt()
         password = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
         with engine.connect() as conn:
-            conn.execute(insert(tables.User).values(Username=username, Email_Address=email, Password=password))
+            conn.execute(insert(Tables().User).values(Username=username, Email_Address=email, Password=password))
             conn.commit()
             conn.close()
         response = make_response('Success')
