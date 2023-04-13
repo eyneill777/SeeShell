@@ -35,7 +35,7 @@ for i in range(1,len(shells)-1):
         stmt = insert(table.Shell).values(Scientific_Name = shells[i][0])
         stmtlist.append(stmt)
         continue
-    stmt = insert(table.Shell).values(Scientific_Name = shells[i][0], Common_Name = shells[i][4], AphiaID = shells[i][1], Accepted_SciName = shells[i][2], Accepted_AphiaID = shells[i][3], Family = shells[i][0], Habitat = shells[i][6], Extinct = eval(shells[i][7]))
+    stmt = insert(table.Shell).values(Scientific_Name = shells[i][0], Common_Name = shells[i][4], AphiaID = shells[i][1], Accepted_SciName = shells[i][2], Accepted_AphiaID = shells[i][3], Family = shells[i][5], Habitat = shells[i][6], Extinct = eval(shells[i][7]))
     stmtlist.append(stmt)
     if shells[i][8] != 'None' and shells[i][8] != '[]':
         locstring = shells[i][8]
