@@ -1,8 +1,9 @@
 from flask import Flask, make_response, request
 from tables import Tables
+from sqlalchemy import *
+from makeData import Blurb, getLink
 import json
 import uuid
-from sqlalchemy import *
 import bcrypt
 
 with open("config.json", "r") as f:
