@@ -17,7 +17,7 @@ class LoginScreen(GridLayout):
         self.cols = 2
         self.manager = manager
         #username
-        self.add_widget(Label(text = 'Email'))
+        self.add_widget(Label(text = 'Username'))
         self.email = TextInput(multiline = False)
         self.add_widget(self.email)
         #password
