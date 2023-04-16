@@ -6,9 +6,20 @@ from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.camera import Camera
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.animation import Animation
+from kivy.properties import BooleanProperty
+from kivy.uix.image import Image
+from kivy.properties import ListProperty
+from kivy.app import App
+import time
 from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
+#from kivy.lang import Builder
 import requests
 import re
+import os
+
 
 class LoginScreen(GridLayout):
 
@@ -131,10 +142,107 @@ class accountScreen(GridLayout):
 
 
 class captureScreen(Screen):
-    def __init__(self,**kwargs):
+    images = ListProperty([])
+    def __init__(self,manager,**kwargs):
+        self.manager = manager
         super(captureScreen, self).__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
         self.add_widget(self.camera)
+
+        layout = GridLayout(cols = 3, spacing = 10, size_hint=(1,None),height = 50)
+
+        self.button = Button(text = 'Take Photo', size_hint = (None, None), size = (100,50))
+        self.button.bind(on_press = self.take_photo)
+        layout.add_widget(self.button)
+
+        self.switch_button = Button(text='Go to Collection', size_hint=(None, None), size=(100, 50))
+        self.switch_button.bind(on_press=self.switch_to_album)
+        layout.add_widget(self.switch_button)
+
+        self.upload_button = Button(text='Add Image', size_hint=(None, None), size=(200, 50))
+        self.upload_button.bind(on_press=self.add_image)
+        layout.add_widget(self.upload_button)
+
+        self.add_widget(layout)
+    def take_photo(self, *args):
+        #camera = self.ids.camera
+        time_str = time.strftime("%Y%m%d_%H%M%S")
+        self.camera.export_to_png(f'IMG_{time_str}.png')
+        print("Photo saved")
+
+    def add_image(self, *args):
+        # open a file selection dialog and get the selected file
+        from kivy.uix.filechooser import FileChooserIconView
+        chooser = FileChooserIconView()
+        chooser.path = os.path.expanduser('~')
+        chooser.filters = ['*.png', '*.jpg', '*.jpeg']
+        chooser.bind(selection=self.load_image)
+        popup = BoxLayout()
+        popup.add_widget(chooser)
+        App.get_running_app().root_window.add_widget(popup)
+
+    def load_image(self, chooser, selection):
+        if selection:
+            # create a new selectable image widget and add it to the album
+            img = SelectableImage(source=selection[0], allow_stretch=True)
+            self.images.append(img)
+            self.add_widget(img)
+        chooser.parent.parent.remove_widget(chooser.parent)
+    def switch_to_album(self, instance):
+        self.manager.current = 'gallery_screen'
+
+
+class SelectableImage(ButtonBehavior, Image):
+    selected = BooleanProperty(False)
+
+    def __init__(self, **kwargs):
+        super(SelectableImage, self).__init__(**kwargs)
+        self.allow_stretch = True
+
+    def on_press(self):
+        self.selected = not self.selected
+        if self.selected:
+            animation = Animation(color=(1, 0, 0, 1), duration=0.25)
+            animation.start(self)
+        else:
+            animation = Animation(color=(1, 1, 1, 1), duration=0.25)
+            animation.start(self)
+
+
+class PhotoAlbum(GridLayout):
+    images = ListProperty([])
+    def __init__(self, manager, **kwargs):
+        self.manager = manager
+        self.screen_manager = manager
+        super(PhotoAlbum, self).__init__(**kwargs)
+        self.cols = 3
+        self.spacing = 10
+
+        # create the 'Add Image' button
+        # self.add_widget(Button(text='Add Image', on_press=self.add_image))
+
+
+        self.delete_button = Button(text='Delete', size_hint=(None, None), size=(200, 50))
+        self.delete_button.bind(on_press=self.delete_image)
+
+        self.camera_btn = Button(text='Camera', size_hint=(None, None), size=(200, 50))
+        self.camera_btn.bind(on_release=self.go_to_camera_screen)
+
+        #self.add_widget(self.upload_button)
+        self.add_widget(self.delete_button)
+        self.add_widget(self.camera_btn)
+
+
+    def go_to_camera_screen(self, instance):
+       self.screen_manager.current = 'capture_screen'
+
+    def delete_image(self, instance):
+        selected_widgets = [widget for widget in self.images if widget.selected]
+        for widget in selected_widgets:
+            self.remove_widget(widget)
+            self.images.remove(widget)
+
+
 class MyApp(App):
     def build(self):
         screen_manager = ScreenManager()
@@ -148,12 +256,17 @@ class MyApp(App):
         create_account_screen.add_widget(create_account_layout)
         #create capture mode screen
         capture_screen = Screen(name = 'capture_screen')
-        capture_layout = captureScreen()
+        capture_layout = captureScreen(manager = screen_manager)
         capture_screen.add_widget(capture_layout)
+        #create gallery screen (gallery_screen)
+        gallery_screen = Screen(name = 'gallery_screen')
+        gallery_screen_layout = PhotoAlbum(manager = screen_manager)
+        gallery_screen.add_widget(gallery_screen_layout)
         #add screens to screen manager
         screen_manager.add_widget(login_screen)
         screen_manager.add_widget(create_account_screen)
         screen_manager.add_widget(capture_screen)
+        screen_manager.add_widget(gallery_screen)
 
 
         return(screen_manager)

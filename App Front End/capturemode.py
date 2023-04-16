@@ -18,14 +18,12 @@ CameraClick:
         on_release: root.capture()
 '''
 
-
 class CameraClick(BoxLayout):
     def capture(self):
         camera = self.ids.camera
         time_str = time.strftime("%Y%m%d_%H%M%S")
         camera.export_to_png(f'IMG_{time_str}.png')
         print("Captured")
-
 
 class TestCamera(App):
     def build(self):
