@@ -40,7 +40,7 @@ def upload_file():
                 response = make_response("<h1>Unsupported Media Type</h1>")
                 response.status_code = 415
                 return response
-            uploaded_file.save(config["dropFolder"]+request.headers["id"]+"."+fileExt)
+            uploaded_file.save(os.path.join(config["dropFolder"], request.headers["id"]+"."+fileExt))
             response = make_response("<h1>Success</h1>")
             response.status_code = 200
             

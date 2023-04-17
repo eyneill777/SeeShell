@@ -10,4 +10,4 @@ print(api.checkPass("tester", "testPassword"))
 
 #Upload an image using the API
 file = open("/Users/eron/Downloads/genus/Aandara/Aandara_consociata_1_A.jpg", "rb")
-api.uploadImage(file, "tester")
+print(api.uploadImage(file, "tester"))
