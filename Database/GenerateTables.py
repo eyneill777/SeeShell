@@ -1,8 +1,8 @@
 from sqlalchemy import *
 import os
 import sys
-sys.path.append(os.path.abspath("../seeshell_server_common"))
-import DatabaseSchema
+sys.path.append(os.path.abspath("../"))
+import seeshell_server_common as common
 import json
 import csv
 
@@ -10,7 +10,7 @@ with open("config.json", "r") as f:
     config = json.load(f)
 
 engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
-tables = DatabaseSchema.Tables()
+tables = common.Tables()
 
 familyLinks = []
 with open('familyInfo.csv', 'r') as f:

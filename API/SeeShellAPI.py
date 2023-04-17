@@ -1,8 +1,8 @@
 from flask import Flask, make_response, request
 import os
 import sys
-sys.path.append(os.path.abspath("../seeshell_server_common"))
-import DatabaseSchema
+sys.path.append(os.path.abspath("../"))
+import seeshell_server_common as common
 from sqlalchemy import *
 from makeData import Blurb, getLink
 import json
@@ -13,7 +13,7 @@ with open("config.json", "r") as f:
     config = json.load(f)
 
 engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
-tables = DatabaseSchema.Tables()
+tables = common.Tables()
 
 app = Flask(__name__)
 
