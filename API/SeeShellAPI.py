@@ -1,5 +1,8 @@
 from flask import Flask, make_response, request
-from tables import Tables
+import os
+import sys
+sys.path.append(os.path.abspath("../seeshell_server_common"))
+import DatabaseSchema
 from sqlalchemy import *
 from makeData import Blurb, getLink
 import json
@@ -10,7 +13,7 @@ with open("config.json", "r") as f:
     config = json.load(f)
 
 engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
-table = Tables()
+tables = DatabaseSchema.Tables()
 
 app = Flask(__name__)
 
@@ -54,7 +57,7 @@ def checkPass():
     if request.method == 'POST':
         username = request.headers["username"]
         password = request.headers["password"]
-        stmt = select(table.User.c.Password).where(table.User.c.Username == username)
+        stmt = select(tables.User.c.Password).where(tables.User.c.Username == username)
         with engine.connect() as conn:
             for rows in conn.execute(stmt):
                 row = rows
@@ -67,6 +70,7 @@ def checkPass():
             response.status_code = 200
     return response
 
+
 #Create a new user account
 @app.route('/createAccount/', methods=['POST'])
 def createAccount():
@@ -75,7 +79,7 @@ def createAccount():
 
     if request.method == 'POST':
         username, email, password = request.headers["username"], request.headers["email"], request.headers["password"]
-        stmt = select(table.User.c.Username).where(table.User.c.Username == username)
+        stmt = select(tables.User.c.Username).where(tables.User.c.Username == username)
         with engine.connect() as conn:
             result = conn.execute(exists(stmt).select())
             if result.first()[0]:
@@ -85,7 +89,7 @@ def createAccount():
         salt = bcrypt.gensalt()
         password = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
         with engine.connect() as conn:
-            conn.execute(insert(table.User).values(Username=username, Email_Address=email, Password=password))
+            conn.execute(insert(tables.User).values(Username=username, Email_Address=email, Password=password))
             conn.commit()
             conn.close()
         response = make_response('Success')

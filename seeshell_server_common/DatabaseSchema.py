@@ -39,6 +39,13 @@ class Tables():
             Column("Family", VARCHAR(100), primary_key=True),
             Column("Wiki_Link", VARCHAR(100))
         )
+        self.Message = Table(
+            "Message",
+            metadata_obj,
+            Column("Id", INTEGER, primary_key=True),
+            Column("Username", VARCHAR(50)),
+            Column("Data", VARCHAR(1000))
+        )
         metadata_obj.create_all(engine)
 
 
