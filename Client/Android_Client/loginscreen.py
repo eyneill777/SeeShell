@@ -35,30 +35,37 @@ api = common.SeeShellAPIClient(config["apiURL"])
 class LoginScreen(GridLayout):
 
     def __init__(self,manager,**kwargs):
+        Builder.load_file('login.kv')
         super(LoginScreen, self).__init__(**kwargs)
-        self.cols = 2
-        self.manager = manager
-        #username
-        self.add_widget(Label(text = 'Username'))
-        self.email = TextInput(multiline = False)
-        self.add_widget(self.email)
-        #password
-        self.add_widget(Label(text =  'Password'))
-        self.password = TextInput(password = True, multiline = False)
-        self.add_widget(self.password)
-        #submit button
-        self.submit = Button(text = 'Login')
-        self.submit.bind(on_press = self.authenticate)
-        self.add_widget(Label())
-        self.add_widget(self.submit)
-        #new account button
-        self.createAccount = Button(text = "Create Account")
-        self.createAccount.bind(on_press = self.go_to_create_account)
-        self.add_widget(Label())
-        self.add_widget(self.createAccount)
+        # self.cols = 2
+        # self.manager = manager
+        # #username
+        # self.add_widget(Label(text = 'Username'))
+        # self.email = TextInput(multiline = False)
+        # self.add_widget(self.email)
+        # #password
+        # self.add_widget(Label(text =  'Password'))
+        # self.password = TextInput(password = True, multiline = False)
+        # self.add_widget(self.password)
+        # #submit button
+        # self.submit = Button(text = 'Login')
+        # self.submit.bind(on_press = self.authenticate)
+        # self.add_widget(Label())
+        # self.add_widget(self.submit)
+        # #new account button
+        # self.createAccount = Button(text = "Create Account")
+        # self.createAccount.bind(on_press = self.go_to_create_account)
+        # self.add_widget(Label())
+        # self.add_widget(self.createAccount)
 
     def authenticate(self, instance):
-        username, password = self.email.text, self.password.text
+        print('authentication called')
+        email_input = self.ids.email_input
+        password_input = self.ids.password_input
+
+        email = email_input.text
+        password = password_input.text
+
         responseText = api.checkPass(username, password)
         if responseText == 'Success':
             popup_content = Label(text='Login Successful')
