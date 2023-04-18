@@ -64,10 +64,23 @@ class FileDropService:
         if status is None:
             self.statuses[filepath] = "processing"
             try:
+                result = self.sendImageToWatson(filepath)
                 print(filepath)
-                self.sendImageToWatson(filepath)
+                self.statuses[filepath] = "success"
+                self.reportResults(filepath, result)
             except:
                 self.statuses[filepath] = "error"
+                self.reportError(filepath, "There was an error classifying the file.") #TODO add error types for various watson errors.
+            self.cleanUp(filepath)
+                
+    def cleanUp(self, filepath): #TODO delete file and status of all finished files in the dictionary.  Really we should archive them but its limited scope
+        print("test cleanup")
+                
+    def reportResults(self, id, classname): #TODO
+        print("test "+classname)
+        
+    def reportError(self, id, message): #TODO
+        print("test error")
                 
     def sendImageToWatson(self, filepath): #TODO write code to process watson results into a class name when access is restored.
         if config["simulateResults"]:
