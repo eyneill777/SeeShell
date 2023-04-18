@@ -1,0 +1,31 @@
+#: import LoginScreen loginscreen.LoginScreen
+#: import AccountScreen loginscreen.LoginScreen
+#: import captureScreen loginscreen.LoginScreen
+
+<LoginScreen>:
+    cols: 2
+
+    Label:
+        text: 'Username'
+    TextInput:
+        id: email_input
+        multiline: False
+
+    Label:
+        text: 'Password'
+    TextInput:
+        id: password_input
+        multiline: False
+        password: True
+
+    Label:
+        text: ''
+    Button:
+        text: 'Login'
+        on_press: LoginScreen.authenticate()
+
+    Label:
+        text: ''
+    Button:
+        text: 'Create Account'
+        on_press: LoginScreen.go_to_create_account()
