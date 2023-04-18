@@ -11,6 +11,7 @@ with open("config.json", "r") as f:
 
 engine = create_engine('mysql+pymysql://'+config['username']+':'+config['password']+'@'+config['host'])
 tables = common.Tables()
+tables.metadata_obj.create_all(engine)
 
 familyLinks = []
 with open('familyInfo.csv', 'r') as f:
