@@ -27,7 +27,7 @@ def hello_world():
 #Upload an image
 @app.route('/upload/', methods=['GET', 'POST'])
 def upload_file():
-    response = make_response("<h1>Bad Request</h1>")
+    response = make_response("Bad Request")
     response.status_code = 400
     
     if request.method == 'POST':
@@ -37,11 +37,11 @@ def upload_file():
             tmp = filename.split('.')
             fileExt = tmp[len(tmp)-1]
             if fileExt not in config['uploadExtensions']:
-                response = make_response("<h1>Unsupported Media Type</h1>")
+                response = make_response("Unsupported Media Type")
                 response.status_code = 415
                 return response
             uploaded_file.save(os.path.join(config["dropFolder"], request.headers["id"]+"."+fileExt))
-            response = make_response("<h1>Success</h1>")
+            response = make_response("Success")
             response.status_code = 200
             
     return response
@@ -50,7 +50,7 @@ def upload_file():
 #Check user credentials
 @app.route('/checkPass/', methods=['POST'])
 def checkPass():
-    response = make_response("<h1>Bad Request</h1>")
+    response = make_response("Bad Request")
     response.status_code = 400
 
     if request.method == 'POST':
@@ -73,7 +73,7 @@ def checkPass():
 #Create a new user account
 @app.route('/createAccount/', methods=['POST'])
 def createAccount():
-    response = make_response("<h1>Bad Request</h1>")
+    response = make_response("Bad Request")
     response.status_code = 400
 
     if request.method == 'POST':

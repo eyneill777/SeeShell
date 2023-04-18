@@ -42,7 +42,6 @@ class FileDropService:
         if status is None:
             self.statuses[filepath] = "processing"
             try:
-                #TODO Inference Watson and Raise a message with results
                 print(filepath)
                 self.sendImageToWatson(filepath)
             except:
@@ -61,9 +60,13 @@ class FileDropService:
 
         scoring_payload = {"input_data": [{"values": [img.tolist()]}]}
 
-        predictions = client.deployments.score(watsonConfig["deploymentUID"], scoring_payload)
-
-        print(json.dumps(predictions, indent=2))
+        try:
+            predictions = client.deployments.score(watsonConfig["deploymentUID"], scoring_payload)
+            print(predictions)
+            #print(json.dumps(predictions, indent=2))
+        except Exception as e:
+            raise e
+        
 
 
 if __name__ == '__main__':
