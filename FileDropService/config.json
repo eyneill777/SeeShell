@@ -2,6 +2,8 @@
     "dropFolder": "DropFolder",
     "ignoredFiles": [".DS_Store"],
     "approvedFileTypes": ["jpg", "jpeg", "png"],
+    "simulateResults": true,
+    "datasetFolder": "/Users/eron/Downloads/genus",
     "watson": 
     {
         "apiKey": "######",

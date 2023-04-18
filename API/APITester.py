@@ -1,18 +1,13 @@
-import requests
+import os
+import sys
+sys.path.append(os.path.abspath("../"))
+import seeshell_client_common as common
 
+api = common.SeeShellAPIClient("http://localhost:5000")
 
-
+print(api.createAccount("tester", "test@seeshell.com", "testPassword"))
+print(api.checkPass("tester", "testPassword"))
 
 #Upload an image using the API
-file = open("/home/thomassmith/Downloads/shell.jpeg", "rb")
-
-files = {"file": file}
-headers = {'id': 'test', "userName": "test user", "apiKey": "1234"}
-response = requests.post("http://localhost:5000/upload/", files=files, headers=headers)
-print(response)
-print(response.text)
-
-# headers = {"username": 'username8', "password": 'pass'}
-# passIsValid = requests.post("http://localhost:5000/checkPass/", headers=headers)
-# print(passIsValid)
-# print(passIsValid.text)
+file = open("/Users/eron/Downloads/genus/Aandara/Aandara_consociata_1_A.jpg", "rb")
+print(api.uploadImage(file, "tester"))

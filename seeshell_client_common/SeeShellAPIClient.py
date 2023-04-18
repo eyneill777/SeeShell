@@ -1,12 +1,22 @@
 import requests
+import uuid
 
 class SeeShellAPIClient():
     def __init__(self, url):
         self.url = url
        
     # Upload Image to Server
-    def uploadImage(self):
-        print("Test Image Upload")
+    def uploadImage(self, file, username):
+        returnText = "Image Upload Failed - Generic Error"
+        files = {"file": file}
+        headers = {'id': str(uuid.uuid4()), "userName": username, "apiKey": "1234"}
+        try:
+            response = requests.post(self.url+"/upload/", files=files, headers=headers)
+            returnText = response.text
+        except requests.exceptions.ConnectionError as e:
+            returnText = "Connection to server failed"
+        return returnText
+
     
     # Authenticate
     def checkPass(self, username, password):
