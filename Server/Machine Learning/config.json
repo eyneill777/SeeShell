@@ -1,0 +1,14 @@
+{
+    "rawDataPath": "../../new_shell_images_2nd",
+    "genusPath": "../../genus",
+    "speciesPath": "../../species",
+    "imageSize":
+    {
+        "width": 400,
+        "height": 300
+    },
+    "training":
+    {
+        "epochs":12
+    }
+}

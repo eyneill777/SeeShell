@@ -21,3 +21,22 @@ FileDropService/.DS_Store
 FileDropService/DropFolder/.DS_Store
 Machine Learning and Data Manipulation/.DS_Store
 seeshell_server_common/.DS_Store
+Client/.DS_Store
+Client/Android_Client/.DS_Store
+Client/seeshell_client_common/.DS_Store
+Server/.DS_Store
+Server/API/.DS_Store
+Server/FileDropService/.DS_Store
+Server/FileDropService/DropFolder/.DS_Store
+Server/Machine Learning/.DS_Store
+Server/Machine Learning/model/.DS_Store
+Server/Machine Learning/model/fingerprint.pb
+Server/Machine Learning/model/keras_metadata.pb
+Server/Machine Learning/model/saved_model.pb
+Server/Machine Learning/model/variables/variables.data-00000-of-00001
+Server/Machine Learning/model/variables/variables.index
+Server/Machine Learning/model_prod/.DS_Store
+Server/Machine Learning/model_prod/saved_model.pb
+Server/Machine Learning/model_prod/variables/variables.data-00000-of-00001
+Server/Machine Learning/model_prod/variables/variables.index
+Server/seeshell_server_common/.DS_Store

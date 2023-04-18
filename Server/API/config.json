@@ -1,7 +1,7 @@
 {
-    "dropFolder": "/home/thomassmith/Documents/CSC_550/APIDrop/",
+    "dropFolder": "../FileDropService/DropFolder",
     "uploadExtensions": ["jpg", "png", "jpeg"],
     "username": "root",
-    "password": "root",
+    "password": "####",
     "host": "localhost:3306/SeeShell"
 }
