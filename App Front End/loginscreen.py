@@ -21,6 +21,7 @@ import re
 import os
 import json
 import sys
+from kivy.uix.image import AsyncImage
 sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
 
@@ -179,6 +180,8 @@ class captureScreen(Screen):
         if selection:
             # create a new selectable image widget and add it to the album
             img = SelectableImage(source=selection[0], allow_stretch=True)
+            # resize images
+            # self.img.AsyncImage(size_hint=(None, None), size=(200, 200))
             self.images.append(img)
             self.add_widget(img)
         chooser.parent.parent.remove_widget(chooser.parent)
@@ -194,6 +197,11 @@ class SelectableImage(ButtonBehavior, Image):
         self.allow_stretch = True
 
     def on_press(self):
+        '''
+        method that is added to the image widgets to change the color of the
+        widget when clicked
+        '''
+        # toggles the 'selected' attribute
         self.selected = not self.selected
         if self.selected:
             animation = Animation(color=(1, 0, 0, 1), duration=0.25)
@@ -212,16 +220,16 @@ class PhotoAlbum(GridLayout):
         self.cols = 3
         self.spacing = 10
 
-        # create the 'Add Image' button
+        # add_image button
         # self.add_widget(Button(text='Add Image', on_press=self.add_image))
-
-
+        # delete button
         self.delete_button = Button(text='Delete', size_hint=(None, None), size=(200, 50))
         self.delete_button.bind(on_press=self.delete_image)
-
+        # camera button
         self.camera_btn = Button(text='Camera', size_hint=(None, None), size=(200, 50))
         self.camera_btn.bind(on_release=self.go_to_camera_screen)
 
+        # add buttons as widgets
         #self.add_widget(self.upload_button)
         self.add_widget(self.delete_button)
         self.add_widget(self.camera_btn)
