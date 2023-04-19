@@ -2,7 +2,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import random
 import requests
 import uuid
-
+import json
 
 class SeeShellAPIClient():
     def __init__(self, url):
@@ -53,10 +53,18 @@ class SeeShellAPIClient():
     def checkMessages(self,username):
         headers = {"username": username}
         try:
-            response = requests.get(self.url + "/getMessages/", headers=headers)
+            response = requests.get(self.url + "/checkMessages/", headers=headers)
             if response.text == 'There is a message':
                 return True
             elif response.text == 'There is no message':
                 return False
         except requests.exceptions.ConnectionError as e:
             return False
+
+    def getMessages(self, username):
+        headers = {"username": username}
+        try:
+            response = requests.get(self.url + "/getMessages/", headers=headers)
+            print(response.text)
+        except requests.exceptions.ConnectionError as e:
+            print('nope')

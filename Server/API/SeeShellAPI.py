@@ -95,8 +95,8 @@ def createAccount():
         response.status_code = 200
     return response
 
-@app.route('/getMessages/', methods=['GET'])
-def getMessages():
+@app.route('/checkMessages/', methods=['GET'])
+def checkMessages():
     response = make_response("Bad Request")
     response.status_code = 400
 
@@ -112,3 +112,19 @@ def getMessages():
         response = make_response('There is no message')
         response.status_code = 200
     return response
+
+@app.route('/getMessages/', methods=['GET'])
+def getMessages():
+    response = make_response("Bad Request")
+    response.status_code = 400
+    if request.method == 'GET':
+        username = request.headers["username"]
+        stmt = select(tables.Message).where(tables.Message.c.Username == username)
+        with engine.connect() as conn:
+            result = conn.execute(stmt)
+        message = {}
+        for row in result:
+            message['Data'] = row[2]
+        return message, 200
+
+

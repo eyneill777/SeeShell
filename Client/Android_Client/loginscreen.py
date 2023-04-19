@@ -49,6 +49,7 @@ class LoginScreen(FloatLayout):
         Builder.load_file('login.kv')
         super(LoginScreen, self).__init__(**kwargs)
         self.manager = manager
+        self.scheduler = BackgroundScheduler()
 
     def authenticate(self, instance):
         print('authentication called')
@@ -64,7 +65,10 @@ class LoginScreen(FloatLayout):
             popup = Popup(title = 'Success!', content=popup_content,
                     size_hint = (None,None), size = (200,200))
             popup.open()
-            self.manager.current = 'capture_screen'
+            if api.checkMessages(email):
+                self.manager.current = 'blurb_screen'
+            else:
+                self.manager.current = 'capture_screen'
 
         else:
             popup = Popup(title='Error', content=Label(text=responseText),
@@ -132,6 +136,7 @@ class captureScreen(Screen):
         if api.checkMessages('user'):
             print('message: redirecting to blurb screen')
             self.scheduler.remove_all_jobs()
+            self.scheduler.shutdown()
             self.go_to_blurb_screen('instance')
         else:
             print('no message')
@@ -146,7 +151,7 @@ class captureScreen(Screen):
         popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting \nfor identification.  You will be \nredirected to results when \nthey come in.'),
                       size_hint=(None, None), size=(200, 200))
         popup.open()
-        self.scheduler.add_job(self.periodicMessageCheck, 'interval', seconds=3)
+        self.scheduler.add_job(self.periodicMessageCheck, 'interval', seconds=10)
         print("Photo saved")
 
     def add_image(self, *args):
