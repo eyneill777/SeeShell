@@ -15,12 +15,21 @@ from kivy.app import App
 import time
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivymd.uix.floatlayout import MDFloatLayout
+from kivy.core.window import Window
+from kivymd.app import MDApp
+from kivymd.uix.textfield import MDTextField
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDRectangleFlatButton
+from kivymd.uix.label import MDLabel
 #from kivy.lang import Builder
 import requests
 import re
 import os
 import json
 import sys
+from kivymd.app import MDApp
 from kivy.uix.image import AsyncImage
 sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
@@ -32,31 +41,12 @@ with open("config.json", "r") as f:
 api = common.SeeShellAPIClient(config["apiURL"])
 
 
-class LoginScreen(GridLayout):
+class LoginScreen(FloatLayout):
 
     def __init__(self,manager,**kwargs):
         Builder.load_file('login.kv')
         super(LoginScreen, self).__init__(**kwargs)
-        # self.cols = 2
-        # self.manager = manager
-        # #username
-        # self.add_widget(Label(text = 'Username'))
-        # self.email = TextInput(multiline = False)
-        # self.add_widget(self.email)
-        # #password
-        # self.add_widget(Label(text =  'Password'))
-        # self.password = TextInput(password = True, multiline = False)
-        # self.add_widget(self.password)
-        # #submit button
-        # self.submit = Button(text = 'Login')
-        # self.submit.bind(on_press = self.authenticate)
-        # self.add_widget(Label())
-        # self.add_widget(self.submit)
-        # #new account button
-        # self.createAccount = Button(text = "Create Account")
-        # self.createAccount.bind(on_press = self.go_to_create_account)
-        # self.add_widget(Label())
-        # self.add_widget(self.createAccount)
+        self.manager = manager
 
     def authenticate(self, instance):
         print('authentication called')
@@ -66,7 +56,7 @@ class LoginScreen(GridLayout):
         email = email_input.text
         password = password_input.text
 
-        responseText = api.checkPass(username, password)
+        responseText = api.checkPass(email, password)
         if responseText == 'Success':
             popup_content = Label(text='Login Successful')
             popup = Popup(title = 'Success!', content=popup_content,
@@ -84,42 +74,22 @@ class LoginScreen(GridLayout):
 
 
 
-class accountScreen(GridLayout):
+class accountScreen(FloatLayout):
     def __init__(self, manager,**kwargs):
+        Builder.load_file('create_account.kv')
         super(accountScreen, self).__init__(**kwargs)
-        self.cols = 2
         self.manager = manager
-        #email
-        self.add_widget(Label(text = 'Email'))
-        self.email = TextInput(multiline = False)
-        self.add_widget(self.email)
-
-        # username
-        self.add_widget(Label(text='Username'))
-        self.username = TextInput(multiline = False)
-        self.add_widget(self.username)
-
-        # password
-        self.add_widget(Label(text='Password'))
-        self.password = TextInput(password=True, multiline=False)
-        self.add_widget(self.password)
-
-        # verify password
-        self.add_widget(Label(text='Verify Password'))
-        self.ver_password = TextInput(password=True, multiline=False)
-        self.add_widget(self.ver_password)
-
-        # submit button
-        self.submit = Button(text='Create Account')
-        self.submit.bind(on_press=self.create_account)
-        self.add_widget(Label())
-        self.add_widget(self.submit)
 
     def create_account(self, instance):
-        email = self.email.text
-        username = self.username.text
-        ver_password = self.ver_password.text
-        password = self.password.text
+        email_input = self.ids.email_input
+        username_input = self.ids.username_input
+        password_input = self.ids.password_input
+        ver_password_input = self.ids.ver_password_input
+
+        email = email_input.text
+        username = username_input.text
+        password = password_input.text
+        ver_password = ver_password_input.text
 
         #verify password
         if password != ver_password:
@@ -146,26 +116,12 @@ class accountScreen(GridLayout):
 class captureScreen(Screen):
     images = ListProperty([])
     def __init__(self,manager,**kwargs):
+        Builder.load_file('capture.kv')
         self.manager = manager
         super(captureScreen, self).__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
         self.add_widget(self.camera)
 
-        layout = GridLayout(cols = 3, spacing = 10, size_hint=(1,None),height = 50)
-
-        self.button = Button(text = 'Take Photo', size_hint = (None, None), size = (100,50))
-        self.button.bind(on_press = self.take_photo)
-        layout.add_widget(self.button)
-
-        self.switch_button = Button(text='Go to Collection', size_hint=(None, None), size=(100, 50))
-        self.switch_button.bind(on_press=self.switch_to_album)
-        layout.add_widget(self.switch_button)
-
-        self.upload_button = Button(text='Add Image', size_hint=(None, None), size=(200, 50))
-        self.upload_button.bind(on_press=self.add_image)
-        layout.add_widget(self.upload_button)
-
-        self.add_widget(layout)
     def take_photo(self, *args):
         #camera = self.ids.camera
         time_str = time.strftime("%Y%m%d_%H%M%S")
@@ -220,27 +176,13 @@ class SelectableImage(ButtonBehavior, Image):
 
 class PhotoAlbum(GridLayout):
     images = ListProperty([])
+    Builder.load_file('gallery.kv')
     def __init__(self, manager, **kwargs):
         self.manager = manager
         self.screen_manager = manager
         super(PhotoAlbum, self).__init__(**kwargs)
         self.cols = 3
         self.spacing = 10
-
-        # add_image button
-        # self.add_widget(Button(text='Add Image', on_press=self.add_image))
-        # delete button
-        self.delete_button = Button(text='Delete', size_hint=(None, None), size=(200, 50))
-        self.delete_button.bind(on_press=self.delete_image)
-        # camera button
-        self.camera_btn = Button(text='Camera', size_hint=(None, None), size=(200, 50))
-        self.camera_btn.bind(on_release=self.go_to_camera_screen)
-
-        # add buttons as widgets
-        #self.add_widget(self.upload_button)
-        self.add_widget(self.delete_button)
-        self.add_widget(self.camera_btn)
-
 
     def go_to_camera_screen(self, instance):
        self.screen_manager.current = 'capture_screen'
@@ -252,22 +194,23 @@ class PhotoAlbum(GridLayout):
             self.images.remove(widget)
 
 
-class MyApp(App):
+class MyApp(MDApp):
     def build(self):
+        Window.size = (360,640)
         screen_manager = ScreenManager()
         #create login screen
         login_screen = Screen(name = 'login')
         login_layout = LoginScreen(manager = screen_manager)
         login_screen.add_widget(login_layout)
-        #create account screen
+        # #create account screen
         create_account_screen = Screen(name = 'create_account_screen')
         create_account_layout = accountScreen(manager = screen_manager)
         create_account_screen.add_widget(create_account_layout)
-        #create capture mode screen
+        # #create capture mode screen
         capture_screen = Screen(name = 'capture_screen')
         capture_layout = captureScreen(manager = screen_manager)
         capture_screen.add_widget(capture_layout)
-        #create gallery screen (gallery_screen)
+        # #create gallery screen (gallery_screen)
         gallery_screen = Screen(name = 'gallery_screen')
         gallery_screen_layout = PhotoAlbum(manager = screen_manager)
         gallery_screen.add_widget(gallery_screen_layout)
