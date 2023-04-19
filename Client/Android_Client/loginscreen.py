@@ -151,6 +151,14 @@ class captureScreen(Screen):
     def switch_to_album(self, instance):
         self.manager.current = 'gallery_screen'
 
+    def go_to_blurb_screen(self,instance):
+        self.manager.current = 'blurb_screen'
+
+class blurbScreen(Screen):
+    def __init__(self,manager,**kwargs):
+        Builder.load_file('blurb.kv')
+        self.manager = manager
+        super(blurbScreen, self).__init__(**kwargs)
 
 class SelectableImage(ButtonBehavior, Image):
     selected = BooleanProperty(False)
@@ -210,6 +218,10 @@ class MyApp(MDApp):
         capture_screen = Screen(name = 'capture_screen')
         capture_layout = captureScreen(manager = screen_manager)
         capture_screen.add_widget(capture_layout)
+        # #create capture mode screen
+        blurb_screen = Screen(name='blurb_screen')
+        blurb_layout = blurbScreen(manager=screen_manager)
+        blurb_screen.add_widget(blurb_layout)
         # #create gallery screen (gallery_screen)
         gallery_screen = Screen(name = 'gallery_screen')
         gallery_screen_layout = PhotoAlbum(manager = screen_manager)
@@ -218,7 +230,9 @@ class MyApp(MDApp):
         screen_manager.add_widget(login_screen)
         screen_manager.add_widget(create_account_screen)
         screen_manager.add_widget(capture_screen)
+        screen_manager.add_widget(blurb_screen)
         screen_manager.add_widget(gallery_screen)
+
 
 
         return(screen_manager)
