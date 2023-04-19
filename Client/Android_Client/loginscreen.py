@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivy.clock import mainthread
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -12,7 +13,7 @@ from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
 from kivy.properties import ListProperty
 from kivy.app import App
-import time
+from apscheduler.schedulers.background import BackgroundScheduler
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
@@ -24,13 +25,14 @@ from kivymd.uix.button import MDFlatButton
 from kivymd.uix.button import MDRectangleFlatButton
 from kivymd.uix.label import MDLabel
 #from kivy.lang import Builder
+from kivymd.app import MDApp
+from kivy.uix.image import AsyncImage
 import requests
 import re
 import os
 import json
 import sys
-from kivymd.app import MDApp
-from kivy.uix.image import AsyncImage
+import time
 sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
 
@@ -121,11 +123,30 @@ class captureScreen(Screen):
         super(captureScreen, self).__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
         self.add_widget(self.camera)
+        self.scheduler = BackgroundScheduler()
+        self.scheduler.start()
+
+    @mainthread
+    def periodicMessageCheck(self):
+        print('checking for message')
+        if api.checkMessages('user'):
+            print('message: redirecting to blurb screen')
+            self.scheduler.remove_all_jobs()
+            self.go_to_blurb_screen('instance')
+        else:
+            print('no message')
 
     def take_photo(self, *args):
-        #camera = self.ids.camera
+        # camera = self.ids.camera
         time_str = time.strftime("%Y%m%d_%H%M%S")
-        self.camera.export_to_png(f'IMG_{time_str}.png')
+        self.camera.export_to_png(f'Photos/IMG_{time_str}.png')
+        with open(f'Photos/IMG_{time_str}.png', 'rb') as f:
+            api.uploadImage(f, 'user')
+            f.close()
+        popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting \nfor identification.  You will be \nredirected to results when \nthey come in.'),
+                      size_hint=(None, None), size=(200, 200))
+        popup.open()
+        self.scheduler.add_job(self.periodicMessageCheck, 'interval', seconds=3)
         print("Photo saved")
 
     def add_image(self, *args):

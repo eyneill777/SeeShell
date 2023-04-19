@@ -64,5 +64,6 @@ for i in range(1,len(shells)-1):
 with engine.connect() as conn:
     for stmt in stmtlist:
         conn.execute(stmt)
+    conn.execute(insert(tables.Message).values(Id = 0, Username = 'user', Data = 'Gobbledegook'))
     conn.commit()
     conn.close()
