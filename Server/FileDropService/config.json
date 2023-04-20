@@ -3,14 +3,20 @@
     "ignoredFiles": [".DS_Store"],
     "approvedFileTypes": ["jpg", "jpeg", "png"],
     "simulateResults": true,
-    "datasetFolder": "/Users/eron/Downloads/genus",
+    "datasetFolder": "/Users/eron/Downloads/species",
     "watson": 
     {
-        "apiKey": "####",
+        "apiKey": "5WBqCgKJ2_bs84IUBGVNR3PbDsv0dYswcyyyhLM-fju8",
         "url": "https://us-south.ml.cloud.ibm.com",
         "spaceUID": "8af57c31-0ef5-444f-872b-3466672c846c",
         "softwareSpecification": "tensorflow_rt22.2-py3.10",
         "modelType": "tensorflow_rt22.2",
         "deploymentUID": "bdd4ff6d-2ebb-40f1-8b05-b69df9cce39a"
+    },
+    "messageDB":
+    {
+        "username": "root",
+        "password": "######",
+        "host": "localhost:3306/SeeShell"
     }
 }

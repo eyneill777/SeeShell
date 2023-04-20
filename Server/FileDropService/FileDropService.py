@@ -4,7 +4,11 @@ import os
 import json
 import random
 import tensorflow as tf
+from sqlalchemy import *
+import traceback
 from ibm_watson_machine_learning import APIClient
+sys.path.append(os.path.abspath("../"))
+import seeshell_server_common as common
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -13,6 +17,8 @@ with open("config.json", "r") as f:
 class FileDropService:
     
     def __init__(self):
+        self.engine = create_engine('mysql+pymysql://'+config['messageDB']['username']+':'+config['messageDB']['password']+'@'+config['messageDB']['host'])
+        self.tables = common.Tables()
         self.generateClassList()
         self.watchFolder() #runs until stopped
     
@@ -67,20 +73,33 @@ class FileDropService:
                 result = self.sendImageToWatson(filepath)
                 print(filepath)
                 self.statuses[filepath] = "success"
-                self.reportResults(filepath, result)
-            except:
+                self.reportResults(os.path.basename(filepath).split("_")[1].split(".")[0], os.path.basename(filepath).split("_")[0], result)
+            except Exception as e:
                 self.statuses[filepath] = "error"
-                self.reportError(filepath, "There was an error classifying the file.") #TODO add error types for various watson errors.
+                self.reportError(filepath, "There was an error while classifying the file and reporting results.", e) #TODO add error types for various watson errors.
             self.cleanUp(filepath)
                 
-    def cleanUp(self, filepath): #TODO delete file and status of all finished files in the dictionary.  Really we should archive them but its limited scope
+    def cleanUp(self, filepath): #TODO delete file and status of all finished files in the dictionary.
         print("test cleanup")
-                
-    def reportResults(self, id, classname): #TODO
-        print("test "+classname)
         
-    def reportError(self, id, message): #TODO
-        print("test error")
+    def reportResults(self, id, username, classname):
+        try:
+            stmt = select(self.tables.Shell).where(self.tables.Shell.c.Scientific_Name == classname)
+            with self.engine.connect() as conn:
+                result = conn.execute(stmt)
+                dat = [r._asdict() for r in result][0]
+                js = json.dumps(dat)
+                statement = insert(self.tables.Message).values(Id = id, Username = username, Data = js)
+                conn.execute(statement)
+                conn.commit()
+                conn.close()
+        except Exception as e:
+            raise e
+            
+        
+    def reportError(self, id, message, error): #TODO make this report a db message indicating an error
+        print(message)
+        traceback.print_exc()
                 
     def sendImageToWatson(self, filepath): #TODO write code to process watson results into a class name when access is restored.
         if config["simulateResults"]:

@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append(os.path.abspath("../"))
+sys.path.append(os.path.abspath("../../Client"))
 import seeshell_client_common as common
 
 api = common.SeeShellAPIClient("http://localhost:5000")

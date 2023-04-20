@@ -40,3 +40,4 @@ Server/Machine Learning/model_prod/saved_model.pb
 Server/Machine Learning/model_prod/variables/variables.data-00000-of-00001
 Server/Machine Learning/model_prod/variables/variables.index
 Server/seeshell_server_common/.DS_Store
+.DS_Store

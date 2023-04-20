@@ -41,9 +41,9 @@ class Tables():
         self.Message = Table(
             "Message",
             self.metadata_obj,
-            Column("Id", INTEGER, primary_key=True),
+            Column("Id", VARCHAR(50), primary_key=True),
             Column("Username", VARCHAR(50)),
-            Column("Data", VARCHAR(1000))
+            Column("Data", VARCHAR(10000))
         )
 
 
