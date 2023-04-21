@@ -5,6 +5,9 @@ from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
 from kivy.properties import ListProperty
 from kivy.lang import Builder
+from kivy.uix.screenmanager import  Screen
+import os
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 class SelectableImage(ButtonBehavior, Image):
@@ -29,21 +32,38 @@ class SelectableImage(ButtonBehavior, Image):
             animation.start(self)
 
 
-class PhotoAlbum(GridLayout):
-    images = ListProperty([])
-    Builder.load_file('gallery.kv')
+class PhotoAlbum(Screen):
+    #images = ListProperty([])
+
     def __init__(self, manager,api, **kwargs):
+        Builder.load_file('gallery.kv')
         self.manager = manager
-        self.screen_manager = manager
+        #self.screen_manager = manager
         super(PhotoAlbum, self).__init__(**kwargs)
+        self.on_enter()
         self.cols = 3
-        self.spacing = 10
+        #self.spacing = 10
         self.api = api
+        self.on_enter()
 
-    def go_to_camera_screen(self, instance):
-       self.screen_manager.current = 'capture_screen'
 
-    def delete_image(self, instance):
+    def on_enter(self):
+        print('called')
+        photo_list = []
+        directory_path = 'Photos'
+        for filename in os.listdir(directory_path):
+            file_path = os.path.join(directory_path,filename)
+            if os.path.isfile(file_path):
+                photo_list.append(file_path)
+
+        for i in photo_list:
+            wimg = Image(source = i)
+            self.add_widget(wimg)
+
+    def go_to_camera_screen(self):
+       self.manager.current = 'capture_screen'
+
+    def delete_image(self):
         selected_widgets = [widget for widget in self.images if widget.selected]
         for widget in selected_widgets:
             self.remove_widget(widget)

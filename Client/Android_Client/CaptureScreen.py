@@ -1,3 +1,7 @@
+import uuid
+
+from kivy.app import App
+
 from kivy.clock import mainthread
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
@@ -10,14 +14,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 import os
 import time
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 
-class captureScreen(FloatLayout):
+class captureScreen(Screen):
     images = ListProperty([])
-    def __init__(self,manager,api,**kwargs):
+    def __init__(self,api,**kwargs):
         Builder.load_file('capture.kv')
-        self.manager = manager
+        #self.screen_manager = manager
         super(captureScreen, self).__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
         print(self.camera)
@@ -40,10 +45,10 @@ class captureScreen(FloatLayout):
 
     def take_photo(self, *args):
         # camera = self.ids.camera
-        time_str = time.strftime("%Y%m%d_%H%M%S")
-        self.camera.export_to_png(f'Photos/IMG_{time_str}.png')
-        with open(f'Photos/IMG_{time_str}.png', 'rb') as f:
-            self.api.uploadImage(f, 'user')
+        img_id = str(uuid.uuid4())
+        self.camera.export_to_png(f'Photos/{img_id}.png')
+        with open(f'Photos/{img_id}.png', 'rb') as f:
+            self.api.uploadImage(img_id,f,'user')
             f.close()
         popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting \nfor identification.  You will be \nredirected to results when \nthey come in.'),
                       size_hint=(None, None), size=(200, 200))
@@ -71,8 +76,8 @@ class captureScreen(FloatLayout):
             self.images.append(img)
             self.add_widget(img)
         chooser.parent.parent.remove_widget(chooser.parent)
-    def switch_to_album(self, instance):
+    def switch_to_album(self):
         self.manager.current = 'gallery_screen'
 
-    def go_to_blurb_screen(self,instance):
-        self.manager.current = 'blurb_screen'
+    def go_to_blurb_screen(self):
+        self.manger.current = 'blurb_screen'

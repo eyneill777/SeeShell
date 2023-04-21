@@ -3,15 +3,16 @@ from kivy.uix.popup import Popup
 from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 import re
+from kivy.uix.screenmanager import ScreenManager, Screen
 
-class accountScreen(FloatLayout):
-    def __init__(self, manager,api,**kwargs):
+class accountScreen(Screen):
+    def __init__(self, api,**kwargs):
         Builder.load_file('create_account.kv')
         super(accountScreen, self).__init__(**kwargs)
-        self.manager = manager
+        #self.manager = manager
         self.api = api
 
-    def create_account(self, instance):
+    def create_account(self):
         email_input = self.ids.email_input
         username_input = self.ids.username_input
         password_input = self.ids.password_input
