@@ -55,11 +55,11 @@ class MyApp(MDApp):
         screen_manager = ScreenManager()
         #create login screen
         login_screen = Screen(name = 'login')
-        login_layout = LoginScreen.LoginScreen(manager = screen_manager, api=api)
+        login_layout = LoginScreen.LoginScreen(manager=screen_manager, api=api)
         login_screen.add_widget(login_layout)
         # #create account screen
         create_account_screen = Screen(name = 'create_account_screen')
-        create_account_layout = AccountScreen.accountScreen(manager = screen_manager, api=api)
+        create_account_layout = AccountScreen.accountScreen(manager=screen_manager, api=api)
         create_account_screen.add_widget(create_account_layout)
         # #create capture mode screen
         capture_screen = Screen(name = 'capture_screen')
@@ -71,7 +71,7 @@ class MyApp(MDApp):
         blurb_screen.add_widget(blurb_layout)
         # #create gallery screen (gallery_screen)
         gallery_screen = Screen(name = 'gallery_screen')
-        gallery_screen_layout = GalleryScreen.PhotoAlbum(manager = screen_manager, api=api)
+        gallery_screen_layout = GalleryScreen.PhotoAlbum(manager=screen_manager, api=api)
         gallery_screen.add_widget(gallery_screen_layout)
         #add screens to screen manager
         screen_manager.add_widget(login_screen)
@@ -80,7 +80,7 @@ class MyApp(MDApp):
         screen_manager.add_widget(blurb_screen)
         screen_manager.add_widget(gallery_screen)
 
-        return(screen_manager)
+        return screen_manager
 
 
 if __name__ == '__main__':

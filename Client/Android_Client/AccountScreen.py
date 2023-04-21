@@ -1,11 +1,11 @@
+from SeeShellScreen import SeeShellScreen
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 import re
-from kivy.uix.screenmanager import ScreenManager, Screen
 
-class accountScreen(Screen):
+class accountScreen(SeeShellScreen):
     def __init__(self, api,**kwargs):
         Builder.load_file('create_account.kv')
         super(accountScreen, self).__init__(**kwargs)

@@ -1,7 +1,4 @@
-import uuid
-
-from kivy.app import App
-
+from SeeShellScreen import SeeShellScreen
 from kivy.clock import mainthread
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
@@ -14,11 +11,10 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 import os
 import time
-from kivy.uix.screenmanager import ScreenManager, Screen
+import uuid
 
 
-
-class captureScreen(Screen):
+class captureScreen(SeeShellScreen):
     images = ListProperty([])
     def __init__(self,api,**kwargs):
         Builder.load_file('capture.kv')
@@ -31,17 +27,6 @@ class captureScreen(Screen):
         self.scheduler.start()
         self.api = api
 
-    @mainthread
-    def periodicMessageCheck(self):
-        print('checking for message')
-        if self.api.checkMessages('user'):
-            print('message: redirecting to blurb screen')
-            self.scheduler.remove_all_jobs()
-            #change to remove the current job
-            self.scheduler.shutdown()
-            self.go_to_blurb_screen('instance')
-        else:
-            print('no message')
 
     def take_photo(self, *args):
         # camera = self.ids.camera
@@ -53,7 +38,7 @@ class captureScreen(Screen):
         popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting \nfor identification.  You will be \nredirected to results when \nthey come in.'),
                       size_hint=(None, None), size=(200, 200))
         popup.open()
-        self.scheduler.add_job(self.periodicMessageCheck, 'interval', seconds=10)
+        super().check_for_identification(img_id, 5, self.api)
         print("Photo saved")
 
     def add_image(self, *args):

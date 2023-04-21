@@ -5,9 +5,8 @@ from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
 from kivy.properties import ListProperty
 from kivy.lang import Builder
-from kivy.uix.screenmanager import  Screen
+from SeeShellScreen import SeeShellScreen
 import os
-from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 class SelectableImage(ButtonBehavior, Image):
@@ -32,7 +31,7 @@ class SelectableImage(ButtonBehavior, Image):
             animation.start(self)
 
 
-class PhotoAlbum(Screen):
+class PhotoAlbum(SeeShellScreen):
     #images = ListProperty([])
 
     def __init__(self, manager,api, **kwargs):
@@ -49,15 +48,15 @@ class PhotoAlbum(Screen):
 
     def on_enter(self):
         print('called')
-        photo_list = []
+        path_list = []
         directory_path = 'Photos'
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path,filename)
             if os.path.isfile(file_path):
-                photo_list.append(file_path)
+                path_list.append(file_path)
 
-        for i in photo_list:
-            wimg = Image(source = i)
+        for filepath in path_list:
+            wimg = Image(source=filepath)
             self.add_widget(wimg)
 
     def go_to_camera_screen(self):
