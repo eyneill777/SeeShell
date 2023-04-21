@@ -52,36 +52,39 @@ class MyApp(MDApp):
 
     def build(self):
         Window.size = (360,640)
-        screen_manager = ScreenManager()
+        manager = ScreenManager()
         #create login screen
         login_screen = Screen(name = 'login')
-        login_layout = LoginScreen.LoginScreen(manager=screen_manager, api=api)
+        login_layout = LoginScreen.LoginScreen(manager = manager, api=api)
         login_screen.add_widget(login_layout)
         # #create account screen
         create_account_screen = Screen(name = 'create_account_screen')
-        create_account_layout = AccountScreen.accountScreen(manager=screen_manager, api=api)
+        create_account_layout = AccountScreen.accountScreen(manager = manager, api=api)
         create_account_screen.add_widget(create_account_layout)
         # #create capture mode screen
         capture_screen = Screen(name = 'capture_screen')
-        capture_layout = CaptureScreen.captureScreen(manager=screen_manager, api=api)
+        capture_layout = CaptureScreen.captureScreen(manager=manager, api=api)
         capture_screen.add_widget(capture_layout)
         # #create capture mode screen
         blurb_screen = Screen(name='blurb_screen')
-        blurb_layout = BlurbScreen.blurbScreen(manager=screen_manager, api=api)
+        blurb_layout = BlurbScreen.blurbScreen(manager=manager, api=api)
         blurb_screen.add_widget(blurb_layout)
         # #create gallery screen (gallery_screen)
         gallery_screen = Screen(name = 'gallery_screen')
-        gallery_screen_layout = GalleryScreen.PhotoAlbum(manager=screen_manager, api=api)
+        gallery_screen_layout = GalleryScreen.PhotoAlbum(manager = manager, api=api)
         gallery_screen.add_widget(gallery_screen_layout)
         #add screens to screen manager
-        screen_manager.add_widget(login_screen)
-        screen_manager.add_widget(create_account_screen)
-        screen_manager.add_widget(capture_screen)
-        screen_manager.add_widget(blurb_screen)
-        screen_manager.add_widget(gallery_screen)
+        manager.add_widget(login_screen)
+        manager.add_widget(create_account_screen)
+        manager.add_widget(capture_screen)
+        manager.add_widget(blurb_screen)
+        manager.add_widget(gallery_screen)
 
-        return screen_manager
+        Builder.load_file('layout.kv')
+
+        return(manager)
 
 
 if __name__ == '__main__':
+    Builder.load_file('layout.kv')
     MyApp().run()
