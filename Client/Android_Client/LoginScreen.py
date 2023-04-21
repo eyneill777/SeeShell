@@ -11,12 +11,10 @@ sys.path.append(os.path.abspath("../"))
 
 class LoginScreen(SeeShellScreen):
 
-    def __init__(self,api,**kwargs):
-        #Builder.load_file('layout.kv')
-        super(LoginScreen, self).__init__(**kwargs)
-        #self.screen_manager = manager
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
         self.scheduler = BackgroundScheduler()
-        self.api = api
+        self.api = SeeShellScreen.api
 
 
     def authenticate(self):

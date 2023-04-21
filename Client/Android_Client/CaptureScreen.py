@@ -16,16 +16,13 @@ import uuid
 
 class captureScreen(SeeShellScreen):
     images = ListProperty([])
-    def __init__(self,api,**kwargs):
-        #Builder.load_file('layout.kv')
-        #self.screen_manager = manager
-        super(captureScreen, self).__init__(**kwargs)
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
-        print(self.camera)
         self.add_widget(self.camera)
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
-        self.api = api
+        self.api = SeeShellScreen.api
 
 
     def take_photo(self, *args):

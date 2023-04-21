@@ -35,56 +35,25 @@ import sys
 import time
 sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
-import AccountScreen
-import LoginScreen
-import CaptureScreen
-import GalleryScreen
-import BlurbScreen
+from AccountScreen import accountScreen
+from LoginScreen import LoginScreen
+from CaptureScreen import captureScreen
+from GalleryScreen import PhotoAlbum
+from BlurbScreen import blurbScreen
 
-with open("config.json", "r") as f:
-    config = json.load(f)
-
-
-api = common.SeeShellAPIClient(config["apiURL"])
-
+class Manager(ScreenManager):
+    pass
+LoginScreen
+accountScreen
+captureScreen
+PhotoAlbum
+blurbScreen
 
 class MyApp(MDApp):
-
     def build(self):
-        Window.size = (360,640)
-        manager = ScreenManager()
-        #create login screen
-        login_screen = Screen(name = 'login')
-        login_layout = LoginScreen.LoginScreen(manager = manager, api=api)
-        login_screen.add_widget(login_layout)
-        # #create account screen
-        create_account_screen = Screen(name = 'create_account_screen')
-        create_account_layout = AccountScreen.accountScreen(manager = manager, api=api)
-        create_account_screen.add_widget(create_account_layout)
-        # #create capture mode screen
-        capture_screen = Screen(name = 'capture_screen')
-        capture_layout = CaptureScreen.captureScreen(manager=manager, api=api)
-        capture_screen.add_widget(capture_layout)
-        # #create capture mode screen
-        blurb_screen = Screen(name='blurb_screen')
-        blurb_layout = BlurbScreen.blurbScreen(manager=manager, api=api)
-        blurb_screen.add_widget(blurb_layout)
-        # #create gallery screen (gallery_screen)
-        gallery_screen = Screen(name = 'gallery_screen')
-        gallery_screen_layout = GalleryScreen.PhotoAlbum(manager = manager, api=api)
-        gallery_screen.add_widget(gallery_screen_layout)
-        #add screens to screen manager
-        manager.add_widget(login_screen)
-        manager.add_widget(create_account_screen)
-        manager.add_widget(capture_screen)
-        manager.add_widget(blurb_screen)
-        manager.add_widget(gallery_screen)
-
-        Builder.load_file('layout.kv')
-
-        return(manager)
+        Window.size = (360, 640)
+        return Builder.load_file('layout.kv')
 
 
 if __name__ == '__main__':
-    Builder.load_file('layout.kv')
     MyApp().run()

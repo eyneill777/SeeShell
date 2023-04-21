@@ -6,11 +6,9 @@ from kivy.uix.floatlayout import FloatLayout
 import re
 
 class accountScreen(SeeShellScreen):
-    def __init__(self, api,**kwargs):
-        Builder.load_file('layout.kv')
-        super(accountScreen, self).__init__(**kwargs)
-        #self.manager = manager
-        self.api = api
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.api = SeeShellScreen.api
 
     def create_account(self):
         email_input = self.ids.email_input

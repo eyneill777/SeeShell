@@ -1,7 +1,17 @@
+
 from kivy.uix.screenmanager import Screen
 from apscheduler.schedulers.background import BackgroundScheduler
+import os
+import sys
+import json
+sys.path.append(os.path.abspath("../"))
+import seeshell_client_common as common
+
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 class SeeShellScreen(Screen):
+    api = common.SeeShellAPIClient(config["apiURL"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.scheduler = BackgroundScheduler()

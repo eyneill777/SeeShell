@@ -3,11 +3,9 @@ from kivy.lang import Builder
 
 
 class blurbScreen(SeeShellScreen):
-    def __init__(self,api,**kwargs):
-        #Builder.load_file('layout.kv')
-        #self.screen_manager = manager
-        super(blurbScreen, self).__init__(**kwargs)
-        self.api = api
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        self.api = SeeShellScreen.api
 
     def get_species_info(self):
        pass

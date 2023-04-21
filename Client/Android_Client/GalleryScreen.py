@@ -15,6 +15,7 @@ class SelectableImage(ButtonBehavior, Image):
     def __init__(self, **kwargs):
         super(SelectableImage, self).__init__(**kwargs)
         self.allow_stretch = True
+        self.api = SeeShellScreen.api
 
     def on_press(self):
         '''
@@ -32,16 +33,11 @@ class SelectableImage(ButtonBehavior, Image):
 
 
 class PhotoAlbum(SeeShellScreen):
-    #images = ListProperty([])
+    images = ListProperty([])
 
-    def __init__(self, api, **kwargs):
-        #Builder.load_file('layout.kv')
-        #self.screen_manager = manager
-        super(PhotoAlbum, self).__init__(**kwargs)
-        #self.load_photos()
-        self.cols = 3
-        #self.spacing = 10
-        self.api = api
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        api = SeeShellScreen.api
 
     def load_photos(self):
         print('called')
