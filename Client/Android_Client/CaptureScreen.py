@@ -32,7 +32,7 @@ class captureScreen(SeeShellScreen):
         popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting\nfor identification.  You\ncan check results\nin the gallery.'),
                       size_hint=(None, None), size=(200, 200))
         popup.open()
-        super().check_for_identification(img_id, 5, self.api)
+        super().check_for_identification(img_id, 5)
         print("Photo saved")
 
     def add_image(self, *args):
