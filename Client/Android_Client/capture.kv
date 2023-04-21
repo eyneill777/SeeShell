@@ -27,7 +27,7 @@
             size_hint: .2, .05
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.switch_to_album(self)
+            on_press: root.switch_to_album()
 
         MDRectangleFlatButton:
             text: "UPLOAD IMAGE"
@@ -36,7 +36,7 @@
             size_hint: .2, .05
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.add_image(self)
+            on_press: root.add_image()
 
         MDRectangleFlatButton:
             text: "VIEW MATCH"
@@ -45,4 +45,4 @@
             size_hint: .2, .05
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.go_to_blurb_screen(self)
+            on_press: root.go_to_blurb_screen()
