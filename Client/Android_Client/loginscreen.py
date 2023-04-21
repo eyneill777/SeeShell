@@ -52,7 +52,6 @@ class LoginScreen(FloatLayout):
         self.scheduler = BackgroundScheduler()
 
     def authenticate(self, instance):
-        print('authentication called')
         email_input = self.ids.email_input
         password_input = self.ids.password_input
 
@@ -70,12 +69,13 @@ class LoginScreen(FloatLayout):
             else:
                 self.manager.current = 'capture_screen'
 
+
         else:
             popup = Popup(title='Error', content=Label(text=responseText),
                               size_hint=(None, None), size=(200, 200))
             popup.open()
 
-    def go_to_create_account(self, instance):
+    def go_to_create_account(self):
         self.manager.current = 'create_account_screen'
 
 
@@ -120,8 +120,8 @@ class accountScreen(FloatLayout):
 
 
 class captureScreen(Screen):
-    images = ListProperty([])
-    def __init__(self,manager,**kwargs):
+    #images = ListProperty([])
+    def __init__(self,gallery, manager,**kwargs):
         Builder.load_file('capture.kv')
         self.manager = manager
         super(captureScreen, self).__init__(**kwargs)
@@ -129,6 +129,7 @@ class captureScreen(Screen):
         self.add_widget(self.camera)
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
+
 
     @mainthread
     def periodicMessageCheck(self):
@@ -142,7 +143,6 @@ class captureScreen(Screen):
             print('no message')
 
     def take_photo(self, *args):
-        # camera = self.ids.camera
         time_str = time.strftime("%Y%m%d_%H%M%S")
         self.camera.export_to_png(f'Photos/IMG_{time_str}.png')
         with open(f'Photos/IMG_{time_str}.png', 'rb') as f:
@@ -174,10 +174,11 @@ class captureScreen(Screen):
             self.images.append(img)
             self.add_widget(img)
         chooser.parent.parent.remove_widget(chooser.parent)
-    def switch_to_album(self, instance):
+    def switch_to_album(self):
+        PhotoAlbum.get_photos(self)
         self.manager.current = 'gallery_screen'
 
-    def go_to_blurb_screen(self,instance):
+    def go_to_blurb_screen(self):
         self.manager.current = 'blurb_screen'
 
 class blurbScreen(Screen):
@@ -209,14 +210,28 @@ class SelectableImage(ButtonBehavior, Image):
 
 
 class PhotoAlbum(GridLayout):
-    images = ListProperty([])
-    Builder.load_file('gallery.kv')
+    #images = ListProperty([])
+
     def __init__(self, manager, **kwargs):
+        Builder.load_file('gallery.kv')
         self.manager = manager
         self.screen_manager = manager
         super(PhotoAlbum, self).__init__(**kwargs)
+        self.get_photos()
         self.cols = 3
         self.spacing = 10
+
+    def get_photos(self):
+        photo_list = []
+        directory_path = 'Photos'
+        for filename in os.listdir(directory_path):
+            file_path = os.path.join(directory_path,filename)
+            if os.path.isfile(file_path):
+                photo_list.append(file_path)
+
+        for i in photo_list:
+            wimg = Image(source = i)
+            self.add_widget(wimg)
 
     def go_to_camera_screen(self, instance):
        self.screen_manager.current = 'capture_screen'
@@ -240,18 +255,19 @@ class MyApp(MDApp):
         create_account_screen = Screen(name = 'create_account_screen')
         create_account_layout = accountScreen(manager = screen_manager)
         create_account_screen.add_widget(create_account_layout)
-        # #create capture mode screen
+        # create gallery screen
+        gallery_screen = Screen(name='gallery_screen')
+        gallery_screen_layout = PhotoAlbum(manager=screen_manager)
+        gallery_screen.add_widget(gallery_screen_layout)
+        #create capture mode screen
         capture_screen = Screen(name = 'capture_screen')
-        capture_layout = captureScreen(manager = screen_manager)
+        capture_layout = captureScreen(gallery_screen,manager = screen_manager)
         capture_screen.add_widget(capture_layout)
         # #create capture mode screen
         blurb_screen = Screen(name='blurb_screen')
         blurb_layout = blurbScreen(manager=screen_manager)
         blurb_screen.add_widget(blurb_layout)
-        # #create gallery screen (gallery_screen)
-        gallery_screen = Screen(name = 'gallery_screen')
-        gallery_screen_layout = PhotoAlbum(manager = screen_manager)
-        gallery_screen.add_widget(gallery_screen_layout)
+
         #add screens to screen manager
         screen_manager.add_widget(login_screen)
         screen_manager.add_widget(create_account_screen)
