@@ -4,7 +4,6 @@ import sys
 sys.path.append(os.path.abspath("../"))
 import seeshell_server_common as common
 from sqlalchemy import *
-from makeData import Blurb, getLink
 import json
 import bcrypt
 

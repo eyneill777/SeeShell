@@ -18,17 +18,14 @@ class captureScreen(SeeShellScreen):
     images = ListProperty([])
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
-        self.camera = Camera(resolution = (640,480), play = True)
-        self.add_widget(self.camera)
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
         self.api = SeeShellScreen.api
 
-
     def take_photo(self, *args):
-        # camera = self.ids.camera
+        camera = self.ids['camera']
         img_id = str(uuid.uuid4())
-        self.camera.export_to_png(f'Photos/{img_id}.png')
+        camera.export_to_png(f'Photos/{img_id}.png')
         with open(f'Photos/{img_id}.png', 'rb') as f:
             self.api.uploadImage(img_id,f,'user')
             f.close()
