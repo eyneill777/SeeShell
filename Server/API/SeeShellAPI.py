@@ -119,11 +119,14 @@ def getMessages():
     if request.method == 'GET':
         Id = request.headers["Id"]
         stmt = select(tables.Message).where(tables.Message.c.Id == Id)
+        del_stmt = delete(tables.Message).where(tables.Message.c.Id == Id)
         with engine.connect() as conn:
             result = conn.execute(stmt)
+            conn.execute(del_stmt)
+            conn.commit()
         message = {}
         for row in result:
-            message= row[2]
+            message = row[2]
         return message, 200
 
 

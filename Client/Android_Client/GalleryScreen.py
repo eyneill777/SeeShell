@@ -50,6 +50,8 @@ class PhotoAlbum(SeeShellScreen):
                 path_list.append(file_path)
 
         for filepath in path_list:
+            if filepath.split('.')[1] == 'json':
+                continue
             wimg = Image(source=filepath)
             self.add_widget(wimg)
 
