@@ -11,10 +11,10 @@ class SeeShellAPIClient():
         self.scheduler.start()
 
     # Upload Image to Server
-    def uploadImage(self, file, username):
+    def uploadImage(self, id, file, username):
         returnText = "Image Upload Failed - Generic Error"
         files = {"file": file}
-        headers = {'id': str(uuid.uuid4()), "userName": username, "apiKey": "1234"}
+        headers = {'id': id, "userName": username, "apiKey": "1234"}
         try:
             response = requests.post(self.url + "/upload/", files=files, headers=headers)
             returnText = response.text
