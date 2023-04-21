@@ -100,8 +100,8 @@ def checkMessages():
     response.status_code = 400
 
     if request.method == 'GET':
-        username = request.headers["username"]
-        stmt = select(tables.Message).where(tables.Message.c.Username == username)
+        Id = request.headers["Id"]
+        stmt = select(tables.Message).where(tables.Message.c.Id == Id)
         with engine.connect() as conn:
             result = conn.execute(exists(stmt).select())
             if result.first()[0]:
@@ -117,13 +117,13 @@ def getMessages():
     response = make_response("Bad Request")
     response.status_code = 400
     if request.method == 'GET':
-        username = request.headers["username"]
-        stmt = select(tables.Message).where(tables.Message.c.Username == username)
+        Id = request.headers["Id"]
+        stmt = select(tables.Message).where(tables.Message.c.Id == Id)
         with engine.connect() as conn:
             result = conn.execute(stmt)
         message = {}
         for row in result:
-            message['Data'] = row[2]
+            message= row[2]
         return message, 200
 
 

@@ -34,7 +34,8 @@ class SelectableImage(ButtonBehavior, Image):
 
 class PhotoAlbum(SeeShellScreen):
     images = ListProperty([])
-
+    def on_pre_enter(self):
+        self.load_photos()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         api = SeeShellScreen.api

@@ -23,13 +23,13 @@ class captureScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def take_photo(self, *args):
-        camera = self.ids['camera']
+        camera = self.ids.camera
         img_id = str(uuid.uuid4())
         camera.export_to_png(f'Photos/{img_id}.png')
         with open(f'Photos/{img_id}.png', 'rb') as f:
             self.api.uploadImage(img_id,f,'user')
             f.close()
-        popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting \nfor identification.  You will be \nredirected to results when \nthey come in.'),
+        popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting\nfor identification.  You\ncan check results\nin the gallery.'),
                       size_hint=(None, None), size=(200, 200))
         popup.open()
         super().check_for_identification(img_id, 5, self.api)
