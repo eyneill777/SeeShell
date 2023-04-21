@@ -1,3 +1,4 @@
+import base64
 from sqlalchemy import *
 
 def Blurb(Scientific_Name, engine, table):
@@ -36,3 +37,10 @@ def getLink(Scientific_Name, engine, table):
         for family in familyResult:
             return family[1]
 
+def getMap(Scientific_Name, path_to_shellMaps):
+    try:
+        target_file = path_to_shellMaps+'/'+Scientific_Name + '.png'
+        with open(target_file, 'rb') as f:
+            return base64.b64encode(f)
+    except FileNotFoundError:
+        return None
