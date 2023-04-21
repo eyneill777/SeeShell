@@ -21,7 +21,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 class captureScreen(Screen):
     images = ListProperty([])
     def __init__(self,api,**kwargs):
-        Builder.load_file('capture.kv')
+        #Builder.load_file('layout.kv')
         #self.screen_manager = manager
         super(captureScreen, self).__init__(**kwargs)
         self.camera = Camera(resolution = (640,480), play = True)
@@ -76,8 +76,3 @@ class captureScreen(Screen):
             self.images.append(img)
             self.add_widget(img)
         chooser.parent.parent.remove_widget(chooser.parent)
-    def switch_to_album(self):
-        self.manager.current = 'gallery_screen'
-
-    def go_to_blurb_screen(self):
-        self.manger.current = 'blurb_screen'

@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath("../"))
 class LoginScreen(Screen):
 
     def __init__(self,api,**kwargs):
-        Builder.load_file('login.kv')
+        #Builder.load_file('layout.kv')
         super(LoginScreen, self).__init__(**kwargs)
         #self.screen_manager = manager
         self.scheduler = BackgroundScheduler()
@@ -44,5 +44,6 @@ class LoginScreen(Screen):
                               size_hint=(None, None), size=(200, 200))
             popup.open()
 
-    def go_to_create_account(self):
-        self.manager.current = 'create_account_screen'
+    #def go_to_create_account(self):
+        #pass
+        #self.manager.current = 'create_account_screen'

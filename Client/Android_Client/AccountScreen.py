@@ -7,7 +7,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 class accountScreen(Screen):
     def __init__(self, api,**kwargs):
-        Builder.load_file('create_account.kv')
+        Builder.load_file('layout.kv')
         super(accountScreen, self).__init__(**kwargs)
         #self.manager = manager
         self.api = api

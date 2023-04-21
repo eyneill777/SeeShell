@@ -35,19 +35,16 @@ class SelectableImage(ButtonBehavior, Image):
 class PhotoAlbum(Screen):
     #images = ListProperty([])
 
-    def __init__(self, manager,api, **kwargs):
-        Builder.load_file('gallery.kv')
-        self.manager = manager
+    def __init__(self, api, **kwargs):
+        #Builder.load_file('layout.kv')
         #self.screen_manager = manager
         super(PhotoAlbum, self).__init__(**kwargs)
-        self.on_enter()
+        #self.load_photos()
         self.cols = 3
         #self.spacing = 10
         self.api = api
-        self.on_enter()
 
-
-    def on_enter(self):
+    def load_photos(self):
         print('called')
         photo_list = []
         directory_path = 'Photos'
@@ -59,9 +56,6 @@ class PhotoAlbum(Screen):
         for i in photo_list:
             wimg = Image(source = i)
             self.add_widget(wimg)
-
-    def go_to_camera_screen(self):
-       self.manager.current = 'capture_screen'
 
     def delete_image(self):
         selected_widgets = [widget for widget in self.images if widget.selected]
