@@ -37,6 +37,7 @@ class LoginScreen(SeeShellScreen):
             if self.api.checkMessages(email):
                 self.manager.current = 'blurb_screen'
             else:
+                super().get_unmatched_images()
                 self.manager.current = 'capture_screen'
 
         else:

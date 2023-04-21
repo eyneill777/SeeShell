@@ -50,8 +50,8 @@ class SeeShellAPIClient():
             returnText = "Connection to server failed"
         return returnText
 
-    def checkMessages(self,username):
-        headers = {"username": username}
+    def checkMessages(self,Id):
+        headers = {"Id": Id}
         try:
             response = requests.get(self.url + "/checkMessages/", headers=headers)
             if response.text == 'There is a message':
@@ -61,10 +61,14 @@ class SeeShellAPIClient():
         except requests.exceptions.ConnectionError as e:
             return False
 
-    def getMessages(self, username):
-        headers = {"username": username}
+    def getMessages(self, Id):
+        headers = {"Id": Id}
         try:
             response = requests.get(self.url + "/getMessages/", headers=headers)
-            print(response.text)
+            return json.loads(response.text)
         except requests.exceptions.ConnectionError as e:
             print('nope')
+
+    def saveShellInfo(self, message, filename):
+        with open(filename, "w") as f:
+            json.dump(message, f)
