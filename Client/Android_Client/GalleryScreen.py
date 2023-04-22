@@ -35,27 +35,32 @@ class ImageLayout(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.cols = 3
+        
     def load_photos(self):
-        print('called')
+        print('loading photos')
         path_list = []
         directory_path = 'Photos'
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path,filename)
             if os.path.isfile(file_path):
-                path_list.append(file_path)
-        padCols = False
+                if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
+                    path_list.append(file_path)
+                    print(file_path)
+
         if len(path_list) < 3:
             padCols = True
+                    
         for filepath in path_list:
-            if filepath.split('.')[1] == 'json':
-                continue
             wimg = SelectableImage(source=filepath)
             self.add_widget(wimg)
+            
         if padCols:
             for _ in range(3-len(path_list)):
-                self.add_widget(Image(source = 'blank.png'))
+                self.add_widget(Image(source = os.path.join("assets",'blank.png')))
+                
 class PhotoAlbum(SeeShellScreen):
     images = ListProperty([])
+    
     def on_pre_enter(self, *args):
         layout = ImageLayout()
         self.add_widget(layout)
@@ -63,6 +68,7 @@ class PhotoAlbum(SeeShellScreen):
 
     def on_leave(self, *args):
         self.clear_widgets()
+        
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.api = SeeShellScreen.api

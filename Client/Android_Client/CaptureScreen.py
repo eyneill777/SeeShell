@@ -12,6 +12,7 @@ from kivy.uix.floatlayout import FloatLayout
 import os
 import time
 import uuid
+from PIL import Image
 
 
 class captureScreen(SeeShellScreen):
@@ -25,7 +26,13 @@ class captureScreen(SeeShellScreen):
     def take_photo(self, *args):
         camera = self.ids.camera
         img_id = str(uuid.uuid4())
-        camera.export_to_png(f'Photos/{img_id}.png')
+        camera.texture.save(f'Photos/{img_id}.png')
+        
+        image = Image.open(f'Photos/{img_id}.png')
+        image = image.transpose(Image.FLIP_TOP_BOTTOM)
+        image = image.resize((400, 300))
+        image.save(f'Photos/{img_id}.png')
+        
         with open(f'Photos/{img_id}.png', 'rb') as f:
             self.api.uploadImage(img_id,f)
             f.close()
