@@ -80,7 +80,11 @@ class FileDropService:
             self.cleanUp(filepath)
                 
     def cleanUp(self, filepath): #TODO delete file and status of all finished files in the dictionary.
-        print("test cleanup")
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        self.statuses.pop(filepath)
+            
+        
         
     def reportResults(self, id, username, classname):
         try:
