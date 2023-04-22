@@ -94,39 +94,24 @@ def createAccount():
         response.status_code = 200
     return response
 
-@app.route('/checkMessages/', methods=['GET'])
-def checkMessages():
-    response = make_response("Bad Request")
-    response.status_code = 400
-
-    if request.method == 'GET':
-        Id = request.headers["Id"]
-        stmt = select(tables.Message).where(tables.Message.c.Id == Id)
-        with engine.connect() as conn:
-            result = conn.execute(exists(stmt).select())
-            if result.first()[0]:
-                response = make_response('There is a message')
-                response.status_code = 200
-                return response
-        response = make_response('There is no message')
-        response.status_code = 200
-    return response
-
 @app.route('/getMessages/', methods=['GET'])
 def getMessages():
     response = make_response("Bad Request")
     response.status_code = 400
     if request.method == 'GET':
-        Id = request.headers["Id"]
-        stmt = select(tables.Message).where(tables.Message.c.Id == Id)
-        del_stmt = delete(tables.Message).where(tables.Message.c.Id == Id)
+        username = request.headers["Username"]
+        stmt = select(tables.Message).where(tables.Message.c.Username == username)
+        del_stmt = delete(tables.Message).where(tables.Message.c.Username == username)
         with engine.connect() as conn:
             result = conn.execute(stmt)
+            conn.commit()
+            message = {}
+            for row in result:
+                message[row[0]] = row[2]
+            message = json.dumps(message)
             conn.execute(del_stmt)
             conn.commit()
-        message = {}
-        for row in result:
-            message = row[2]
-        return message, 200
+            
+            return message, 200
 
 

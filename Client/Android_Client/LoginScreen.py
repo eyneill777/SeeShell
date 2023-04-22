@@ -28,15 +28,14 @@ class LoginScreen(SeeShellScreen):
         responseText = self.api.checkPass(email, password)
 
         if responseText == 'Success':
+            self.api.username = email
             popup_content = Label(text='Login Successful')
             popup = Popup(title = 'Success!', content=popup_content,
                     size_hint = (None,None), size = (200,200))
             popup.open()
-            if self.api.checkMessages(email):
-                self.manager.current = 'blurb_screen'
-            else:
-                super().get_unmatched_images()
-                self.manager.current = 'capture_screen'
+            self.check_message()
+            super().get_unmatched_images()
+            self.manager.current = 'capture_screen'
 
         else:
             popup = Popup(title='Error', content=Label(text=responseText),

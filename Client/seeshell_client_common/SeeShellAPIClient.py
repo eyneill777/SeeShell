@@ -7,14 +7,15 @@ import json
 class SeeShellAPIClient():
     def __init__(self, url):
         self.url = url
+        self.username = None
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
 
     # Upload Image to Server
-    def uploadImage(self, id, file, username):
+    def uploadImage(self, id, file):
         returnText = "Image Upload Failed - Generic Error"
         files = {"file": file}
-        headers = {'id': id, "userName": username, "apiKey": "1234"}
+        headers = {'id': id, "userName": self.username, "apiKey": "1234"}
         try:
             response = requests.post(self.url + "/upload/", files=files, headers=headers)
             returnText = response.text
@@ -50,25 +51,10 @@ class SeeShellAPIClient():
             returnText = "Connection to server failed"
         return returnText
 
-    def checkMessages(self,Id):
-        headers = {"Id": Id}
-        try:
-            response = requests.get(self.url + "/checkMessages/", headers=headers)
-            if response.text == 'There is a message':
-                return True
-            elif response.text == 'There is no message':
-                return False
-        except requests.exceptions.ConnectionError as e:
-            return False
-
-    def getMessages(self, Id):
-        headers = {"Id": Id}
+    def getMessages(self):
+        headers = {"Username": self.username}
         try:
             response = requests.get(self.url + "/getMessages/", headers=headers)
             return json.loads(response.text)
         except requests.exceptions.ConnectionError as e:
-            print('nope')
-
-    def saveShellInfo(self, message, filename):
-        with open(filename, "w") as f:
-            json.dump(message, f)
+            print("Connection to server failed")
