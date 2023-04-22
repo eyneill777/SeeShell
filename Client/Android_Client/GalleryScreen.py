@@ -31,15 +31,10 @@ class SelectableImage(ButtonBehavior, Image):
             animation = Animation(color=(1, 1, 1, 1), duration=0.25)
             animation.start(self)
 
-
-class PhotoAlbum(SeeShellScreen):
-    images = ListProperty([])
-    def on_pre_enter(self):
-        self.load_photos()
+class ImageLayout(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        api = SeeShellScreen.api
-
+        self.cols = 3
     def load_photos(self):
         print('called')
         path_list = []
@@ -48,12 +43,29 @@ class PhotoAlbum(SeeShellScreen):
             file_path = os.path.join(directory_path,filename)
             if os.path.isfile(file_path):
                 path_list.append(file_path)
-
+        padCols = False
+        if len(path_list) < 3:
+            padCols = True
         for filepath in path_list:
             if filepath.split('.')[1] == 'json':
                 continue
-            wimg = Image(source=filepath)
+            wimg = SelectableImage(source=filepath)
             self.add_widget(wimg)
+        if padCols:
+            for _ in range(3-len(path_list)):
+                self.add_widget(Image(source = 'blank.png'))
+class PhotoAlbum(SeeShellScreen):
+    images = ListProperty([])
+    def on_pre_enter(self, *args):
+        layout = ImageLayout()
+        self.add_widget(layout)
+        layout.load_photos()
+
+    def on_leave(self, *args):
+        self.clear_widgets()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.api = SeeShellScreen.api
 
     def delete_image(self):
         selected_widgets = [widget for widget in self.images if widget.selected]
