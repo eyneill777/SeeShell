@@ -41,14 +41,6 @@ from CaptureScreen import captureScreen
 from GalleryScreen import PhotoAlbum
 from BlurbScreen import blurbScreen
 
-class Manager(ScreenManager):
-    pass
-LoginScreen
-accountScreen
-captureScreen
-PhotoAlbum
-blurbScreen
-
 class MyApp(MDApp):
     def build(self):
         Window.size = (360, 640)
@@ -56,4 +48,7 @@ class MyApp(MDApp):
 
 
 if __name__ == '__main__':
+    if not os.path.exists("Photos"):
+        os.makedirs("Photos")
+    
     MyApp().run()

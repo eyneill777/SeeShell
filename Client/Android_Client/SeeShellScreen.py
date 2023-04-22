@@ -13,26 +13,29 @@ with open("config.json", "r") as f:
 
 class SeeShellScreen(Screen):
     api = common.SeeShellAPIClient(config["apiURL"])
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.scheduler = BackgroundScheduler()
         self.jobs = []
+        self.scheduler.start()
 
     def remove_job(self, id):
         self.jobs.remove(id)
         self.scheduler.remove_job(id)
 
-    def check_message(self, id,dontknowwhythisisneeded):
-        print('checking for matches')
-        if SeeShellScreen.api.checkMessages(id):
-            print('found match')
-            filepath = 'Photos/{}.json'.format(id)
-            SeeShellScreen.api.saveShellInfo(SeeShellScreen.api.getMessages(id), filepath)
-            self.remove_job(id)
-        else:
-            print('no match yet')
+    def check_message(self):
+        messages = SeeShellScreen.api.getMessages()
+        for key in messages.keys():
+            filepath = 'Photos/{}.json'.format(key)
+            self.saveShellInfo(json.loads(messages[key]), filepath)
+            try:
+                self.remove_job(key)
+            except ValueError:
+                pass
+            
     def check_for_identification(self, id, interval):
-        self.scheduler.add_job(self.check_message, 'interval', seconds=interval, id = id, args=(id,''))
+        self.scheduler.add_job(self.check_message, 'interval', seconds=interval, id = id, args=())
         self.jobs.append(id)
 
     def get_current_jobs(self):
@@ -50,8 +53,10 @@ class SeeShellScreen(Screen):
                 files[Id] = []
                 files[Id].append(filetype)
         for Id in files:
-            if len(files[Id]) == 1:
-                print('adding ' + Id + '.png to the joblist')
-                self.jobs.append(Id)
-                self.scheduler.add_job(self.check_message, 'interval', seconds=5, id=Id, args=(Id,''))
-        self.scheduler.start()
+            if len(files[Id]) == 1 and files[Id][0] == "json":
+                self.check_for_identification(Id, 5)
+                break
+        
+    def saveShellInfo(self, message, filename):
+        with open(filename, "w") as f:
+            json.dump(message, f)

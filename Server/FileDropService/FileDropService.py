@@ -107,6 +107,7 @@ class FileDropService:
                 
     def sendImageToWatson(self, filepath): #TODO write code to process watson results into a class name when access is restored.
         if config["simulateResults"]:
+            time.sleep(20)
             return random.choice(self.classes)
         else:
             img = tf.keras.utils.img_to_array(tf.keras.utils.load_img(filepath))
