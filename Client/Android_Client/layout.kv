@@ -206,6 +206,14 @@
 
 <blurbScreen>:
     FloatLayout:
+        MDRectangleFlatButton:
+            text: "BACK"
+            font_name: "assets/poppins/Poppins-Medium.ttf"
+            pos_hint: {"center_x": .25, "center_y": .2}
+            size_hint: None, None
+            text_color: 1, 1, 1, 1
+            md_bg_color: 79/255, 193/255, 233/255, 1
+            on_press: root.manager.current = 'gallery_screen'
         MDLabel:
             id: blurb_label
             text: "We haven't gotten this shell identified yet.  Please check back later"
@@ -214,30 +222,36 @@
             size_hint: None, None
             pos_hint: {"center_x": .5, "center_y": .5}
 
-<PhotoAlbum>:
-    GridLayout:
-        cols: 2
-        spacing: 10
+<PhotoAlbum>: 
+    MDFloatLayout:
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            on_release: root.manager.current = 'capture_screen'
+            pos_hint: {"center_x": .1, "center_y": .949}
+        MDLabel:
+            text: "Back"
+            font_size: "18sp"
+            font_name: "assets/poppins/Poppins-Regular.ttf"
+            pos_hint: {"center_x": .615, "center_y": .949}
         MDLabel:
             text: "SeeShell"
-            font_size: "20sp"
+            font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .96}
-
+            pos_hint: {"center_x": .9, "center_y": .8}
         Image:
-            source: "assets/logo.jpg"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .8}
+            source: "assets/logo.png"
+            size_hint: .25, .25
+            pos_hint: {"center_x": .22, "center_y": .8}
 
-        MDRectangleFlatButton:
-            text: "DELETE PHOTO"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .75, "center_y": .2}
-            size_hint: None, None
+        MDRoundFlatButton:
+            text: "Delete Photo"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .3}
+            size_hint: .8, .07
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: self.delete_image()
+            on_press: self.parent.parent.delete_image()
 
         MDRectangleFlatButton:
             text: "GO BACK TO CAMERA"
@@ -247,6 +261,16 @@
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.manager.current = 'capture_screen'
+            
+        MDRectangleFlatButton:
+            text: "VIEW INFO"
+            font_name: "assets/poppins/Poppins-Medium.ttf"
+            pos_hint: {"center_x": .25, "center_y": .2}
+            size_hint: None, None
+            text_color: 1, 1, 1, 1
+            md_bg_color: 79/255, 193/255, 233/255, 1
+            on_press: root.manager.current = 'blurb_screen'
+            
     ScrollView:
         pos_hint: {"center_x": .5, "top": .75}
         GridLayout:
