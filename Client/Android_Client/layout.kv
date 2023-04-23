@@ -5,7 +5,7 @@
             text: "SeeShell"
             font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .22, "center_y": .949}
+            pos_hint: {"center_x": .9, "center_y": .8}
         Image:
             source: "assets/logo.png"
             size_hint: .25, .25
@@ -32,7 +32,6 @@
                 size_hint: None, None
                 size: 250, 48
                 pos_hint: {"center_x": .45, "center_y": .5}
-
             Image:
                 source: "assets/user.png"
                 pos_hint: {"center_x": .96, "center_y": .5}
@@ -40,7 +39,6 @@
             MDFloatLayout:
                 pos_hint: {"center_x": .5, "center_y": 0}
                 size_hint_y: .03
-
         MDFloatLayout:
             size_hint: .79, .08
             pos_hint: {"center_x": .5, "center_y": .4}
@@ -51,9 +49,8 @@
                 helper_text_mode: "on_focus"
                 size_hint: None, None
                 size: 250, 48
-                pos_hint: {"center_x": .45, "center_y": .40}
+                pos_hint: {"center_x": .45, "center_y": .4}
                 password: True
-
             Image:
                 source: "assets/key.png"
                 pos_hint: {"center_x": .96, "center_y": .5}
@@ -61,7 +58,6 @@
             MDFloatLayout:
                 pos_hint: {"center_x": .5, "center_y": 0}
                 size_hint_y: .03
-
         MDRoundFlatButton:
             text: "LOGIN"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
@@ -70,7 +66,6 @@
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.authenticate()
-
         MDLabel:
             text: "Don't have an account? Sign Up"
             font_size: "14sp"
@@ -79,7 +74,6 @@
             color: 120/255, 120/255, 120/255, 1
             halign: "center"
             markup: True
-
         MDRoundFlatButton:
             text: "SIGN UP"
             font_name: "assets/poppins/Poppins-Medium.ttf"
@@ -105,49 +99,60 @@
             text: "SeeShell"
             font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .22, "center_y": .949}
+            pos_hint: {"center_x": .9, "center_y": .8}
         Image:
             source: "assets/logo.png"
             size_hint: .25, .25
             pos_hint: {"center_x": .22, "center_y": .8}
+        MDLabel:
+            text: "Enter your details to"
+            font_size: "22sp"
+            font_name: "assets/poppins/Poppins-Medium.ttf"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {"center_x": .6, "center_y": .65}
+        MDLabel:
+            text: "Sign up"
+            font_size: "28sp"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .6, "center_y": .58}
         MDTextField:
             id: email_input
             hint_text: "Email"
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 200, 48
-            pos_hint: {"center_x": .5, "center_y": .6}
+            size: 250, 48
+            pos_hint: {"center_x": .45, "center_y": .5}
         MDTextField:
             id: username_input
             hint_text: "Username"
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 200, 48
-            pos_hint: {"center_x": .5, "center_y": .5}
+            size: 250, 48
+            pos_hint: {"center_x": .45, "center_y": .4}    
         MDTextField:
             id: password_input
             hint_text: "Password"
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 200, 48
-            pos_hint: {"center_x": .5, "center_y": .4}
-            password: True
+            size: 250, 48
+            pos_hint: {"center_x": .45, "center_y": .3}
+            password: True   
         MDTextField:
             id: ver_password_input
             hint_text: "Verify Password "
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 200, 48
-            pos_hint: {"center_x": .5, "center_y": .3}
+            size: 250, 48
+            pos_hint: {"center_x": .45, "center_y": .2}
             password: True
         MDRoundFlatButton:
             text: "CREATE ACCOUNT"
             font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .5, "center_y": .15}
+            pos_hint: {"center_x": .5, "center_y": .1}
             size_hint: .8, .07
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
@@ -158,7 +163,7 @@
         id: camera
         resolution: (640, 480)
         play: True
-    FloatLayout:
+    MDFloatLayout:
         MDLabel:
             text: "SeeShell"
             font_size: "20sp"
@@ -166,45 +171,37 @@
             size_hint: None, None
             pos_hint: {"center_x": .5, "center_y": .96}
         Image:
-            source: "assets/logo.jpg"
+            source: "assets/logo.png"
             size_hint: .2, .2
             pos_hint: {"center_x": .5, "center_y": .86}
-
-        MDRectangleFlatButton:
-            text: "TAKE PHOTO"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .5, "center_y": .25}
-            size_hint: .2, .05
+        MDRoundFlatButton:
+            text: "Take Photo"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .3}
+            size_hint: .8, .07
             text_color: 1, 1, 1, 1
-            md_bg_color: 210/255, 180/255, 140/255, 1
+            md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.take_photo()
-
-        MDRectangleFlatButton:
-            text: "GO TO COLLECTION"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .5, "center_y": .15}
-            size_hint: .2, .05
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
+        MDRoundFlatButton:
+            text: "Go to Collection"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .20}
+            size_hint: .8, .07
+            text_color: 79/255, 193/255, 233/255, 1
             on_press: root.manager.current = 'gallery_screen'
-
-
-        MDRectangleFlatButton:
-            text: "UPLOAD IMAGE"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .5, "center_y": .1}
-            size_hint: .2, .05
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
+        MDRoundFlatButton:
+            text: "Upload Image"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .13}
+            size_hint: .8, .07
+            text_color: 79/255, 193/255, 233/255, 1
             on_press: root.add_image()
-
-        MDRectangleFlatButton:
-            text: "VIEW MATCH"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .5, "center_y": .05}
-            size_hint: .2, .05
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
+        MDRoundFlatButton:
+            text: "View Matches"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .06}
+            size_hint: .8, .07
+            text_color: 79/255, 193/255, 233/255, 1
             on_press: root.manager.current = 'blurb_screen'
 
 <blurbScreen>:
@@ -225,27 +222,33 @@
             size_hint: None, None
             pos_hint: {"center_x": .5, "center_y": .5}
 
-<PhotoAlbum>:
-    GridLayout:
-        cols: 2
-        spacing: 10
+<PhotoAlbum>: 
+    MDFloatLayout:
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            on_release: root.manager.current = 'capture_screen'
+            pos_hint: {"center_x": .1, "center_y": .949}
+        MDLabel:
+            text: "Back"
+            font_size: "18sp"
+            font_name: "assets/poppins/Poppins-Regular.ttf"
+            pos_hint: {"center_x": .615, "center_y": .949}
         MDLabel:
             text: "SeeShell"
-            font_size: "20sp"
+            font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .96}
-
+            pos_hint: {"center_x": .9, "center_y": .8}
         Image:
-            source: "assets/logo.jpg"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .8}
+            source: "assets/logo.png"
+            size_hint: .25, .25
+            pos_hint: {"center_x": .22, "center_y": .8}
 
-        MDRectangleFlatButton:
-            text: "DELETE PHOTO"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .75, "center_y": .2}
-            size_hint: None, None
+        MDRoundFlatButton:
+            text: "Delete Photo"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .3}
+            size_hint: .8, .07
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: self.parent.parent.delete_image()
