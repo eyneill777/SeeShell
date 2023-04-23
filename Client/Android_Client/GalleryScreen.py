@@ -62,21 +62,17 @@ class PhotoAlbum(SeeShellScreen):
 
     def load_photos(self):
         print('loading photos')
-        path_list = []
+        paths = {}
         directory_path = 'Photos'
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path, filename)
             if os.path.isfile(file_path):
                 if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
-                    path_list.append(file_path)
+                    paths[filename] = file_path
                     print(file_path)
 
 
-        for filepath in path_list:
-            uuid = filepath.split('.')[0][7:]
-            wimg = SelectableImage(source=filepath, id= uuid, screen=self, size_hint=(None, None))
+        for file in paths:
+            uuid = file.split('.')[0]
+            wimg = SelectableImage(source=paths[file], id= uuid, screen=self, size_hint=(None, None))
             self.ids.ImageLayout.add_widget(wimg)
-
-        if len(path_list) < 3:
-            for _ in range(3 - len(path_list)):
-                self.ids.ImageLayout.add_widget(Image(source=os.path.join("assets", 'blank.png')))
