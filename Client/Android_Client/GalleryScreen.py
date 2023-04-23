@@ -26,18 +26,13 @@ class SelectableImage(ButtonBehavior, Image):
         method that is added to the image widgets to change the color of the
         widget when clicked
         '''
-        #always true for testing, need to make selecting images to delete possible again later
-        if True:
-            blurbScreen.target = self.id
-            self.screen.manager.current = 'blurb_screen'
 
-
-
+        blurbScreen.target = self.id
 
         # toggles the 'selected' attribute
         self.selected = not self.selected
         if self.selected:
-            animation = Animation(color=(1, 0, 0, 1), duration=0.25)
+            animation = Animation(color=(.6, 1, .6, 1), duration=0.25)
             animation.start(self)
         else:
             animation = Animation(color=(1, 1, 1, 1), duration=0.25)
@@ -45,7 +40,6 @@ class SelectableImage(ButtonBehavior, Image):
 
                 
 class PhotoAlbum(SeeShellScreen):
-    images = ListProperty([])
     
     def on_pre_enter(self, *args):
         self.load_photos()
@@ -53,24 +47,32 @@ class PhotoAlbum(SeeShellScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.api = SeeShellScreen.api
+        self.directory_path = 'Photos'
 
     def delete_image(self):
-        selected_widgets = [widget for widget in self.images if widget.selected]
+        selected_widgets = [widget for widget in self.ids.ImageLayout.children if widget.selected]
         for widget in selected_widgets:
-            self.remove_widget(widget)
-            self.images.remove(widget)
-
+            self.ids.ImageLayout.remove_widget(widget)
+            id = (SelectableImage)(widget).id
+            for extension in [".png", ".json"]:
+                file_path = os.path.join(self.directory_path, id+extension)
+                try:
+                    os.remove(file_path)
+                except:
+                    pass
+            
+            
     def load_photos(self):
         print('loading photos')
+        self.ids.ImageLayout.clear_widgets()
+        
         paths = {}
-        directory_path = 'Photos'
-        for filename in os.listdir(directory_path):
-            file_path = os.path.join(directory_path, filename)
+        for filename in os.listdir(self.directory_path):
+            file_path = os.path.join(self.directory_path, filename)
             if os.path.isfile(file_path):
                 if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
                     paths[filename] = file_path
                     print(file_path)
-
 
         for file in paths:
             uuid = file.split('.')[0]
