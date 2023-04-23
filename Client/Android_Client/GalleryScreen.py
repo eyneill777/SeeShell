@@ -4,6 +4,7 @@ from kivy.animation import Animation
 from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
 from kivy.properties import ListProperty
+from kivy.uix.scrollview import ScrollView
 from kivy.lang import Builder
 from SeeShellScreen import SeeShellScreen
 import os
@@ -31,43 +32,12 @@ class SelectableImage(ButtonBehavior, Image):
             animation = Animation(color=(1, 1, 1, 1), duration=0.25)
             animation.start(self)
 
-class ImageLayout(GridLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.cols = 3
-        
-    def load_photos(self):
-        print('loading photos')
-        path_list = []
-        directory_path = 'Photos'
-        for filename in os.listdir(directory_path):
-            file_path = os.path.join(directory_path,filename)
-            if os.path.isfile(file_path):
-                if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
-                    path_list.append(file_path)
-                    print(file_path)
-
-        if len(path_list) < 3:
-            padCols = True
-                    
-        for filepath in path_list:
-            wimg = SelectableImage(source=filepath)
-            self.add_widget(wimg)
-            
-        if padCols:
-            for _ in range(3-len(path_list)):
-                self.add_widget(Image(source = os.path.join("assets",'blank.png')))
                 
 class PhotoAlbum(SeeShellScreen):
     images = ListProperty([])
     
     def on_pre_enter(self, *args):
-        layout = ImageLayout()
-        self.add_widget(layout)
-        layout.load_photos()
-
-    def on_leave(self, *args):
-        self.clear_widgets()
+        self.load_photos()
         
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -78,3 +48,23 @@ class PhotoAlbum(SeeShellScreen):
         for widget in selected_widgets:
             self.remove_widget(widget)
             self.images.remove(widget)
+
+    def load_photos(self):
+        print('loading photos')
+        path_list = []
+        directory_path = 'Photos'
+        for filename in os.listdir(directory_path):
+            file_path = os.path.join(directory_path, filename)
+            if os.path.isfile(file_path):
+                if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
+                    path_list.append(file_path)
+                    print(file_path)
+
+
+        for filepath in path_list:
+            wimg = SelectableImage(source=filepath, size_hint=(None, None))
+            self.ids.ImageLayout.add_widget(wimg)
+
+        if len(path_list) < 3:
+            for _ in range(3 - len(path_list)):
+                self.ids.ImageLayout.add_widget(Image(source=os.path.join("assets", 'blank.png')))

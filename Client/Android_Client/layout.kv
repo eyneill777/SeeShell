@@ -156,7 +156,7 @@
 <captureScreen>:
     Camera:
         id: camera
-        resolution: (640, 480)
+        resolution: (400, 300)
         play: True
     FloatLayout:
         MDLabel:
@@ -249,6 +249,15 @@
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.manager.current = 'capture_screen'
+    ScrollView:
+        pos_hint: {"center_x": .5, "top": .75}
+        GridLayout:
+            pos_hint: {"center_x": .5}
+            size_hint: (None,None)
+            id: ImageLayout
+            cols: 3
+            spacing: (25,0)
+
 
 ScreenManager:
     LoginScreen:
