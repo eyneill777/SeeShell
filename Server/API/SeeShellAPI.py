@@ -55,7 +55,8 @@ def checkPass():
     if request.method == 'POST':
         username = request.headers["username"]
         password = request.headers["password"]
-        stmt = select(tables.User.c.Password).where(tables.User.c.Username == username)
+        stmt = select(tables.User.c.Password).where(or_(tables.User.c.Username == username,
+                                                        tables.User.c.Email_Address == username))
         with engine.connect() as conn:
             for rows in conn.execute(stmt):
                 row = rows

@@ -33,6 +33,11 @@ class accountScreen(SeeShellScreen):
             popup = Popup(title='Invalid!', content=popup_content,
                           size_hint=(None, None), size=(200, 200))
             popup.open()
+        elif '@' in username:
+            popup_content = Label(text='Username may not\ncontain @ symbol')
+            popup = Popup(title='Invalid!', content=popup_content,
+                          size_hint=(None, None), size=(200, 200))
+            popup.open()
         else:
             responseText = self.api.createAccount(username, email, password)
             if responseText == 'Success':
