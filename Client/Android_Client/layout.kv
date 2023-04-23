@@ -183,7 +183,7 @@
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.take_photo()
         MDRoundFlatButton:
-            text: "Go to Collection"
+            text: "Go to Gallery"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
             pos_hint: {"center_x": .5, "center_y": .20}
             size_hint: .8, .07
@@ -262,15 +262,6 @@
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: self.parent.parent.delete_image()
-
-        MDRectangleFlatButton:
-            text: "GO BACK TO CAMERA"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .25, "center_y": .2}
-            size_hint: None, None
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'capture_screen'
             
         MDRectangleFlatButton:
             text: "VIEW INFO"
