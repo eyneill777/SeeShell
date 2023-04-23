@@ -53,6 +53,7 @@ class PhotoAlbum(SeeShellScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.api = SeeShellScreen.api
+        self.loaded_images = []
 
     def delete_image(self):
         selected_widgets = [widget for widget in self.images if widget.selected]
@@ -74,5 +75,8 @@ class PhotoAlbum(SeeShellScreen):
 
         for file in paths:
             uuid = file.split('.')[0]
+            if uuid in self.loaded_images:
+                continue
+            self.loaded_images.append(uuid)
             wimg = SelectableImage(source=paths[file], id= uuid, screen=self, size_hint=(None, None))
             self.ids.ImageLayout.add_widget(wimg)
