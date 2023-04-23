@@ -7,22 +7,33 @@ from kivy.properties import ListProperty
 from kivy.uix.scrollview import ScrollView
 from kivy.lang import Builder
 from SeeShellScreen import SeeShellScreen
+from BlurbScreen import blurbScreen
 import os
 
 
 class SelectableImage(ButtonBehavior, Image):
     selected = BooleanProperty(False)
 
-    def __init__(self, **kwargs):
+    def __init__(self, id, screen, **kwargs):
         super(SelectableImage, self).__init__(**kwargs)
         self.allow_stretch = True
         self.api = SeeShellScreen.api
+        self.id = id
+        self.screen = screen
 
     def on_press(self):
         '''
         method that is added to the image widgets to change the color of the
         widget when clicked
         '''
+        #always true for testing, need to make selecting images to delete possible again later
+        if True:
+            blurbScreen.target = self.id
+            self.screen.manager.current = 'blurb_screen'
+
+
+
+
         # toggles the 'selected' attribute
         self.selected = not self.selected
         if self.selected:
@@ -62,7 +73,8 @@ class PhotoAlbum(SeeShellScreen):
 
 
         for filepath in path_list:
-            wimg = SelectableImage(source=filepath, size_hint=(None, None))
+            uuid = filepath.split('.')[0][7:]
+            wimg = SelectableImage(source=filepath, id= uuid, screen=self, size_hint=(None, None))
             self.ids.ImageLayout.add_widget(wimg)
 
         if len(path_list) < 3:

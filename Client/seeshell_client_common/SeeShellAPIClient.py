@@ -58,3 +58,22 @@ class SeeShellAPIClient():
             return json.loads(response.text)
         except requests.exceptions.ConnectionError as e:
             print("Connection to server failed")
+
+    def makeBlurb(self, species):
+        if species["AphiaID"] is None:
+            return 'This shell is a/an ' + species[0]
+
+        blurb = 'This shell is a/an ' + species["Accepted_SciName"]
+
+        if species["Common_Name"] != 'None' and species["Habitat"] != 'None':
+            blurb += ', commonly known as ' + species["Common_Name"] + ', and lives in a ' + species["Habitat"] + ' environment.'
+        elif species["Common_Name"] != 'None':
+            blurb += ' and is commonly known as ' + species["Common_Name"] + '.'
+        elif species["Habitat"] != '[]' or species["Habitat"] != 'None':
+            blurb += ' and can be found in a ' + species["Habitat"].lower() + ' environment. '
+
+        if species["Family"] != 'None':
+            blurb += 'It is a member of the family ' + species["Family"] + '.'
+        if species["Extinct"]:
+            blurb += 'This species is thought to be extinct.'
+        return blurb
