@@ -1,7 +1,12 @@
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.animation import Animation
 from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
+from kivymd.uix.button import MDRoundFlatButton
+from kivy.properties import ListProperty
+from kivy.uix.scrollview import ScrollView
+from kivy.lang import Builder
 from SeeShellScreen import SeeShellScreen
 from BlurbScreen import blurbScreen
 import os
@@ -22,17 +27,21 @@ class SelectableImage(ButtonBehavior, Image):
         method that is added to the image widgets to change the color of the
         widget when clicked
         '''
+        if self.screen.selecting:
+            self.selected = not self.selected
+            if self.selected:
+                animation = Animation(color=(.6, 1, .6, 1), duration=0.25)
+                animation.start(self)
+            else:
+                animation = Animation(color=(1, 1, 1, 1), duration=0.25)
+                animation.start(self)
+        else:
+            blurbScreen.target = self.id
+            self.screen.manager.current = "blurb_screen"
 
-        blurbScreen.target = self.id
 
         # toggles the 'selected' attribute
-        self.selected = not self.selected
-        if self.selected:
-            animation = Animation(color=(.6, 1, .6, 1), duration=0.25)
-            animation.start(self)
-        else:
-            animation = Animation(color=(1, 1, 1, 1), duration=0.25)
-            animation.start(self)
+
 
                 
 class PhotoAlbum(SeeShellScreen):
@@ -44,18 +53,34 @@ class PhotoAlbum(SeeShellScreen):
         super().__init__(**kwargs)
         self.api = SeeShellScreen.api
         self.directory_path = 'Photos'
+        self.selecting = False
+        self.cancel_widget = MDRoundFlatButton(text="Cancel", font_name="assets/poppins/Poppins-SemiBold.ttf",
+                                               pos_hint={"center_x": .7, "center_y": .9}, size_hint=(.8,.07),
+                                               text_color=(79/255, 193/255, 233/255, 1), on_press=self.change_selecting)
 
+    def change_selecting(self,button):
+        self.remove_widget(button)
+        self.selecting = not self.selecting
     def delete_image(self):
-        selected_widgets = [widget for widget in self.ids.ImageLayout.children if widget.selected]
-        for widget in selected_widgets:
-            self.ids.ImageLayout.remove_widget(widget)
-            id = (SelectableImage)(widget).id
-            for extension in [".png", ".json"]:
-                file_path = os.path.join(self.directory_path, id+extension)
-                try:
-                    os.remove(file_path)
-                except:
-                    pass
+        if self.selecting:
+            self.remove_widget(self.cancel_widget)
+            self.selecting = not self.selecting
+            selected_widgets = [widget for widget in self.ids.ImageLayout.children if widget.selected]
+            for widget in selected_widgets:
+                id = widget.id
+                self.ids.ImageLayout.remove_widget(widget)
+                for extension in [".png", ".json", "jpg"]:
+                    file_path = os.path.join(self.directory_path, id + extension)
+                    try:
+                        os.remove(file_path)
+                    except:
+                        pass
+            self.ids.delete_button.text = "SELECT IMAGES"
+        else:
+            self.selecting = not self.selecting
+            self.ids.delete_button.text = "DELETE IMAGES"
+            self.add_widget(self.cancel_widget)
+
             
             
     def load_photos(self):

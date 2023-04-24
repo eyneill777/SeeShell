@@ -26,7 +26,7 @@
             pos_hint: {"center_x": .5, "center_y": .5}    
             MDTextField:
                 id: email_input
-                hint_text: "Email"
+                hint_text: "Username or Email"
                 font_name: "assets/poppins/Poppins-Medium.ttf"
                 helper_text_mode: "on_focus"
                 size_hint: None, None
@@ -184,7 +184,7 @@
             md_bg_color: 79/255, 193/255, 233/255, 1
             on_press: root.take_photo()
         MDRoundFlatButton:
-            text: "Go to Collection"
+            text: "Go to Gallery"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
             pos_hint: {"center_x": .5, "center_y": .20}
             size_hint: .8, .07
@@ -197,13 +197,6 @@
             size_hint: .8, .07
             text_color: 79/255, 193/255, 233/255, 1
             on_press: root.add_image()
-        MDRoundFlatButton:
-            text: "View Matches"
-            font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .06}
-            size_hint: .8, .07
-            text_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'blurb_screen'
 
 <blurbScreen>:
     FloatLayout:
@@ -222,6 +215,16 @@
             font_name: "assets/poppins/Poppins-Regular.ttf"
             size_hint: None, None
             pos_hint: {"center_x": .5, "center_y": .5}
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            on_release: root.manager.current = 'gallery_screen'
+            pos_hint: {"center_x": .1, "center_y": .15}
+        MDLabel:
+            text: "Back"
+            font_size: "18sp"
+            font_name: "assets/poppins/Poppins-Regular.ttf"
+            pos_hint: {"center_x": .615, "center_y": .15}
 
 <PhotoAlbum>: 
     MDFloatLayout:
@@ -235,51 +238,32 @@
             font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
             pos_hint: {"center_x": .615, "center_y": .949}
+
         MDLabel:
-            text: "SeeShell"
-            font_size: "18sp"
+            text: "Tap image to see identification\nor select images to delete"
+            font_size: "11sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .9, "center_y": .8}
-        Image:
-            source: "assets/logo.png"
-            size_hint: .25, .25
-            pos_hint: {"center_x": .22, "center_y": .8}
+            pos_hint: {"center_x": .5, "center_y": .9}
 
+        # IF WE CANNOT FIGURE OUT HOW TO ANCHOR THIS PART TO THE BOTTOM, JUST PUT IT AT THE TOP IF WORST COMES TO WORST
         MDRoundFlatButton:
-            text: "Delete Photo"
+            text: "SELECT IMAGES"
+            id: delete_button
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .3}
+            pos_hint: {"center_x": .7, "center_y": .8}
             size_hint: .8, .07
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: self.parent.parent.delete_image()
+            text_color: 79/255, 193/255, 233/255, 1
+            on_press: root.delete_image()
 
-        MDRectangleFlatButton:
-            text: "GO BACK TO CAMERA"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .25, "center_y": .2}
-            size_hint: None, None
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'capture_screen'
-            
-        MDRectangleFlatButton:
-            text: "VIEW INFO"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .25, "center_y": .2}
-            size_hint: None, None
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'blurb_screen'
-            
-    ScrollView:
-        pos_hint: {"center_x": .5, "top": .75}
-        GridLayout:
-            pos_hint: {"center_x": .5}
-            size_hint: (None,None)
-            id: ImageLayout
-            cols: 3
-            spacing: (25,0)
+
+        ScrollView:
+            pos_hint: {"center_x": .5, "top": .75}
+            GridLayout:
+                pos_hint: {"center_x": .5}
+                size_hint: (None,None)
+                id: ImageLayout
+                cols: 3
+                spacing: (25,0)
 
 
 ScreenManager:
