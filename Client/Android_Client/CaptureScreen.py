@@ -8,8 +8,11 @@ from kivy.app import App
 from apscheduler.schedulers.background import BackgroundScheduler
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
+import camera4kivy
 import os
+import shutil
 import time
 import uuid
 from PIL import Image
@@ -17,29 +20,40 @@ from PIL import Image
 
 class captureScreen(SeeShellScreen):
     images = ListProperty([])
+    def on_pre_enter(self, *args):
+        self.ids.camera.connect_camera(filepath_callback=self.mv_photo)
+    def on_pre_leave(self):
+        self.ids.camera.disconnect_camera()
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
         self.api = SeeShellScreen.api
+    def mv_photo(self, file_path):
+        print('called')
+        filename = file_path.split('/')[-1]
+        img_id = str(uuid.uuid4())
+        with open(file_path, 'rb') as f:
+            self.api.uploadImage(img_id, f)
+            f.close()
+        shutil.move(file_path, 'Photos')
+        newname = "{}.jpg".format(img_id)
+        newpath = os.path.join('Photos', newname)
+        oldpath = os.path.join('Photos', filename)
+        os.rename(oldpath, newpath)
 
     def take_photo(self, *args):
         camera = self.ids.camera
         img_id = str(uuid.uuid4())
-        camera.texture.save(f'Photos/{img_id}.png')
-        
-        image = Image.open(f'Photos/{img_id}.png')
-        image = image.transpose(Image.FLIP_TOP_BOTTOM)
-        image = image.resize((400, 300))
-        image.save(f'Photos/{img_id}.png')
-        
-        with open(f'Photos/{img_id}.png', 'rb') as f:
-            self.api.uploadImage(img_id,f)
-            f.close()
-        popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting\nfor identification.  You\ncan check results\nin the gallery.'),
-                      size_hint=(None, None), size=(200, 200))
-        popup.open()
-        super().check_for_identification(img_id, 5)
+        camera.capture_photo()
+        # camera.texture.save(f'Photos/{img_id}.png')
+        # with open(f'Photos/{img_id}.png', 'rb') as f:
+        #     self.api.uploadImage(img_id,f)
+        #     f.close()
+        # popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting\nfor identification.  You\ncan check results\nin the gallery.'),
+        #               size_hint=(None, None), size=(200, 200))
+        # popup.open()
+        # super().check_for_identification(img_id, 5)
         print("Photo saved")
 
     def add_image(self, *args):

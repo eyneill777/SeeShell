@@ -34,6 +34,7 @@ import os
 import json
 import sys
 import time
+import camera4kivy
 sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
 from AccountScreen import accountScreen
@@ -45,6 +46,8 @@ from BlurbScreen import blurbScreen
 class MyApp(MDApp):
     def build(self):
         Window.size = (360, 640)
+        self.width = Window.width
+        self.height = Window.height
         return Builder.load_file('layout.kv')
 
 

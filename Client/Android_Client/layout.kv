@@ -159,10 +159,11 @@
             on_press: root.create_account()
 
 <captureScreen>:
-    Camera:
+    Preview:
         id: camera
-        resolution: (640, 480)
-        play: True
+        aspect_ratio: '4:3'
+        orientation: "landscape"
+        letterbox_color: 1, 1, 1, 1
     MDFloatLayout:
         MDLabel:
             text: "SeeShell"
