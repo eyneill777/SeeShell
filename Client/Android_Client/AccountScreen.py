@@ -1,8 +1,6 @@
 from SeeShellScreen import SeeShellScreen
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
-from kivy.lang import Builder
-from kivy.uix.floatlayout import FloatLayout
 import re
 
 class accountScreen(SeeShellScreen):

@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = loginscreen
+title = SeeShell
 
 # (str) Package name
-package.name = myapp
+package.name = seeshell
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.seeshell
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -47,7 +47,7 @@ requirements = python3,kivy,kivymd,pillow,requests,apscheduler,tzlocal,pytz,setu
 #presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-#icon.filename = %(source.dir)s/data/icon.png
+#icon.filename = home/thomassmith/Documents/SeeShell/Client/Android_Client/assets/logo.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
@@ -95,7 +95,7 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = android.permission.INTERNET
+android.permissions = android.permission.INTERNET,android.permission.WRITE_EXTERNAL_STORAGE,android.permission.READ_EXTERNAL_STORAGE,android.permission.CAMERA
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host

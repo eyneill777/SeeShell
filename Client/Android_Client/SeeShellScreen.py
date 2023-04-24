@@ -2,9 +2,6 @@ from kivy.uix.screenmanager import Screen
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import json
-import sys
-import time
-sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
 
 

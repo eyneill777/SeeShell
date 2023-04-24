@@ -1,13 +1,7 @@
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from apscheduler.schedulers.background import BackgroundScheduler
-from kivy.lang import Builder
-from kivy.uix.floatlayout import FloatLayout
 from SeeShellScreen import SeeShellScreen
-import os
-import sys
-sys.path.append(os.path.abspath("../"))
-
 
 class LoginScreen(SeeShellScreen):
 

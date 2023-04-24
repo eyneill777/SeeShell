@@ -33,9 +33,8 @@ import re
 import os
 import json
 import sys
-import time
+import uuid
 import camera4kivy
-sys.path.append(os.path.abspath("../"))
 import seeshell_client_common as common
 from AccountScreen import accountScreen
 from LoginScreen import LoginScreen

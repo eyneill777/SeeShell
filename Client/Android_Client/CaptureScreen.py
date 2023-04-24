@@ -1,21 +1,11 @@
 from SeeShellScreen import SeeShellScreen
-from kivy.clock import mainthread
-from kivy.uix.label import Label
-from kivy.uix.popup import Popup
-from kivy.uix.camera import Camera
 from kivy.properties import ListProperty
 from kivy.app import App
 from apscheduler.schedulers.background import BackgroundScheduler
-from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
-from kivy.uix.floatlayout import FloatLayout
-import camera4kivy
 import os
 import shutil
-import time
 import uuid
-from PIL import Image
 
 
 class captureScreen(SeeShellScreen):
@@ -44,16 +34,7 @@ class captureScreen(SeeShellScreen):
 
     def take_photo(self, *args):
         camera = self.ids.camera
-        img_id = str(uuid.uuid4())
         camera.capture_photo()
-        # camera.texture.save(f'Photos/{img_id}.png')
-        # with open(f'Photos/{img_id}.png', 'rb') as f:
-        #     self.api.uploadImage(img_id,f)
-        #     f.close()
-        # popup = Popup(title='Success!', content=Label(text='Image uploaded, waiting\nfor identification.  You\ncan check results\nin the gallery.'),
-        #               size_hint=(None, None), size=(200, 200))
-        # popup.open()
-        # super().check_for_identification(img_id, 5)
         print("Photo saved")
 
     def add_image(self, *args):

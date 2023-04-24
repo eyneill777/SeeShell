@@ -1,11 +1,7 @@
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.animation import Animation
 from kivy.properties import BooleanProperty
 from kivy.uix.image import Image
-from kivy.properties import ListProperty
-from kivy.uix.scrollview import ScrollView
-from kivy.lang import Builder
 from SeeShellScreen import SeeShellScreen
 from BlurbScreen import blurbScreen
 import os

@@ -1,9 +1,6 @@
 from SeeShellScreen import SeeShellScreen
-from kivy.properties import StringProperty
-from kivy.lang import Builder
 from kivy.uix.image import Image
 import os
-import sys
 import json
 
 
@@ -11,8 +8,10 @@ class blurbScreen(SeeShellScreen):
     target = None
     def on_pre_enter(self, *args):
         self.ids.blurb_label.text = self.get_species_info(blurbScreen.target)
-        filename = blurbScreen.target+'.png'
-        file_path = os.path.join('Photos', filename)
+        for filename in os.listdir('Photos'):
+            if blurbScreen.target in filename and filename.split('.')[1] != '.json':
+                file_path = os.path.join('Photos', filename)
+                break
         self.add_widget(Image(source=file_path, pos_hint = {"top": 1.35}))
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
