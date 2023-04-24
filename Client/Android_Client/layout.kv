@@ -238,23 +238,23 @@
             font_name: "assets/poppins/Poppins-Regular.ttf"
             pos_hint: {"center_x": .615, "center_y": .949}
 
-        # IF WE CANNOT FIGURE OUT HOW TO ANCHOR THIS PART TO THE BOTTOM, JUST PUT IT AT THE TOP IF WORST COMES TO WORST
+        MDLabel:
+            text: "Tap image to see identification\nor select images to delete"
+            font_size: "11sp"
+            font_name: "assets/poppins/Poppins-Regular.ttf"
+            pos_hint: {"center_x": .5, "center_y": .9}
 
+        # IF WE CANNOT FIGURE OUT HOW TO ANCHOR THIS PART TO THE BOTTOM, JUST PUT IT AT THE TOP IF WORST COMES TO WORST
         MDRoundFlatButton:
-            text: "View Info"
+            text: "SELECT IMAGES"
+            id: delete_button
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .3}
-            size_hint: .8, .07
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'blurb_screen'
-        MDRoundFlatButton:
-            text: "Delete Photo"
-            font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .2}
+            pos_hint: {"center_x": .7, "center_y": .8}
             size_hint: .8, .07
             text_color: 79/255, 193/255, 233/255, 1
-            on_press: self.parent.parent.delete_image()
+            on_press: root.delete_image()
+
+
         ScrollView:
             pos_hint: {"center_x": .5, "top": .75}
             GridLayout:
