@@ -1,0 +1,9 @@
+tensorflow
+matplotlib
+simplejson
+ibm_watson_machine_learning
+sqlalchemy
+flask
+bcrypt
+cryptography
+pymysql

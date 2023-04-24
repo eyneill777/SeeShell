@@ -1,0 +1,5 @@
+kivy
+kivymd
+camera4kivy
+requests
+apscheduler
