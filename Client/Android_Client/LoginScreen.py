@@ -29,7 +29,7 @@ class LoginScreen(SeeShellScreen):
 
         else:
             popup = Popup(title='Error', content=Label(text=responseText),
-                              size_hint=(None, None), size=(200, 200))
+                              size_hint=(None, None), size=(500, 150))
             popup.open()
 
 

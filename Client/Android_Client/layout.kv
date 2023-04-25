@@ -218,17 +218,14 @@
             user_font_size: "35sp"
             on_release: root.manager.current = 'capture_screen'
             pos_hint: {"center_x": .1, "center_y": .949}
-        MDLabel:
-            text: "Back"
-            font_size: "18sp"
-            font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .615, "center_y": .949}
+
 
         MDLabel:
-            text: "Tap image to see identification\nor select images to delete"
+            text: "Tap image to see identification \nor select images to delete"
             font_size: "11sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": 0.8, "center_y": .87}
+            pos_hint: {"center_x": 0.5, "center_y": .2}
+            halign: 'center'
 
         # IF WE CANNOT FIGURE OUT HOW TO ANCHOR THIS PART TO THE BOTTOM, JUST PUT IT AT THE TOP IF WORST COMES TO WORST
         MDRoundFlatButton:
