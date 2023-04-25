@@ -3,3 +3,5 @@ kivymd
 camera4kivy
 requests
 apscheduler
+plyer
+opencv-python

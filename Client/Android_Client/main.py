@@ -33,6 +33,8 @@ import re
 import os
 import json
 import sys
+import jnius
+import plyer
 import uuid
 import camera4kivy
 import seeshell_client_common as common
@@ -41,6 +43,7 @@ from LoginScreen import LoginScreen
 from CaptureScreen import captureScreen
 from GalleryScreen import PhotoAlbum
 from BlurbScreen import blurbScreen
+from CropScreen import CropScreen
 
 class MyApp(MDApp):
     def build(self):
