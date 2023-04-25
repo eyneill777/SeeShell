@@ -19,7 +19,20 @@ class FileChoose(MDRoundFlatButton):
     def handle_selection(self, selection):
         self.selection = selection
     def on_selection(self, *args, **kwargs):
-        CropScreen.targetImagePath = str(self.selection)
+        file_path = str(self.selection).strip("['").strip("']")
+        img_id = str(uuid.uuid4())
+        with open(file_path, 'rb') as f:
+            SeeShellScreen.api.uploadImage(img_id, f)
+            f.close()
+        shutil.copy(file_path, 'Photos')
+        img_id = str(uuid.uuid4())
+        filename = file_path.split('/')[-1]
+        filetype = filename.split('.')[1]
+        newname = "{}.{}".format(img_id,filetype)
+        newpath = os.path.join('Photos', newname)
+        oldpath = os.path.join('Photos', filename)
+        os.rename(oldpath, newpath)
+        CropScreen.targetImagePath = newpath
         FileChoose.screen.manager.current = "crop_screen"
 
 
@@ -45,7 +58,8 @@ class captureScreen(SeeShellScreen):
             self.api.uploadImage(img_id, f)
             f.close()
         shutil.move(file_path, 'Photos')
-        newname = "{}.jpg".format(img_id)
+        filetype = filename.split('.')[1]
+        newname = "{}.{}".format(img_id, filetype)
         newpath = os.path.join('Photos', newname)
         oldpath = os.path.join('Photos', filename)
         os.rename(oldpath, newpath)
