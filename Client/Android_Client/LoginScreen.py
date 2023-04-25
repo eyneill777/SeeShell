@@ -23,10 +23,6 @@ class LoginScreen(SeeShellScreen):
 
         if responseText == 'Success':
             self.api.username = email
-            popup_content = Label(text='Login Successful')
-            popup = Popup(title = 'Success!', content=popup_content,
-                    size_hint = (None,None), size = (200,200))
-            popup.open()
             self.check_message()
             super().get_unmatched_images()
             self.manager.current = 'capture_screen'
@@ -36,6 +32,4 @@ class LoginScreen(SeeShellScreen):
                               size_hint=(None, None), size=(200, 200))
             popup.open()
 
-    #def go_to_create_account(self):
-        #pass
-        #self.manager.current = 'create_account_screen'
+
