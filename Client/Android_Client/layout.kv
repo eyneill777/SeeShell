@@ -36,9 +36,6 @@
                 source: "assets/user.png"
                 pos_hint: {"center_x": .96, "center_y": .5}
                 size_hint: .5, .5
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": 0}
-                size_hint_y: .03
         MDFloatLayout:
             size_hint: .79, .08
             pos_hint: {"center_x": .5, "center_y": .4}
@@ -55,9 +52,6 @@
                 source: "assets/key.png"
                 pos_hint: {"center_x": .96, "center_y": .5}
                 size_hint: .4, .4
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": 0}
-                size_hint_y: .03
         MDRoundFlatButton:
             text: "LOGIN"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
@@ -167,14 +161,13 @@
     MDFloatLayout:
         MDLabel:
             text: "SeeShell"
-            font_size: "20sp"
+            font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .96}
+            pos_hint: {"center_x": .9, "center_y": .85}
         Image:
             source: "assets/logo.png"
-            size_hint: .2, .2
-            pos_hint: {"center_x": .5, "center_y": .86}
+            size_hint: .25, .25
+            pos_hint: {"center_x": .22, "center_y": .85}
         MDRoundFlatButton:
             text: "Take Photo"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
