@@ -193,14 +193,6 @@
 
 <blurbScreen>:
     FloatLayout:
-        MDRectangleFlatButton:
-            text: "BACK"
-            font_name: "assets/poppins/Poppins-Medium.ttf"
-            pos_hint: {"center_x": .25, "center_y": .2}
-            size_hint: None, None
-            text_color: 1, 1, 1, 1
-            md_bg_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'gallery_screen'
         MDLabel:
             id: blurb_label
             text: "We haven't gotten this shell identified yet.  Please check back later"
@@ -243,19 +235,18 @@
             text: "SELECT IMAGES"
             id: delete_button
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .7, "center_y": .8}
+            pos_hint: {"center_x": .5, "center_y": .75}
             size_hint: .8, .07
             text_color: 79/255, 193/255, 233/255, 1
             on_press: root.delete_image()
 
-
         ScrollView:
-            pos_hint: {"center_x": .5, "top": .75}
+            pos_hint: {"center_x": .5, "top": .6}
             GridLayout:
                 pos_hint: {"center_x": .5}
-                size_hint: (None,None)
+                size_hint: (None, None)
                 id: ImageLayout
-                cols: 3
+                cols: 2
                 spacing: (25,0)
 
 
