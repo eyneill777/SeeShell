@@ -44,7 +44,6 @@ from BlurbScreen import blurbScreen
 
 class MyApp(MDApp):
     def build(self):
-        Window.size = (360, 640)
         self.width = Window.width
         self.height = Window.height
         return Builder.load_file('layout.kv')
