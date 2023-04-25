@@ -55,7 +55,7 @@ class PhotoAlbum(SeeShellScreen):
         self.directory_path = 'Photos'
         self.selecting = False
         self.cancel_widget = MDRoundFlatButton(text="Cancel", font_name="assets/poppins/Poppins-SemiBold.ttf",
-                                               pos_hint={"center_x": .7, "center_y": .9}, size_hint=(.8,.07),
+                                               pos_hint={"center_x": .5, "center_y": .06}, size_hint=(.8,.07),
                                                text_color=(79/255, 193/255, 233/255, 1), on_press=self.change_selecting)
 
     def change_selecting(self,button):

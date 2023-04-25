@@ -228,26 +228,28 @@
             text: "Tap image to see identification\nor select images to delete"
             font_size: "11sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .5, "center_y": .9}
+            pos_hint: {"center_x": 0.8, "center_y": .87}
 
         # IF WE CANNOT FIGURE OUT HOW TO ANCHOR THIS PART TO THE BOTTOM, JUST PUT IT AT THE TOP IF WORST COMES TO WORST
         MDRoundFlatButton:
             text: "SELECT IMAGES"
             id: delete_button
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .75}
+            pos_hint: {"center_x": .5, "center_y": .13}
             size_hint: .8, .07
             text_color: 79/255, 193/255, 233/255, 1
             on_press: root.delete_image()
 
         ScrollView:
-            pos_hint: {"center_x": .5, "top": .6}
+            pos_hint: {"center_x": 0.6, "center_y": 0.5}
+            size_hint: (0.8, 0.5)
+            do_scroll_y: True
+            do_scroll_x: False
             GridLayout:
-                pos_hint: {"center_x": .5}
                 size_hint: (None, None)
                 id: ImageLayout
                 cols: 2
-                spacing: (25,0)
+                spacing: (10,0)
 
 
 ScreenManager:
