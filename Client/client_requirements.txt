@@ -5,3 +5,4 @@ requests
 apscheduler
 plyer
 opencv-python
+pyjnius
