@@ -4,7 +4,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from SeeShellScreen import SeeShellScreen
 
 class LoginScreen(SeeShellScreen):
-
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         self.scheduler = BackgroundScheduler()
@@ -12,6 +11,8 @@ class LoginScreen(SeeShellScreen):
 
 
     def authenticate(self):
+        SeeShellScreen.setAPI(self.ids.ip_input.text)  ##remove when/if server on static IP
+        self.api = SeeShellScreen.api  ##remove when/if server on static IP
         print('authentication called')
         email_input = self.ids.email_input
         password_input = self.ids.password_input
@@ -23,7 +24,6 @@ class LoginScreen(SeeShellScreen):
 
         if responseText == 'Success':
             self.api.username = email
-            self.check_message()
             super().get_unmatched_images()
             self.manager.current = 'capture_screen'
 

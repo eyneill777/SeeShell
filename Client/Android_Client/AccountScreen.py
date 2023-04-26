@@ -9,6 +9,8 @@ class accountScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def create_account(self):
+        SeeShellScreen.setAPI(self.ids.ip_input.text)  ##remove when/if server on static IP
+        self.api = SeeShellScreen.api  ##remove when/if server on static IP
         email_input = self.ids.email_input
         username_input = self.ids.username_input
         password_input = self.ids.password_input

@@ -7,6 +7,7 @@ import json
 class blurbScreen(SeeShellScreen):
     target = None
     def on_pre_enter(self, *args):
+        self.api = SeeShellScreen.api  ##remove when/if server on static IP
         self.ids.blurb_label.text = self.get_species_info(blurbScreen.target)
         for filename in os.listdir('Photos'):
             if blurbScreen.target in filename and filename.split('.')[1] != '.json':

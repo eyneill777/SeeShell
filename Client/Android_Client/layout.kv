@@ -32,6 +32,14 @@
                 size_hint: None, None
                 size: 250, 48
                 pos_hint: {"center_x": .45, "center_y": .5}
+            MDTextField:
+                id: ip_input
+                hint_text: "server_ip"
+                font_name: "assets/poppins/Poppins-Medium.ttf"
+                helper_text_mode: "on_focus"
+                size_hint: None, None
+                size: 250, 48
+                pos_hint: {"center_x": .45, "center_y": 1}
             Image:
                 source: "assets/user.png"
                 pos_hint: {"center_x": .96, "center_y": .5}
@@ -117,6 +125,14 @@
             size_hint: None, None
             size: 250, 48
             pos_hint: {"center_x": .45, "center_y": .5}
+        MDTextField:
+            id: ip_input
+            hint_text: "server_ip"
+            font_name: "assets/poppins/Poppins-Medium.ttf"
+            helper_text_mode: "on_focus"
+            size_hint: None, None
+            size: 250, 48
+            pos_hint: {"center_x": .45, "center_y": .6}
         MDTextField:
             id: username_input
             hint_text: "Username"

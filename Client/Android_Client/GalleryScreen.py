@@ -69,7 +69,7 @@ class PhotoAlbum(SeeShellScreen):
             for widget in selected_widgets:
                 id = widget.id
                 self.ids.ImageLayout.remove_widget(widget)
-                for extension in [".png", ".json", "jpg"]:
+                for extension in [".png", ".json", ".jpg", ".PNG", ".JSON", ".JPG", ".jpeg", ".JPEG"]:
                     file_path = os.path.join(self.directory_path, id + extension)
                     try:
                         os.remove(file_path)
