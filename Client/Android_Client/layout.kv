@@ -226,6 +226,8 @@
             font_size: "18sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
             pos_hint: {"center_x": .615, "center_y": .15}
+    MDFloatLayout:
+        id: layout
 
 <PhotoAlbum>: 
     MDFloatLayout:
@@ -264,6 +266,9 @@
                 cols: 2
                 spacing: (10,0)
 
+<CropScreen>
+    MDFloatLayout:
+        id: layout
 
 ScreenManager:
     LoginScreen:

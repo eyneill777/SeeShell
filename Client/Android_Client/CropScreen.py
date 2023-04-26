@@ -10,15 +10,15 @@ class CropScreen(SeeShellScreen):
         self.load_photo()
 
     def on_leave(self, *args):
-        self.clear_widgets()
+        self.ids.layout.clear_widgets()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def load_photo(self):
-        self.add_widget(Image(source=CropScreen.targetImagePath, pos_hint={"center_y": .75}, nocache=True))
-        self.add_widget(
-            Button(text="Crop", size_hint=(1, .1), pos_hint={"center_y": .25}, on_release=self.crop_photo))
+        self.ids.layout.add_widget(Image(source=CropScreen.targetImagePath, pos_hint={"center_y": .75}, nocache=True))
+        self.ids.layout.add_widget(
+            Button(text="Crop", size_hint=(1, .1), pos_hint={"center_y": .1}, on_release=self.crop_photo))
     def crop_photo(self,button):
         image = cv2.imread(CropScreen.targetImagePath)
         print(image.shape)
