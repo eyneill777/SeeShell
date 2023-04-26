@@ -81,6 +81,7 @@ class PhotoAlbum(SeeShellScreen):
         else:
             self.selecting = not self.selecting
             self.ids.delete_button.text = "DELETE IMAGES"
+            self.ids['delete_button'].text_color = 1, 0, 0, 1
             self.add_widget(self.cancel_widget)
 
     def clean_up_jsons(self):
