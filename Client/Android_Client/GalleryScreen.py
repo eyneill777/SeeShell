@@ -93,7 +93,10 @@ class PhotoAlbum(SeeShellScreen):
         for filename in photos_folder:
             id, ext = filename.split('.')[0], filename.split('.')[1]
             if ext != 'json':
-                ids_to_delete.remove(id)
+                try:
+                    ids_to_delete.remove(id)
+                except ValueError:
+                    pass
         for id in ids_to_delete:
             filepath = os.path.join(self.directory_path, id + '.json')
             os.remove(filepath)

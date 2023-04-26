@@ -21,7 +21,6 @@ class CropScreen(SeeShellScreen):
             Button(text="Crop", size_hint=(1, .1), pos_hint={"center_y": .1}, on_release=self.crop_photo))
     def crop_photo(self,button):
         image = cv2.imread(CropScreen.targetImagePath)
-        print(image.shape)
         height = image.shape[0]
         width = image.shape[1]
         if height/width > .75:
