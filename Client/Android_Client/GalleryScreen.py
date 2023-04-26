@@ -57,10 +57,12 @@ class PhotoAlbum(SeeShellScreen):
         self.selecting = False
         self.cancel_widget = MDRoundFlatButton(text="Cancel", font_name="assets/poppins/Poppins-SemiBold.ttf",
                                                pos_hint={"center_x": .5, "center_y": .06}, size_hint=(.8,.07),
-                                               text_color=(79/255, 193/255, 233/255, 1), on_press=self.change_selecting)
+                                               text_color=(79/255, 193/255, 233/255, 1), on_press=self.cancel)
 
-    def change_selecting(self,button):
+    def cancel(self,button):
         self.remove_widget(button)
+        self.ids.delete_button.text = "SELECT IMAGES"
+        self.ids['delete_button'].text_color = 79/255, 193/255, 233/255, 1
         self.selecting = not self.selecting
     def delete_image(self):
         if self.selecting:
@@ -78,6 +80,7 @@ class PhotoAlbum(SeeShellScreen):
                         pass
             self.clean_up_jsons()
             self.ids.delete_button.text = "SELECT IMAGES"
+            self.ids['delete_button'].text_color = 79 / 255, 193 / 255, 233 / 255, 1
         else:
             self.selecting = not self.selecting
             self.ids.delete_button.text = "DELETE IMAGES"
@@ -117,5 +120,5 @@ class PhotoAlbum(SeeShellScreen):
         for file in paths:
             uuid = file.split('.')[0]
             ext = '.'+file.split('.')[1]
-            wimg = SelectableImage(source=paths[file], id= uuid, ext=ext, screen=self, size_hint=(None, None))
+            wimg = SelectableImage(source=paths[file], id= uuid, ext=ext, screen=self)
             self.ids.ImageLayout.add_widget(wimg)

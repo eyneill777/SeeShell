@@ -39,7 +39,6 @@ class SeeShellScreen(Screen):
                 pass
             
     def check_for_identification(self, id, interval):
-        print('called')
         self.scheduler.add_job(self.check_message, 'interval', seconds=interval, id=id, args=())
         self.jobs.append(id)
 
