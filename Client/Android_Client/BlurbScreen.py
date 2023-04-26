@@ -9,16 +9,15 @@ class blurbScreen(SeeShellScreen):
     target = None
     def on_pre_enter(self, *args):
         self.api = SeeShellScreen.api  ##remove when/if server on static IP
-        if not self.has_info(blurbScreen.target):
+        if not self.has_info(blurbScreen.target.split('.')[0]):
             self.ids.blurb_label.text = "We haven't gotten this shell identified yet.  Please check back later"
+            img_file_path = os.path.join('Photos', blurbScreen.target)
         else:
-            for filename in os.listdir('Photos'):
-                if blurbScreen.target in filename and filename.split('.')[1] == 'json':
-                    json_file_path = os.path.join('Photos', filename)
-                if blurbScreen.target in filename and 'map' in filename:
-                    map_file_path = os.path.join('Photos', filename)
-                elif blurbScreen.target in filename and filename.split('.')[1] != 'json':
-                    img_file_path = os.path.join('Photos', filename)
+            id = blurbScreen.target.split('.')[0]
+            json_file_path = os.path.join('Photos', id+'.json')
+            print(json_file_path)
+            # map_file_path = os.path.join('Photos', filename)
+            img_file_path = os.path.join('Photos', blurbScreen.target)
             with open(json_file_path, 'r') as f:
                 shell_dict = json.load(f)
             shell_dict = self.api.clean_data(shell_dict)

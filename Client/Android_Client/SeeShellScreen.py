@@ -52,6 +52,7 @@ class SeeShellScreen(Screen):
         files = {}
         for filename in os.listdir(directory_path):
             Id, filetype = filename.split('.')
+            print(Id,filetype)
             if Id in files:
                 files[Id].append(filetype)
             else:

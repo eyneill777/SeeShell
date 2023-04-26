@@ -15,11 +15,12 @@ import os
 class SelectableImage(ButtonBehavior, Image):
     selected = BooleanProperty(False)
 
-    def __init__(self, id, screen, **kwargs):
+    def __init__(self, id, ext, screen, **kwargs):
         super(SelectableImage, self).__init__(**kwargs)
         self.allow_stretch = True
         self.api = SeeShellScreen.api
         self.id = id
+        self.ext = ext
         self.screen = screen
 
     def on_press(self):
@@ -36,7 +37,7 @@ class SelectableImage(ButtonBehavior, Image):
                 animation = Animation(color=(1, 1, 1, 1), duration=0.25)
                 animation.start(self)
         else:
-            blurbScreen.target = self.id
+            blurbScreen.target = self.id + self.ext
             self.screen.manager.current = "blurb_screen"
 
 
@@ -75,14 +76,28 @@ class PhotoAlbum(SeeShellScreen):
                         os.remove(file_path)
                     except:
                         pass
+            self.clean_up_jsons()
             self.ids.delete_button.text = "SELECT IMAGES"
         else:
             self.selecting = not self.selecting
             self.ids.delete_button.text = "DELETE IMAGES"
             self.add_widget(self.cancel_widget)
 
-            
-            
+    def clean_up_jsons(self):
+        ids_to_delete = []
+        photos_folder = os.listdir(self.directory_path)
+        for filename in photos_folder:
+            id,ext = filename.split('.')[0],filename.split('.')[1]
+            if ext == 'json':
+                ids_to_delete.append(id)
+        for filename in photos_folder:
+            id, ext = filename.split('.')[0], filename.split('.')[1]
+            if ext != 'json':
+                ids_to_delete.remove(id)
+        for id in ids_to_delete:
+            filepath = os.path.join(self.directory_path, id + '.json')
+            os.remove(filepath)
+
     def load_photos(self):
         print('loading photos')
         self.ids.ImageLayout.clear_widgets()
@@ -97,5 +112,6 @@ class PhotoAlbum(SeeShellScreen):
 
         for file in paths:
             uuid = file.split('.')[0]
-            wimg = SelectableImage(source=paths[file], id= uuid, screen=self, size_hint=(None, None))
+            ext = '.'+file.split('.')[1]
+            wimg = SelectableImage(source=paths[file], id= uuid, ext=ext, screen=self, size_hint=(None, None))
             self.ids.ImageLayout.add_widget(wimg)
