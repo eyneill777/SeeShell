@@ -59,21 +59,18 @@ class SeeShellAPIClient():
         except requests.exceptions.ConnectionError as e:
             print("Connection to server failed")
 
-    def makeBlurb(self, species):
-        if species["AphiaID"] is None:
-            return 'This shell is a/an ' + species[0]
-
-        blurb = 'This shell is a/an ' + species["Accepted_SciName"]
-
-        if species["Common_Name"] != 'None' and species["Habitat"] != 'None':
-            blurb += ', commonly known as ' + species["Common_Name"] + ', and lives in a ' + species["Habitat"] + ' environment.'
-        elif species["Common_Name"] != 'None':
-            blurb += ' and is commonly known as ' + species["Common_Name"] + '.'
-        elif species["Habitat"] != '[]' or species["Habitat"] != 'None':
-            blurb += ' and can be found in a ' + species["Habitat"].lower() + ' environment. '
-
-        if species["Family"] != 'None':
-            blurb += 'It is a member of the family ' + species["Family"] + '.'
-        if species["Extinct"]:
-            blurb += 'This species is thought to be extinct.'
-        return blurb
+    def clean_data(self, shell_dict):
+        new_shell_dict = {}
+        if shell_dict["AphiaID"] == 'None':
+            new_shell_dict['Scientific Name'] = shell_dict["Scientific_Name"]
+            return new_shell_dict
+        if shell_dict['Scientific_Name'] != shell_dict['Accepted_SciName']:
+            new_shell_dict['Scientific Name'] = shell_dict["Accepted_SciName"]
+        if shell_dict["Common_Name"] != 'None':
+            new_shell_dict["Common Name"] = shell_dict["Common_Name"]
+        if shell_dict["Habitat"] != '[]' or shell_dict["Habitat"] != 'None':
+            new_shell_dict["Habitat"] = shell_dict["Habitat"]
+        if shell_dict["Family"] != 'None':
+            new_shell_dict["Family"] = shell_dict["Family"]
+        new_shell_dict["Extinct"] = shell_dict["Extinct"]
+        return new_shell_dict
