@@ -61,6 +61,7 @@ class PhotoAlbum(SeeShellScreen):
 
     def cancel(self,button):
         self.remove_widget(button)
+        self.ids.instruction.color = 0,0,0,1
         self.ids.delete_button.text = "SELECT IMAGES"
         self.ids['delete_button'].text_color = 79/255, 193/255, 233/255, 1
         self.selecting = not self.selecting
@@ -80,10 +81,12 @@ class PhotoAlbum(SeeShellScreen):
                         pass
             self.clean_up_jsons()
             self.ids.delete_button.text = "SELECT IMAGES"
+            self.ids.instruction.color = 0,0,0,1
             self.ids['delete_button'].text_color = 79 / 255, 193 / 255, 233 / 255, 1
         else:
             self.selecting = not self.selecting
             self.ids.delete_button.text = "DELETE IMAGES"
+            self.ids.instruction.color = 1,1,1,0
             self.ids['delete_button'].text_color = 1, 0, 0, 1
             self.add_widget(self.cancel_widget)
 
@@ -119,6 +122,6 @@ class PhotoAlbum(SeeShellScreen):
         for file in paths:
             uuid = file.split('.')[0]
             ext = '.'+file.split('.')[1]
-            wimg = SelectableImage(size = ((self.get_parent_window().width/3.3),(self.get_parent_window().width/3.3)),pos =(self.x - 10, self.y - 10),
+            wimg = SelectableImage(size = ((self.get_parent_window().width/3),(self.get_parent_window().width/6)),pos =(self.x - 10, self.y - 10),
                                    source=paths[file], id= uuid, ext=ext, screen=self, size_hint_y=None)
             self.ids.ImageLayout.add_widget(wimg)

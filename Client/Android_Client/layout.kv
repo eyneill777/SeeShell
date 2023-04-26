@@ -242,21 +242,22 @@
         ScrollView:
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             id: ImageLayout
-            size_hint: (0.8, 0.5)
+            size: Window.width*.8,Window.height*.5
             do_scroll_y: True
             do_scroll_x: False
 
             GridLayout:
                 id: ImageLayout
-                cols: 2
+                cols: 4
                 height: self.minimum_height
                 size_hint_y: None
-                spacing: (10,0)
+                spacing: (10,10)
 
         MDLabel:
             text: "Tap image to see identification \nor select images to delete"
             spacing: 100
-            font_size: "11sp"
+            id: instruction
+            font_size: Window.width/40
             font_name: "assets/poppins/Poppins-Regular.ttf"
             pos_hint: {"center_x": 0.5}
             size_hint: 1,0.15
