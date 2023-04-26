@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd,pillow,requests,apscheduler,tzlocal,pytz,setuptools,six,pytz_deprecation_shim,urllib3,charset_normalizer,certifi,idna,chardet,tzdata,camera4kivy,gestures4kivy,plyer
+requirements = python3,kivy,kivymd,pillow,requests,apscheduler,tzlocal,pytz,setuptools,six,pytz_deprecation_shim,urllib3,charset_normalizer,certifi,idna,chardet,tzdata,camera4kivy,gestures4kivy,plyer,opencv-python
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

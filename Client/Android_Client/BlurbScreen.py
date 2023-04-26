@@ -5,6 +5,7 @@ import kivy.core.text.markup
 import os
 import webbrowser
 import json
+import base64
 
 
 class blurbScreen(SeeShellScreen):
@@ -17,11 +18,10 @@ class blurbScreen(SeeShellScreen):
         else:
             id = blurbScreen.target.split('.')[0]
             json_file_path = os.path.join('Photos', id+'.json')
-            print(json_file_path)
-            # map_file_path = os.path.join('Photos', filename)
             img_file_path = os.path.join('Photos', blurbScreen.target)
             with open(json_file_path, 'r') as f:
                 shell_dict = json.load(f)
+            map_file_path = os.path.join("Maps", shell_dict["Scientific_Name"]+'.png')
             shell_dict = self.api.clean_data(shell_dict)
             og_pos = self.get_parent_window().height/8
             for key in shell_dict:
@@ -39,7 +39,8 @@ class blurbScreen(SeeShellScreen):
                                             pos=(0,og_pos), halign="center"))
                 og_pos -= self.get_parent_window().height/20
             self.ids.blurb_label.text = ""
-
+        if os.path.isfile(map_file_path):
+            self.ids.layout.add_widget(Image(source=map_file_path), pos=(0, og_pos))
         self.ids.layout.add_widget(Image(source=img_file_path, size_hint=(.75,.5625), pos_hint={"center_x": .5, "top":1.1}))
 
     def on_leave(self, *args):

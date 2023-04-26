@@ -54,5 +54,6 @@ class MyApp(MDApp):
 if __name__ == '__main__':
     if not os.path.exists("Photos"):
         os.makedirs("Photos")
-    
+    if not os.path.exists("Maps"):
+        os.makedirs("Maps")
     MyApp().run()
