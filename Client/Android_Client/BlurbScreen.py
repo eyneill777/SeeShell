@@ -30,6 +30,9 @@ class blurbScreen(SeeShellScreen):
             self.ids.blurb_label.text = ""
 
         self.add_widget(Image(source=img_file_path, size_hint=(.75,.5625), pos_hint={"center_x": .5, "top":1.1}))
+
+    def on_leave(self, *args):
+        self.clear_widgets()
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         self.api = SeeShellScreen.api
