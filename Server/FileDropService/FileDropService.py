@@ -92,6 +92,10 @@ class FileDropService:
             with self.engine.connect() as conn:
                 result = conn.execute(stmt)
                 dat = [r._asdict() for r in result][0]
+                stmt = select(self.tables.Family).where(self.tables.Family.c.Family == dat["Family"])
+                familyResult = conn.execute(stmt)
+                for family in familyResult:
+                    dat["Family_Link"] = family[1]
                 js = json.dumps(dat)
                 statement = insert(self.tables.Message).values(Id = id, Username = username, Data = js)
                 conn.execute(statement)

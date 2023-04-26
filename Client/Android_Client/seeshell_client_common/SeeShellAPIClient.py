@@ -72,4 +72,6 @@ class SeeShellAPIClient():
         if shell_dict["Family"] != 'None':
             new_shell_dict["Family"] = shell_dict["Family"]
         new_shell_dict["Extinct"] = shell_dict["Extinct"]
+        if "Family_Link" in shell_dict and shell_dict["Family_Link"] != "None":
+            new_shell_dict["Family_Link"] = shell_dict["Family_Link"]
         return new_shell_dict
