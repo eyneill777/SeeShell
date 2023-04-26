@@ -31,9 +31,10 @@ class SeeShellScreen(Screen):
     def check_message(self):
         messages = SeeShellScreen.api.getMessages()
         for key in messages.keys():
-            filepath = 'Photos/{}.json'.format(key)
+            filepath = os.path.join('Photos', key + '.json')
             self.saveShellInfo(json.loads(messages[key]), filepath)
             try:
+                print('worked')
                 self.remove_job(key)
             except ValueError:
                 pass

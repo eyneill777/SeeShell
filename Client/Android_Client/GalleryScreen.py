@@ -115,11 +115,10 @@ class PhotoAlbum(SeeShellScreen):
             if os.path.isfile(file_path):
                 if file_path.split('.')[1] != 'json' and file_path.split('.')[1] != 'DS_Store':
                     paths[filename] = file_path
-                    print(file_path)
 
         for file in paths:
             uuid = file.split('.')[0]
             ext = '.'+file.split('.')[1]
-            wimg = SelectableImage(size = (self.width + 100,self.height+100),pos =(self.x - 10, self.y - 10),
-                                   source=paths[file], id= uuid, ext=ext, screen=self, size_hint=(None,None))
+            wimg = SelectableImage(size = ((self.get_parent_window().width/3.3),(self.get_parent_window().width/3.3)),pos =(self.x - 10, self.y - 10),
+                                   source=paths[file], id= uuid, ext=ext, screen=self, size_hint_y=None)
             self.ids.ImageLayout.add_widget(wimg)
