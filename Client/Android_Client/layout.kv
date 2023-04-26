@@ -31,7 +31,7 @@
                 helper_text_mode: "on_focus"
                 size_hint: None, None
                 size: 250, 48
-                pos_hint: {"center_x": .45, "center_y": .5}
+                pos_hint: {"center_x": .45, "center_y": 0}
             MDTextField:
                 id: ip_input
                 hint_text: "server_ip"
@@ -42,7 +42,7 @@
                 pos_hint: {"center_x": .45, "center_y": 1}
             Image:
                 source: "assets/user.png"
-                pos_hint: {"center_x": .96, "center_y": .5}
+                pos_hint: {"center_x": .96, "center_y": 0}
                 size_hint: .5, .5
         MDFloatLayout:
             size_hint: .79, .08
