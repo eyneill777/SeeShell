@@ -40,7 +40,6 @@ class blurbScreen(SeeShellScreen):
             return False
         directory_path = 'Photos'
         file_path = os.path.join(directory_path, shell + '.json')
-        if not os.path.isfile(file_path):
-           return False
-        return True
-
+        if os.path.isfile(file_path):
+           return True
+        return False
