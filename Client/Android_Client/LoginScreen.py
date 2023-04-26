@@ -2,6 +2,7 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from apscheduler.schedulers.background import BackgroundScheduler
 from SeeShellScreen import SeeShellScreen
+import time
 
 class LoginScreen(SeeShellScreen):
     def __init__(self,**kwargs):
@@ -24,7 +25,6 @@ class LoginScreen(SeeShellScreen):
 
         if responseText == 'Success':
             self.api.username = email
-            super().get_unmatched_images()
             self.manager.current = 'capture_screen'
 
         else:

@@ -34,13 +34,12 @@ class SeeShellScreen(Screen):
             filepath = os.path.join('Photos', key + '.json')
             self.saveShellInfo(json.loads(messages[key]), filepath)
             try:
-                print('worked')
                 self.remove_job(key)
             except ValueError:
                 pass
             
     def check_for_identification(self, id, interval):
-        self.scheduler.add_job(self.check_message, 'interval', seconds=interval, id=id, args=())
+        self.scheduler.add_job(self.check_message, 'interval', seconds=interval, id=id)
         self.jobs.append(id)
 
     def get_current_jobs(self):

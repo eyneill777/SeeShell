@@ -37,6 +37,7 @@ class FileChoose(MDRoundFlatButton):
 class captureScreen(SeeShellScreen):
     images = ListProperty([])
     def on_pre_enter(self, *args):
+        super().get_unmatched_images()
         self.api = SeeShellScreen.api  ##remove when/if server on static IP
         self.ids.camera.connect_camera(filepath_callback=self.mv_photo)
         FileChoose.screen = self
@@ -48,7 +49,7 @@ class captureScreen(SeeShellScreen):
         self.scheduler = BackgroundScheduler()
         self.scheduler.start()
         self.api = SeeShellScreen.api
-        self.screen = self
+
     def mv_photo(self, file_path):
         filename = file_path.split('/')[-1]
         img_id = str(uuid.uuid4())
