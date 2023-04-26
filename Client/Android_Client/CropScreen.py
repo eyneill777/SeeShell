@@ -1,7 +1,7 @@
 from SeeShellScreen import SeeShellScreen
 from kivy.uix.button import Button
 from kivy.uix.image import Image
-import cv2
+import PIL
 import os
 class CropScreen(SeeShellScreen):
     targetImagePath = None
@@ -20,18 +20,18 @@ class CropScreen(SeeShellScreen):
         self.ids.layout.add_widget(
             Button(text="Crop", size_hint=(1, .1), pos_hint={"center_y": .1}, on_release=self.crop_photo))
     def crop_photo(self,button):
-        image = cv2.imread(CropScreen.targetImagePath)
-        height = image.shape[0]
-        width = image.shape[1]
+        image = PIL.Image.open(CropScreen.targetImagePath)
+        width, height = image.size
         if height/width > .75:
+
             num_pixels_to_remove = int((height-(width*.75))/2)
-            image = image[num_pixels_to_remove:height-num_pixels_to_remove][::]
+            image.crop((0, num_pixels_to_remove, width, height - num_pixels_to_remove)).save(
+                CropScreen.targetImagePath)
         else:
-            'went in here'
             num_pixels_to_remove = int((width - (height * (4/3))) / 2)
-            image = image[::][num_pixels_to_remove:width-num_pixels_to_remove]
-        resized = cv2.resize(image, (400,300), interpolation=cv2.INTER_AREA)
-        cv2.imwrite(CropScreen.targetImagePath, resized)
+            image.crop((num_pixels_to_remove, 0, width - num_pixels_to_remove, height)).save(
+                CropScreen.targetImagePath)
+
         with open(CropScreen.targetImagePath, 'rb') as f:
             SeeShellScreen.api.uploadImage(CropScreen.targetImagePath.split('/')[-1].split('.')[0], f)
             f.close()
