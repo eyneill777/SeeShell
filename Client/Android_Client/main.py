@@ -47,8 +47,7 @@ from CropScreen import CropScreen
 
 class MyApp(MDApp):
     def build(self):
-        self.width = Window.width
-        self.height = Window.height
+        Window.size = (1080,2160)
         return Builder.load_file('layout.kv')
 
 
