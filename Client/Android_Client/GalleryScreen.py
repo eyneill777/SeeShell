@@ -122,6 +122,6 @@ class PhotoAlbum(SeeShellScreen):
         for file in paths:
             uuid = file.split('.')[0]
             ext = '.'+file.split('.')[1]
-            wimg = SelectableImage(size = ((self.get_parent_window().width/3),(self.get_parent_window().width/6)),pos =(self.x - 10, self.y - 10),
+            wimg = SelectableImage(size = ((self.get_parent_window().width),(self.get_parent_window().width/2.7)),pos =(self.x - 10, self.y - 10),
                                    source=paths[file], id= uuid, ext=ext, screen=self, size_hint_y=None)
             self.ids.ImageLayout.add_widget(wimg)
