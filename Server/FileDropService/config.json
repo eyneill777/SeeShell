@@ -1,7 +1,7 @@
 {
     "dropFolder": "DropFolder",
     "ignoredFiles": [".DS_Store"],
-    "approvedFileTypes": ["jpg", "jpeg", "png"],
+    "approvedFileTypes": ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
     "simulateResults": true,
     "datasetFolder": "/Users/eron/Downloads/species",
     "watson": 

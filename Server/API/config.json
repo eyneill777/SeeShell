@@ -1,6 +1,6 @@
 {
     "dropFolder": "../FileDropService/DropFolder",
-    "uploadExtensions": ["jpg", "png", "jpeg"],
+    "uploadExtensions": ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
     "username": "root",
     "password": "####",
     "host": "localhost:3306/SeeShell"
