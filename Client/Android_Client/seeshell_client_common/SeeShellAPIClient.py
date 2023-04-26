@@ -64,8 +64,7 @@ class SeeShellAPIClient():
         if shell_dict["AphiaID"] == 'None':
             new_shell_dict['Scientific Name'] = shell_dict["Scientific_Name"]
             return new_shell_dict
-        if shell_dict['Scientific_Name'] != shell_dict['Accepted_SciName']:
-            new_shell_dict['Scientific Name'] = shell_dict["Accepted_SciName"]
+        new_shell_dict['Scientific Name'] = shell_dict["Accepted_SciName"]
         if shell_dict["Common_Name"] != 'None':
             new_shell_dict["Common Name"] = shell_dict["Common_Name"]
         if shell_dict["Habitat"] != '[]' or shell_dict["Habitat"] != 'None':
