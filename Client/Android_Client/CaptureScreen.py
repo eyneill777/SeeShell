@@ -7,7 +7,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from kivy.uix.boxlayout import BoxLayout
 from plyer import filechooser
 import jnius
-import cv2
 import os
 import shutil
 import uuid
@@ -56,9 +55,6 @@ class captureScreen(SeeShellScreen):
     def mv_photo(self, file_path):
         filename = file_path.split('/')[-1]
         img_id = str(uuid.uuid4())
-        image = cv2.imread(file_path)
-        resized = cv2.resize(image, (400, 300), interpolation=cv2.INTER_AREA)
-        cv2.imwrite(file_path, resized)
         with open(file_path, 'rb') as f:
             self.api.uploadImage(img_id, f)
             f.close()
