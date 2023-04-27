@@ -68,8 +68,6 @@ class captureScreen(SeeShellScreen):
         newpath = os.path.join('Photos', newname)
         oldpath = os.path.join('Photos', filename)
         os.rename(oldpath, newpath)
-        image = PIL.Image.open(newpath)
-        image.rotate(90).save(newpath)
 
 
     def call_message_service(self, img_id):
