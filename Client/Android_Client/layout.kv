@@ -199,7 +199,9 @@
             pos_hint: {"center_x": .5, "center_y": .13}
             size_hint: .8, .07
             text_color: 79/255, 193/255, 233/255, 1
-            on_press: root.manager.current = 'gallery_screen'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'gallery_screen'
         FileChoose:
             text: "Upload Image"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
@@ -210,23 +212,21 @@
 
 <blurbScreen>:
     FloatLayout:
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'gallery_screen'
+            pos_hint: {"center_x": .1, "center_y": .9}
         MDLabel:
             id: blurb_label
             text: "We haven't gotten this shell identified yet.  Please check back later"
             font_size: "10sp"
             font_name: "assets/poppins/Poppins-Regular.ttf"
             size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .5}
-        MDIconButton:
-            icon: "chevron-left"
-            user_font_size: "35sp"
-            on_release: root.manager.current = 'gallery_screen'
-            pos_hint: {"center_x": .1, "center_y": .15}
-        MDLabel:
-            text: "Back"
-            font_size: "18sp"
-            font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .615, "center_y": .15}
+            pos_hint: {"center_x": .5, "center_y": .4}
+
     MDFloatLayout:
         id: layout
 
@@ -236,7 +236,9 @@
         MDIconButton:
             icon: "chevron-left"
             user_font_size: "35sp"
-            on_release: root.manager.current = 'capture_screen'
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'capture_screen'
             pos_hint: {"center_x": .1, "center_y": .949}
 
         ScrollView:
