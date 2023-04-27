@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from kivy.uix.boxlayout import BoxLayout
 from plyer import filechooser
 import jnius
+import PIL
 import os
 import shutil
 import uuid
@@ -53,6 +54,8 @@ class captureScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def mv_photo(self, file_path):
+        if "DCIM/SeeShell" in file_path:
+            return
         filename = file_path.split('/')[-1]
         img_id = str(uuid.uuid4())
         with open(file_path, 'rb') as f:
@@ -65,10 +68,13 @@ class captureScreen(SeeShellScreen):
         newpath = os.path.join('Photos', newname)
         oldpath = os.path.join('Photos', filename)
         os.rename(oldpath, newpath)
+        image = PIL.Image.open(newpath)
+        image.rotate(90).save(newpath)
+
 
     def call_message_service(self, img_id):
         super().check_for_identification(img_id, 5)
     def take_photo(self, *args):
         camera = self.ids.camera
+        camera.capture_photo(location="private")
         camera.capture_photo()
-        print("Photo saved")

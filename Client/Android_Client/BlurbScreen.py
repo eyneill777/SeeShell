@@ -29,19 +29,19 @@ class blurbScreen(SeeShellScreen):
                     link = shell_dict["Family_Link"]
                     text = "{}: [ref={}][u][color=#0000EE]{}[/color][/u][/ref]".format(key,link,shell_dict[key])
                     self.ids.layout.add_widget(
-                        MDLabel(text=text, font_style="H4", font_name="assets/poppins/Poppins-SemiBold.ttf",
+                        MDLabel(text=text, font_name="assets/poppins/Poppins-SemiBold.ttf",
                                 pos=(0, og_pos), halign="center", markup=True, on_ref_press=self.go_to_link))
                 else:
                     if key == "Family_Link":
                         continue
                     text = "{}: {}".format(key,shell_dict[key])
-                    self.ids.layout.add_widget(MDLabel(text=text, font_style="H4", font_name="assets/poppins/Poppins-SemiBold.ttf",
+                    self.ids.layout.add_widget(MDLabel(text=text, font_name="assets/poppins/Poppins-SemiBold.ttf",
                                             pos=(0,og_pos), halign="center"))
                 og_pos -= self.get_parent_window().height/20
             self.ids.blurb_label.text = ""
             if os.path.isfile(map_file_path):
                 self.ids.layout.add_widget(Image(source=map_file_path, pos=(0, og_pos-self.get_parent_window().height/20)))
-        self.ids.layout.add_widget(Image(source=img_file_path, size_hint=(.75,.5625), pos_hint={"center_x": .5, "top":.95}))
+        self.ids.layout.add_widget(Image(source=img_file_path, size_hint=(.75,.5625), pos_hint={"center_x": .5, "top":1.1}))
 
     def on_leave(self, *args):
         self.ids.layout.clear_widgets()
