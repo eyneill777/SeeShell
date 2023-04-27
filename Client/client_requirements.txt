@@ -4,5 +4,5 @@ camera4kivy
 requests
 apscheduler
 plyer
-opencv-python
+pillow
 pyjnius
