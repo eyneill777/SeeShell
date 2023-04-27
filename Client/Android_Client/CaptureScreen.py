@@ -18,20 +18,20 @@ class FileChoose(MDRoundFlatButton):
     def choose(self):
         filechooser.open_file(on_selection=self.handle_selection)
     def handle_selection(self, selection):
-        self.selection = selection
-    def on_selection(self, *args, **kwargs):
-        file_path = str(self.selection).strip("['").strip("']")
-        img_id = str(uuid.uuid4())
-        FileChoose.screen.call_message_service(img_id)
-        shutil.copy(file_path, 'Photos')
-        filename = file_path.split('/')[-1]
-        filetype = filename.split('.')[1]
-        newname = "{}.{}".format(img_id,filetype)
-        newpath = os.path.join('Photos', newname)
-        oldpath = os.path.join('Photos', filename)
-        os.rename(oldpath, newpath)
-        CropScreen.targetImagePath = newpath
-        FileChoose.screen.manager.current = "crop_screen"
+        self.screen.on_selection(selection)
+    # def on_selection(self, *args, **kwargs):
+        # file_path = str(self.selection).strip("['").strip("']")
+        # img_id = str(uuid.uuid4())
+        # FileChoose.screen.call_message_service(img_id)
+        # shutil.copy(file_path, 'Photos')
+        # filename = file_path.split('/')[-1]
+        # filetype = filename.split('.')[1]
+        # newname = "{}.{}".format(img_id,filetype)
+        # newpath = os.path.join('Photos', newname)
+        # oldpath = os.path.join('Photos', filename)
+        # os.rename(oldpath, newpath)
+        # CropScreen.targetImagePath = newpath
+        # FileChoose.screen.manager.current = "crop_screen"
 
 
 class captureScreen(SeeShellScreen):
@@ -54,8 +54,6 @@ class captureScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def mv_photo(self, file_path):
-        if "DCIM/SeeShell" in file_path:
-            return
         filename = file_path.split('/')[-1]
         img_id = str(uuid.uuid4())
         with open(file_path, 'rb') as f:
@@ -76,3 +74,18 @@ class captureScreen(SeeShellScreen):
         camera = self.ids.camera
         camera.capture_photo(location="private")
         camera.capture_photo()
+
+    def on_selection(self, selection):
+        print(selection)
+        file_path = str(selection).strip("['").strip("']")
+        img_id = str(uuid.uuid4())
+        FileChoose.screen.call_message_service(img_id)
+        shutil.copy(file_path, 'Photos')
+        filename = file_path.split('/')[-1]
+        filetype = filename.split('.')[1]
+        newname = "{}.{}".format(img_id,filetype)
+        newpath = os.path.join('Photos', newname)
+        oldpath = os.path.join('Photos', filename)
+        os.rename(oldpath, newpath)
+        CropScreen.targetImagePath = newpath
+        self.manager.current = "crop_screen"
