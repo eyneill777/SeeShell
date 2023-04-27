@@ -91,13 +91,10 @@
         MDIconButton:
             icon: "chevron-left"
             user_font_size: "35sp"
-            on_release: root.manager.current = 'login'
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'login'
             pos_hint: {"center_x": .1, "center_y": .949}
-        MDLabel:
-            text: "Back"
-            font_size: "18sp"
-            font_name: "assets/poppins/Poppins-Regular.ttf"
-            pos_hint: {"center_x": .615, "center_y": .949}
         MDLabel:
             text: "SeeShell"
             font_size: Window.width/8
@@ -124,16 +121,16 @@
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 250, 48
-            pos_hint: {"center_x": .45, "center_y": .5}
+            size: 175, 48
+            pos_hint: {"center_x": .3, "center_y": .5}
         MDTextField:
             id: ip_input
             hint_text: "server_ip"
             font_name: "assets/poppins/Poppins-Medium.ttf"
             helper_text_mode: "on_focus"
             size_hint: None, None
-            size: 250, 48
-            pos_hint: {"center_x": .45, "center_y": .6}
+            size: 175, 48
+            pos_hint: {"center_x": .7, "center_y": .5}
         MDTextField:
             id: username_input
             hint_text: "Username"
