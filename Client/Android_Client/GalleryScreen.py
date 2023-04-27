@@ -38,6 +38,7 @@ class SelectableImage(ButtonBehavior, Image):
                 animation.start(self)
         else:
             blurbScreen.target = self.id + self.ext
+            self.screen.manager.transition.direction = 'up'
             self.screen.manager.current = "blurb_screen"
 
 

@@ -13,7 +13,7 @@ class blurbScreen(SeeShellScreen):
     def on_pre_enter(self, *args):
         self.api = SeeShellScreen.api  ##remove when/if server on static IP
         if not self.has_info(blurbScreen.target.split('.')[0]):
-            self.ids.blurb_label.text = "We haven't gotten this shell identified yet.  Please check back later"
+            #self.ids.blurb_label.text = "We haven't gotten this shell identified yet.  Please check back later"
             img_file_path = os.path.join('Photos', blurbScreen.target)
         else:
             id = blurbScreen.target.split('.')[0]
