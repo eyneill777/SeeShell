@@ -61,12 +61,18 @@ class PhotoAlbum(SeeShellScreen):
                                                text_color=(79/255, 193/255, 233/255, 1), on_press=self.cancel)
 
     def cancel(self,button):
+        '''
+        Cancels delete
+        '''
         self.remove_widget(button)
         self.ids.instruction.color = 0,0,0,1
         self.ids.delete_button.text = "SELECT IMAGES"
         self.ids['delete_button'].text_color = 79/255, 193/255, 233/255, 1
         self.selecting = not self.selecting
     def delete_image(self):
+        '''
+        Removes image and identification from device
+        '''
         if self.selecting:
             self.remove_widget(self.cancel_widget)
             self.selecting = not self.selecting
@@ -92,6 +98,9 @@ class PhotoAlbum(SeeShellScreen):
             self.add_widget(self.cancel_widget)
 
     def clean_up_jsons(self):
+        '''
+        removes json files that have been left hanging (when an image is deleted before classified, and the message is recieved after)
+        '''
         ids_to_delete = []
         photos_folder = os.listdir(self.directory_path)
         for filename in photos_folder:
@@ -110,6 +119,9 @@ class PhotoAlbum(SeeShellScreen):
             os.remove(filepath)
 
     def load_photos(self):
+        '''
+        Loads captured and uploaded photos into scrollable gallery view
+        '''
         print('loading photos')
         self.ids.ImageLayout.clear_widgets()
         

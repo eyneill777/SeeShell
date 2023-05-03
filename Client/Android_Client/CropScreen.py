@@ -16,10 +16,16 @@ class CropScreen(SeeShellScreen):
         super().__init__(*args, **kwargs)
 
     def load_photo(self):
+        '''
+        Loads photo to be cropped into layout
+        '''
         self.ids.layout.add_widget(Image(source=CropScreen.targetImagePath, pos_hint={"center_y": .75}, nocache=True))
         self.ids.layout.add_widget(
             Button(text="Crop", size_hint=(1, .1), pos_hint={"center_y": .1}, on_release=self.crop_photo))
     def crop_photo(self,button):
+        '''
+        Automatically crops largest 4:3 ratio box possible from the center of the uploaded image
+        '''
         image = PIL.Image.open(CropScreen.targetImagePath)
         width, height = image.size
         if height/width > .75:

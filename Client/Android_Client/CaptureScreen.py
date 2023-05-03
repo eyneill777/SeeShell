@@ -19,6 +19,8 @@ class FileChoose(MDRoundFlatButton):
         filechooser.open_file(on_selection=self.handle_selection)
     def handle_selection(self, selection):
         self.screen.on_selection(selection)
+
+    # currently broken on Android, need to fix in future
     # def on_selection(self, *args, **kwargs):
         # file_path = str(self.selection).strip("['").strip("']")
         # img_id = str(uuid.uuid4())
@@ -37,6 +39,9 @@ class FileChoose(MDRoundFlatButton):
 class captureScreen(SeeShellScreen):
     images = ListProperty([])
     def on_pre_enter(self, *args):
+        '''
+        On enter checks for unidentified images and calls the message checking service, then connects camera
+        '''
         if self.check_images:
             self.check_images = False
             super().get_unmatched_images()
@@ -45,6 +50,9 @@ class captureScreen(SeeShellScreen):
         FileChoose.screen = self
 
     def on_pre_leave(self):
+        '''
+        Disconnects camera when leaving screen
+        '''
         self.ids.camera.disconnect_camera()
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
@@ -54,6 +62,9 @@ class captureScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def mv_photo(self, file_path):
+        '''
+        Moves captured photo into the Photos folder from the automatically generated date folder upon image capture
+        '''
         filename = file_path.split('/')[-1]
         img_id = str(uuid.uuid4())
         with open(file_path, 'rb') as f:
@@ -69,13 +80,23 @@ class captureScreen(SeeShellScreen):
 
 
     def call_message_service(self, img_id):
+        '''
+        Calls SeeShellScreen's check for id for the specified image on a 5 second interval
+        '''
         super().check_for_identification(img_id, 5)
     def take_photo(self, *args):
+        '''
+        Captures image
+        '''
         camera = self.ids.camera
         camera.capture_photo(location="private")
         camera.capture_photo()
 
+    # currently broken on Android, need to fix in future
     def on_selection(self, selection):
+        '''
+        Copies uploaded photo into Photos folder then sends you to crop screen
+        '''
         print(selection)
         file_path = str(selection).strip("['").strip("']")
         img_id = str(uuid.uuid4())

@@ -12,6 +12,9 @@ class LoginScreen(SeeShellScreen):
 
 
     def authenticate(self):
+        '''
+        Captures user input and provides it to API client to validate
+        '''
         SeeShellScreen.setAPI(self.ids.ip_input.text)  ##remove when/if server on static IP
         self.api = SeeShellScreen.api  ##remove when/if server on static IP
         print('authentication called')

@@ -12,7 +12,10 @@ class SeeShellAPIClient():
         self.scheduler.start()
 
     # Upload Image to Server
-    def uploadImage(self, id, file):
+    def uploadImage(self, file, id):
+        '''
+        Attempts to upload the provided file to the server, with the specified id for later message retrieval
+        '''
         returnText = "Image Upload Failed - Generic Error"
         files = {"file": file}
         headers = {'id': id, "userName": self.username, "apiKey": "1234"}
@@ -25,6 +28,9 @@ class SeeShellAPIClient():
 
     # Authenticate
     def checkPass(self, username, password):
+        '''
+        Sends a user's username and password to the server for account validation
+        '''
         returnText = "Password Check Failed - Generic Error"
         headers = {"username": username, "password": password}
         try:
@@ -39,6 +45,9 @@ class SeeShellAPIClient():
 
     # Create New Account
     def createAccount(self, username, email, password):
+        '''
+        Sends a new user's username, email and password to the server for account validation and creation
+        '''
         returnText = "Account Creation Failed - Generic Error"
         try:
             headers = {"username": username, "email": email, "password": password}
@@ -52,6 +61,9 @@ class SeeShellAPIClient():
         return returnText
 
     def getMessages(self):
+        '''
+        Sends a request to the server to check for new messages and return them if any exist
+        '''
         headers = {"Username": self.username}
         try:
             response = requests.get(self.url + "/getMessages/", headers=headers)
@@ -60,6 +72,9 @@ class SeeShellAPIClient():
             print("Connection to server failed")
 
     def clean_data(self, shell_dict):
+        '''
+        Cleans stored shell data for cleaner presentation in blurb screen
+        '''
         new_shell_dict = {}
         if shell_dict["AphiaID"] == 'None':
             new_shell_dict['Scientific Name'] = shell_dict["Scientific_Name"]

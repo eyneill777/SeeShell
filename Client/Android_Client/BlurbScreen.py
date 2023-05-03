@@ -11,9 +11,12 @@ import base64
 class blurbScreen(SeeShellScreen):
     target = None
     def on_pre_enter(self, *args):
+        '''
+        Called when entering the screen, populates the screen with captured shell image and relevant information about it if it has been identified
+        '''
         self.api = SeeShellScreen.api  ##remove when/if server on static IP
         if not self.has_info(blurbScreen.target.split('.')[0]):
-            #self.ids.blurb_label.text = "We haven't gotten this shell identified yet.  Please check back later"
+            self.ids.blurb_label.text = "We haven't gotten this shell \nidentified yet. Please check back later."
             img_file_path = os.path.join('Photos', blurbScreen.target)
         else:
             id = blurbScreen.target.split('.')[0]
@@ -50,6 +53,9 @@ class blurbScreen(SeeShellScreen):
         self.api = SeeShellScreen.api
 
     def has_info(self, shell):
+        '''
+        Checks for shell identification status
+        '''
         if shell is None:
             return False
         directory_path = 'Photos'
@@ -59,4 +65,7 @@ class blurbScreen(SeeShellScreen):
         return False
 
     def go_to_link(self,label,link):
+        '''
+        Opens up clickable link
+        '''
         webbrowser.open(link)

@@ -37,6 +37,7 @@ import jnius
 import plyer
 import uuid
 import camera4kivy
+sys.path.append('../')
 import seeshell_client_common as common
 from AccountScreen import accountScreen
 from LoginScreen import LoginScreen
