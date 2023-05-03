@@ -9,7 +9,14 @@ with open("config.json", "r") as f:
     config = json.load(f)
 
 class TrainingInstance:    
+    """
+    Trains a Tensorflow image classifier and saves the model to a file.
+    """
+    
     def __init__(self):
+        """
+        Initialize the training session.  Creates a dataset object from the available data, trains a model, and then visualizes the results.
+        """
         with open("config.json", "r") as f:
             self.config = json.load(f)
         self.initializeDatasets()
@@ -17,10 +24,16 @@ class TrainingInstance:
         self.visualizeResults()
         
     def initializeDatasets(self):
+        """
+        Loads the image data and saves it as a class object
+        """
         inputDir = self.config["genusPath"]
         self.dataset = Dataset(inputDir, self.config)
     
     def trainModel(self):
+        """
+        Initialize the model and train it on the dataset, saving each epoch.
+        """
         self.model = Model(self.config, len(self.dataset.classNames))
         self.model.compile(optimizer='adam', loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
         
@@ -31,6 +44,9 @@ class TrainingInstance:
         tf.saved_model.save(self.model, 'model_prod')
         
     def visualizeResults(self):
+        """
+        Display plots of the accuracy and loss of both datasets over the course of the training session.
+        """
         acc = self.history.history['accuracy']
         val_acc = self.history.history['val_accuracy']
 

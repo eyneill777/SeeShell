@@ -4,6 +4,9 @@ import json
 
 class Tables():
     def __init__(self):
+        """
+        Common library of ORM objects which defines each of the data models in the SeeShell database.  Intended for server side use only, and database transactions should only be done through these ORM models.
+        """
         with open("../Database/config.json", "r") as f:
             self.config = json.load(f)
         self.metadata_obj = MetaData()

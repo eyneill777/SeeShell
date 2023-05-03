@@ -6,6 +6,10 @@ import seeshell_server_common as common
 import json
 import csv
 
+"""
+Database initialization script.  Creates tables based on the SQLAlchemy data contract defined in DatabaseSchema.py in the SeeShell server common library.  After creating tables, it populates them with data from csv files of info from molluscabase.
+"""
+
 with open("config.json", "r") as f:
     config = json.load(f)
 

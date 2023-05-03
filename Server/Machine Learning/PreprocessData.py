@@ -2,6 +2,10 @@ import os
 import shutil
 import json
 
+"""
+Copy image dataset into a format which is easily imported into tensorflow
+"""
+
 with open("config.json", "r") as f:
     config = json.load(f)
 

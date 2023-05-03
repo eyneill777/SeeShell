@@ -2,6 +2,9 @@ import base64
 from sqlalchemy import *
 
 def Blurb(Scientific_Name, engine, table):
+    """
+    Returns a text \"Blurb\" containing factual information about a species based on Molluscabase data stored in the SeeShell database
+    """
     stmt = select(table.Shell).where(table.Shell.c.Scientific_Name == Scientific_Name)
     with engine.connect() as conn:
         result = conn.execute(stmt)
@@ -28,6 +31,9 @@ def Blurb(Scientific_Name, engine, table):
             return blurb
 
 def getLink(Scientific_Name, engine, table):
+    """
+    Returns information about family linkages between species
+    """
     stmt = select(table.Shell).where(table.Shell.c.Scientific_Name == Scientific_Name)
     with engine.connect() as conn:
         result = conn.execute(stmt)
@@ -38,6 +44,9 @@ def getLink(Scientific_Name, engine, table):
             return family[1]
 
 def getMap(Scientific_Name, path_to_shellMaps):
+    """
+    Returns a pre-generated map of the species geographical distribution
+    """
     try:
         target_file = path_to_shellMaps+'/'+Scientific_Name + '.png'
         with open(target_file, 'rb') as f:
