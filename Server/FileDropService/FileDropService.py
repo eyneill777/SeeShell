@@ -17,6 +17,9 @@ with open("config.json", "r") as f:
 class FileDropService:
     
     def __init__(self):
+        """
+        Initialize the filedrop service.  Creates a database connection, prepares the class list that is used to categorize ML model responses, and begins the service's application loop.
+        """
         self.engine = create_engine('mysql+pymysql://'+config['messageDB']['username']+':'+config['messageDB']['password']+'@'+config['messageDB']['host'])
         self.tables = common.Tables()
         self.generateClassList()
@@ -24,6 +27,9 @@ class FileDropService:
     
     
     def watchFolder(self): 
+        """
+        Loops infinitely and checks the drop folder once per second.  If a file is found in the folder it is processed.
+        """
         self.statuses = {}
         try:
             while True:
@@ -44,6 +50,9 @@ class FileDropService:
             raise
     
     def generateClassList(self):
+        """
+        Prepares the class list that is used to categorize ML model responses.  Only runs once when the service is started.
+        """
         print("loading class labels ...")
         self.classes = []
         train = tf.keras.utils.image_dataset_from_directory(
@@ -61,6 +70,9 @@ class FileDropService:
         print("Done")
     
     def processFile(self, filepath):
+        """
+        Sends files to watson for inference and handles responses based on result 
+        """
         status = None
         try:
             status = self.statuses[filepath]
@@ -79,7 +91,10 @@ class FileDropService:
                 self.reportError(filepath, "There was an error while classifying the file and reporting results.", e) #TODO add error types for various watson errors.
             self.cleanUp(filepath)
                 
-    def cleanUp(self, filepath): #TODO delete file and status of all finished files in the dictionary.
+    def cleanUp(self, filepath):
+        """
+        Removes processed files from the input folder
+        """
         if os.path.exists(filepath):
             os.remove(filepath)
         self.statuses.pop(filepath)
@@ -87,6 +102,9 @@ class FileDropService:
         
         
     def reportResults(self, id, username, classname):
+        """
+        Creates a message in the database with the results of a successful classification 
+        """
         try:
             stmt = select(self.tables.Shell).where(self.tables.Shell.c.Scientific_Name == classname)
             with self.engine.connect() as conn:
@@ -106,10 +124,16 @@ class FileDropService:
             
         
     def reportError(self, id, message, error): #TODO make this report a db message indicating an error
+        """
+        TODO function which reports a erroneous classification response back to the client 
+        """
         print(message)
         traceback.print_exc()
                 
     def sendImageToWatson(self, filepath): #TODO write code to process watson results into a class name when access is restored.
+        """
+        Handles Watson configuration and sends responses to the Watson API.  Categorization of responses is unfinished due to the denial of Watson service
+        """
         if config["simulateResults"]:
             time.sleep(20)
             return random.choice(self.classes)
