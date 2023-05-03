@@ -15,17 +15,11 @@ tables = common.Tables()
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Welcome to the SeeShell API</p>"
-
-
-
-
-
-#Upload an image
-@app.route('/upload/', methods=['GET', 'POST'])
+@app.route('/upload/', methods=['POST'])
 def upload_file():
+    """
+    Upload a file to be inferenced by the classifier
+    """
     response = make_response("Bad Request")
     response.status_code = 400
     
@@ -46,9 +40,11 @@ def upload_file():
     return response
 
 
-#Check user credentials
 @app.route('/checkPass/', methods=['POST'])
 def checkPass():
+    """
+    Authenticate using username/email and password
+    """
     response = make_response("Bad Request")
     response.status_code = 400
 
@@ -70,9 +66,11 @@ def checkPass():
     return response
 
 
-#Create a new user account
 @app.route('/createAccount/', methods=['POST'])
 def createAccount():
+    """
+    Create a new user account
+    """
     response = make_response("Bad Request")
     response.status_code = 400
 
@@ -97,6 +95,9 @@ def createAccount():
 
 @app.route('/getMessages/', methods=['GET'])
 def getMessages():
+    """
+    Retrieve any results messages that have been generated and stored for a user
+    """
     response = make_response("Bad Request")
     response.status_code = 400
     if request.method == 'GET':
