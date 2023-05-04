@@ -32,7 +32,7 @@
                 helper_text_mode: "on_focus"
                 size_hint: None, None
                 size: 250, 48
-                pos_hint: {"center_x": .45, "center_y": 0}
+                pos_hint: {"center_x": .45, "center_y": -.35}
             MDTextField:
                 id: ip_input
                 hint_text: "server_ip"
@@ -40,10 +40,10 @@
                 helper_text_mode: "on_focus"
                 size_hint: None, None
                 size: 250, 48
-                pos_hint: {"center_x": .45, "center_y": 1}
+                pos_hint: {"center_x": .45, "center_y": .65}
             Image:
                 source: "assets/user.png"
-                pos_hint: {"center_x": .96, "center_y": 0}
+                pos_hint: {"center_x": .96, "center_y": -.35}
                 size_hint: .5, .5
         MDFloatLayout:
             size_hint: .79, .08
@@ -55,11 +55,11 @@
                 helper_text_mode: "on_focus"
                 size_hint: None, None
                 size: 250, 48
-                pos_hint: {"center_x": .45, "center_y": .4}
+                pos_hint: {"center_x": .45, "center_y": .05}
                 password: True
             Image:
                 source: "assets/key.png"
-                pos_hint: {"center_x": .96, "center_y": .5}
+                pos_hint: {"center_x": .96, "center_y": .15}
                 size_hint: .4, .4
         MDRoundFlatButton:
             text: "LOGIN"
@@ -170,7 +170,7 @@
     Preview:
         id: camera
         aspect_ratio: '4:3'
-        orientation: "portrait"
+        orientation: "landscape"
         letterbox_color: 1, 1, 1, 1
     MDFloatLayout:
         MDLabel:
