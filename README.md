@@ -7,7 +7,7 @@ Follow the instructions below to set up the server environment, database, data, 
 
 ### Environment Setup:
   - Install python 3
-  - in the command line navigate to the source code folder, run the commands 'cd Server' then `pip install -r server_requirements.txt`.  Then run the commands 'cd ../Client' then 'pip install -r client_requirements.txt'.  This will install the needed python libraries.
+  - in the command line navigate to the source code folder, run the commands `cd Server` then `pip install -r server_requirements.txt`.  Then run the commands `cd ../Client` then `pip install -r client_requirements.txt`.  This will install the needed python libraries.
   - Download and install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) and [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 
 ### Database Setup
