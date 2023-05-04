@@ -12,6 +12,16 @@ import os
 import shutil
 import uuid
 
+
+
+class LogOut(MDRoundFlatButton):
+    def logout(self, instance):
+        # clear user session and return to the login screen
+        # session.clear()
+        self.manager.current('LoginScreen')
+
+
+
 class FileChoose(MDRoundFlatButton):
     selection = ListProperty([])
     screen = None

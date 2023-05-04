@@ -172,6 +172,7 @@
         aspect_ratio: '4:3'
         orientation: "landscape"
         letterbox_color: 1, 1, 1, 1
+        pos_hint: {"center_x": .5, "center_y": .6}
     MDFloatLayout:
         MDLabel:
             text: "SeeShell"
@@ -185,7 +186,7 @@
         MDRoundFlatButton:
             text: "Take Photo"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .23}
+            pos_hint: {"center_x": .5, "center_y": .34}
             size_hint: .8, .07
             text_color: 1, 1, 1, 1
             md_bg_color: 79/255, 193/255, 233/255, 1
@@ -193,8 +194,8 @@
         MDRoundFlatButton:
             text: "Go to Gallery"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .13}
-            size_hint: .8, .07
+            pos_hint: {"center_x": .5, "center_y": .26}
+            size_hint: .8, .05
             text_color: 79/255, 193/255, 233/255, 1
             on_press:
                 root.manager.transition.direction = 'left'
@@ -202,10 +203,19 @@
         FileChoose:
             text: "Upload Image"
             font_name: "assets/poppins/Poppins-SemiBold.ttf"
-            pos_hint: {"center_x": .5, "center_y": .06}
-            size_hint: .8, .07
+            pos_hint: {"center_x": .5, "center_y": .18}
+            size_hint: .8, .05
             text_color: 79/255, 193/255, 233/255, 1
             on_release: self.choose()
+        MDRoundFlatButton:
+            text: "Logout"
+            font_name: "assets/poppins/Poppins-SemiBold.ttf"
+            pos_hint: {"center_x": .5, "center_y": .10}
+            size_hint: .8, .05
+            text_color: 79/255, 193/255, 233/255, 1
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'login'
 
 <blurbScreen>:
     FloatLayout:
