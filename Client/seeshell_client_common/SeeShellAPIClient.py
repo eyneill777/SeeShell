@@ -12,7 +12,7 @@ class SeeShellAPIClient():
         self.scheduler.start()
 
     # Upload Image to Server
-    def uploadImage(self, file, id):
+    def uploadImage(self, id, file):
         '''
         Attempts to upload the provided file to the server, with the specified id for later message retrieval
         '''
