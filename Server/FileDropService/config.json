@@ -6,7 +6,7 @@
     "datasetFolder": "/Users/eron/Downloads/species",
     "watson": 
     {
-        "apiKey": "5WBqCgKJ2_bs84IUBGVNR3PbDsv0dYswcyyyhLM-fju8",
+        "apiKey": "####",
         "url": "https://us-south.ml.cloud.ibm.com",
         "spaceUID": "8af57c31-0ef5-444f-872b-3466672c846c",
         "softwareSpecification": "tensorflow_rt22.2-py3.10",
